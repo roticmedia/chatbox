@@ -225,7 +225,6 @@ function appendChatbox() {
   .rotic-chat-window {
     height: 392px !important;
     flex: auto;
-    max-height: calc(100% - 115px);
     background: #2f323b;
     overflow: auto;
     padding-top: 12px;
@@ -347,7 +346,7 @@ function appendChatbox() {
     text-align: right;
   }
   #rotic-btn-show {
-    z-index: 2;
+    z-index: 99;
     position: fixed;
     background: none;
     border: none;
