@@ -2,12 +2,12 @@
 $(document).ready(function () {
     $("body").append(appendChatbox());
     var checkShowed = false;
-    $("#btn").click(function () {
-        if ($("#text").val().trim()) {
-            $(".chat-window").append(appendSelf($("#text").val()));
-            var text = $("#text").val().trim();
-            $("#text").val("");
-            $(".chat-window").animate({scrollTop: $(document).height()}, "slow");
+    $("#rotic-btn").click(function () {
+        if ($("#rotic-text").val().trim()) {
+            $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
+            var text = $("#rotic-text").val().trim();
+            $("#rotic-text").val("");
+            $(".rotic-chat-window").animate({scrollTop: $(document).height()}, "slow");
             $.ajax({
                 method: "POST",
                 headers: {
@@ -23,20 +23,20 @@ $(document).ready(function () {
                 }),
                 success: function (res) {
                     if (res.status) {
-                        $(".chat-window").append(appendRemote(res.response));
-                        $("#text").focus();
+                        $(".rotic-chat-window").append(appendRemote(res.response));
+                        $("#rotic-text").focus();
                     }
                 },
                 error: function (e) {
-                    $(".chat-window").append(appendRemote("مشکلی در اتصال اینترنت وجود دارد"));
-                    $("#text").focus();
+                    $(".rotic-chat-window").append(appendRemote("مشکلی در اتصال اینترنت وجود دارد"));
+                    $("#rotic-text").focus();
                 },
             });
         }
     });
-    $("#btn-show").click(function () {
+    $("#rotic-btn-show").click(function () {
         anime({
-            targets: "#btn-show",
+            targets: "#rotic-btn-show",
             translateY: {
                 delay: 0,
                 easing: "easeInExpo",
@@ -50,11 +50,11 @@ $(document).ready(function () {
             },
         });
         if (checkShowed == false) {
-            $(".chatbox").css({
+            $(".rotic-chatbox").css({
                 visibility: "visible",
             });
             anime({
-                targets: ".chatbox",
+                targets: ".rotic-chatbox",
                 translateY: {
                     value: -624,
                     easing: "easeOutExpo",
@@ -69,9 +69,9 @@ $(document).ready(function () {
             checkShowed = true;
         }
     });
-    $(".close-text").click(function () {
+    $(".rotic-close-text").click(function () {
         anime({
-            targets: ".chatbox",
+            targets: ".rotic-chatbox",
             translateY: {
                 value: +624,
                 easing: "easeInExpo",
@@ -84,7 +84,7 @@ $(document).ready(function () {
         });
         checkShowed = false;
         anime({
-            targets: "#btn-show",
+            targets: "#rotic-btn-show",
             translateY: {
                 delay: 1100,
                 easing: "easeOutExpo",
@@ -103,11 +103,11 @@ $(document).ready(function () {
 
 function appendSelf(text) {
     return `    
-        <article class="msg-container msg-self" id="msg-0">
-            <div class="msg-box">
-                <div class="flr">
-                    <div class="messages">
-                        <p class="msg" id="msg-1">${text}</p>
+        <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0">
+            <div class="rotic-msg-box">
+                <div class="rotic-flr">
+                    <div class="rotic-messages">
+                        <p class="rotic-msg" id="rotic-msg-1">${text}</p>
                     </div>
                 </div>
             </div>
@@ -117,11 +117,11 @@ function appendSelf(text) {
 
 function appendRemote(text) {
     return `    
-        <article class="msg-container msg-remote" id="msg-0">
-            <div class="msg-box">
-                <div class="flr">
-                    <div class="messages">
-                        <p class="msg" id="msg-1">${text}</p>
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+            <div class="rotic-msg-box">
+                <div class="rotic-flr">
+                    <div class="rotic-messages">
+                        <p class="rotic-msg" id="rotic-msg-1">${text}</p>
                     </div>
                 </div>
             </div>
@@ -131,20 +131,20 @@ function appendRemote(text) {
 
 function appendChatbox() {
     return `
-  <div class="toggle">   
-    <div id="btn-show">
-      <img src="https://rotic.ir/images/icon/kavina.jpg" id="image"/>
+  <div class="rotic-toggle">   
+    <div id="rotic-btn-show">
+      <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
     </div>
-    <section class="chatbox">
-      <div class="close-box"> 
-        <div class="close-text">
+    <section class="rotic-chatbox">
+      <div class="rotic-close-box"> 
+        <div class="rotic-close-text">
            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#fff" /></svg></div>
       </div>
-      <section class="chat-window"></section>
-      <form class="chat-input" onsubmit="return false;">
-        <input id="text" type="text" autocomplete="on" placeholder="پیامتان را تایپ کنید">
-        <button id="btn">
-          <svg id="svg" style="width:36px;height:36px" viewbox="0 0 24 24">
+      <section class="rotic-chat-window"></section>
+      <form class="rotic-chat-input" onsubmit="return false;">
+        <input id="rotic-text" type="text" autocomplete="on" placeholder="پیامتان را تایپ کنید">
+        <button id="rotic-btn">
+          <svg id="rotic-svg" style="width:36px;height:36px" viewbox="0 0 24 24">
             <path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z"></path>
           </svg>
         </button>
@@ -174,7 +174,7 @@ function appendChatbox() {
     border-radius: 2px;
   }
   @media only screen and (max-width: 768px) {
-    .chatbox {
+    .rotic-chatbox {
       right: 0 !important;
       width: 100% !important;
       height: 100% !important;
@@ -182,14 +182,14 @@ function appendChatbox() {
     }
   }
   @media only screen and (min-width: 768px) {
-    .chatbox {
+    .rotic-chatbox {
       right: 36px !important;
       width: 300px !important;
       height: 495px !important;
       bottom: -600px !important;
     }
   }
-  .chatbox {
+  .rotic-chatbox {
     position: fixed;
     z-index: 99;
     bottom: -600px;
@@ -199,17 +199,18 @@ function appendChatbox() {
     height: 495px;
     display: flex;
     flex-direction: column;
+    padding: 0 !important;
     overflow: hidden;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
     visibility: hidden;
   }
-  .close-box {
+  .rotic-close-box {
     height: 40px;
     background: #40434e;
     border-top: 1px solid #2671ff;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   }
-  .close-text {
+  .rotic-close-text {
     position: absolute;
     top: 20px;
     right: 5px;
@@ -218,10 +219,10 @@ function appendChatbox() {
     font-weight: 500;
     font-size: 24px;
   }
-  .close-text:hover {
+  .rotic-close-text:hover {
     cursor: pointer;
   }
-  .chat-window {
+  .rotic-chat-window {
     height: 392px !important;
     flex: auto;
     max-height: calc(100% - 115px);
@@ -229,7 +230,7 @@ function appendChatbox() {
     overflow: auto;
     padding-top: 12px;
   }
-  .chat-input {
+  .rotic-chat-input {
     flex: 0 0 auto;
     height: 60px;
     background: #40434e;
@@ -237,7 +238,7 @@ function appendChatbox() {
     margin-bottom: 0;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   }
-  .chat-input input {
+  .rotic-chat-input input {
   font-family: IRANSans;
     height: 60px;
     line-height: 60px;
@@ -250,7 +251,7 @@ function appendChatbox() {
     padding: 0 10px 0 0;
     background: #40434e;
   }
-  .chat-input button {
+  .rotic-chat-input button {
     float: left;
     outline: 0 none;
     border: none;
@@ -262,24 +263,24 @@ function appendChatbox() {
     margin: 10px;
     transition: all 0.15s ease-in-out;
   }
-  .chat-input input[good] + button {
+  .rotic-chat-input input[good] + button {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
     background: #2671ff;
   }
-  .chat-input input[good] + button:hover {
+  .rotic-chat-input input[good] + button:hover {
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-  .chat-input input[good] + button path {
+  .rotic-chat-input input[good] + button path {
     fill: white;
   }
-  .msg-container {
+  .rotic-msg-container {
     position: relative;
     display: inline-block;
     width: 100%;
     margin: 0 0 10px 0;
     padding: 0;
   }
-  .msg-box {
+  .rotic-msg-box {
     word-break: break-all;
     line-height: 1.5;
     display: flex;
@@ -292,7 +293,7 @@ function appendChatbox() {
     float: left;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   }
-  .user-img {
+  .rotic-user-img {
     display: inline-block;
     border-radius: 50%;
     height: 40px;
@@ -300,52 +301,52 @@ function appendChatbox() {
     background: #2671ff;
     margin: 0 10px 10px 0;
   }
-  .flr {
+  .rotic-flr {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     width: calc(100% - 50px);
   }
-  .messages {
+  .rotic-messages {
     flex: 1 0 auto;
   }
-  .msg {
+  .rotic-msg {
     display: inline-block;
     font-size: 11pt;
     line-height: 13pt;
     color: rgba(255, 255, 255, 0.7);
     margin: 0 0 15px 0;
   }
-  .msg:first-of-type {
+  .rotic-msg:first-of-type {
     margin-top: 8px;
   }
-  .timestamp {
+  .rotic-timestamp {
     color: rgba(0, 0, 0, 0.38);
     font-size: 8pt;
     margin-bottom: 10px;
   }
-  .username {
+  .rotic-username {
     margin-right: 3px;
   }
-  .posttime {
+  .rotic-posttime {
     margin-left: 3px;
   }
-  .msg-self .msg-box {
+  .rotic-msg-self .rotic-msg-box {
     border-radius: 6px 0px 6px 6px;
     margin-right: 12px;
     background: #2671ff;
     float: right;
   }
-  .msg-self .user-img {
+  .rotic-msg-self .rotic-user-img {
     margin: 0 0 10px 10px;
   }
-  .msg-self .msg {
+  .rotic-msg-self .rotic-msg {
     text-align: right;
   }
-  .msg-self .timestamp {
+  .rotic-msg-self .rotic-timestamp {
     text-align: right;
   }
-  #btn-show {
+  #rotic-btn-show {
     z-index: 2;
     position: fixed;
     background: none;
@@ -353,15 +354,15 @@ function appendChatbox() {
     bottom: 36px;
     right: 84px;
   }
-   #image {
+   #rotic-image {
    height: 72px;
    width: 72px;
    border-radius: 50%;
   }
-  #btn-show:hover {
+  #rotic-btn-show:hover {
     cursor: pointer;
   }
-  #svg {
+  #rotic-svg {
   transform: rotate(180deg);
   }
     </style>
