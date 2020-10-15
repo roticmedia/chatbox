@@ -191,6 +191,7 @@ function appendChatbox() {
   }
   .chatbox {
     position: fixed;
+    z-index: 99;
     bottom: -600px;
     opacity: 0;
     right: 36px;
@@ -221,6 +222,7 @@ function appendChatbox() {
     cursor: pointer;
   }
   .chat-window {
+    height: 392px !important;
     flex: auto;
     max-height: calc(100% - 115px);
     background: #2f323b;
