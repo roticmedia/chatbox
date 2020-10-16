@@ -195,7 +195,7 @@ function appendChatbox() {
   }
   .rotic-chatbox {
     position: fixed;
-    z-index: 99;
+    z-index: 999999;
     bottom: -600px;
     opacity: 0;
     right: 36px;
@@ -355,7 +355,7 @@ function appendChatbox() {
     text-align: right;
   }
   #rotic-btn-show {
-    z-index: 99;
+    z-index: 999999;
     position: fixed;
     background: none;
     border: none;
