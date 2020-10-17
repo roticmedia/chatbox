@@ -236,7 +236,7 @@ function appendChatbox() {
     flex: auto;
     background: #2f323b;
     overflow: auto;
-    padding-top: 12px;
+    padding-top: 53px;
   }
   .rotic-chat-input {
     flex: 0 0 auto;
