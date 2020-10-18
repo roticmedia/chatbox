@@ -328,11 +328,6 @@ function appendChatbox() {
   .rotic-msg:first-of-type {
     margin-top: 8px;
   }
-  .rotic-timestamp {
-    color: rgba(0, 0, 0, 0.38);
-    font-size: 8pt;
-    margin-bottom: 10px;
-  }
   .rotic-username {
     margin-right: 3px;
   }
