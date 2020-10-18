@@ -136,20 +136,19 @@ function appendChatbox() {
       <img src="https://rotic.ir/images/icon/kavina.jpg" id="image"/>
     </div>
     <section class="chatbox">
-        <div class="img-logo">
-            powered by <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic">
-        </div>
+
+      
+ 
       <div class="close-box"> 
+        <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="image-logo__img"> <p class="image-logo__p">powered by </p>
         <div class="close-text">
-           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#fff" /></svg></div>
+           <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#5FC5C4" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#000" /></svg></div>
       </div>
       <section class="chat-window"></section>
       <form class="chat-input" onsubmit="return false;">
         <input id="text" type="text" autocomplete="on" placeholder="پیامتان را تایپ کنید">
         <button id="btn">
-          <svg id="svg" style="width:36px;height:36px" viewbox="0 0 24 24">
-            <path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z"></path>
-          </svg>
+          <svg id="svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#5FC5C4" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
       </form>
     </section>
@@ -173,7 +172,7 @@ function appendChatbox() {
     width: 4px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #4c4c6a;
+    background-color: #5FC5C4;
     border-radius: 2px;
   }
   @media only screen and (max-width: 768px) {
@@ -202,21 +201,21 @@ function appendChatbox() {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+    box-shadow: 5px 5px 20px lightgray;
     visibility: hidden;
   }
   .close-box {
     height: 40px;
-    background: #40434e;
+    background: white
     border-top: 1px solid #5BC5CB;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   }
   .close-text {
     position: absolute;
     top: 20px;
-    right: 5px;
+    right: 0px;
     transform: translate(-50%, -50%);
-    color:white;
+    color:black;
     font-weight: 500;
     font-size: 24px;
   }
@@ -226,17 +225,16 @@ function appendChatbox() {
   .chat-window {
     flex: auto;
     max-height: calc(100% - 115px);
-    background: #2f323b;
+    background: #fff;
     overflow: auto;
     padding-top: 12px;
   }
   .chat-input {
     flex: 0 0 auto;
     height: 60px;
-    background: #40434e;
+    background: #fff;
     border-top: 1px solid #5BC5CB;
     margin-bottom: 0;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   }
   .chat-input input {
   font-family: IRANSans;
@@ -245,11 +243,11 @@ function appendChatbox() {
     outline: 0 none;
     border: none;
     width: calc(100% - 70px);
-    color: white;
+    color: black;
     text-indent: 10px;
     font-size: 12pt;
     padding: 0 10px 0 0;
-    background: #40434e;
+    background: #fff;
   }
   .chat-input button {
     float: left;
@@ -285,6 +283,7 @@ function appendChatbox() {
     line-height: 1.5;
     display: flex;
     background: #5b5e6c;
+    color: white;
     padding: 10px 24px 0 24px;
     margin-left: 12px;
     border-radius: 0px 6px 6px 6px;
@@ -314,7 +313,7 @@ function appendChatbox() {
     display: inline-block;
     font-size: 11pt;
     line-height: 13pt;
-    color: rgba(255, 255, 255, 0.7);
+    color: white;
     margin: 0 0 15px 0;
   }
   .msg:first-of-type {
@@ -334,7 +333,8 @@ function appendChatbox() {
   .msg-self .msg-box {
     border-radius: 6px 0px 6px 6px;
     margin-right: 12px;
-    background: #fff;
+    background-image: linear-gradient(to bottom, #5EC5C4 , #4CC6EB);
+    color: white !important;
     float: right;
   }
   .msg-self .user-img {
@@ -351,8 +351,10 @@ function appendChatbox() {
     position: fixed;
     background: none;
     border: none;
-    bottom: 36px;
-    right: 84px;
+    bottom: 30px;
+    border-radius: 50%;
+    right: 30px;
+    box-shadow: 10px 10px 30px lightgray;
   }
    #image {
    height: 72px;
@@ -363,13 +365,27 @@ function appendChatbox() {
     cursor: pointer;
   }
   #svg {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
   }
-  .image-logo {
-  float: left;
-    position: fixed;
-    top: 12px;
-    left: 12px;
+  #svg:hover {
+    cursor: pointer;
+  }
+  .image-logo__img {
+    height: 24px;
+    position: absolute;
+    transform: translate(0, -50%); 
+    top: 20px;
+    left: 70px;
+  }
+  .image-logo__p {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    transform: translate(0, -50%); 
+    font-size: 12px;
+    font-weight: lighter;
+    margin: 0;
+    color: lightgray;
   }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
