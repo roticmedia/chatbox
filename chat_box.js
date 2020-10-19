@@ -1,13 +1,32 @@
 $(document).ready(function () {
     $("body").append(appendChatbox());
+    var chats = getCookie("__rotic-bot");
     var checkShowed = false;
+    let count = 0;
+    if(chats !== "") {
+        chats.split("+").forEach(function (chat) {
+            if(chats.split("+").length - count <= 15) {
+                var splitedChat = chat.split("*");
+                if(splitedChat[1] !== undefined) {
+                    $(".rotic-chat-window").append(appendSelf(splitedChat[0]).trim());
+                    $(".rotic-chat-window").append(appendRemote(splitedChat[1]).trim());
+                }
+            }
+            count++;
+        });
+        $(".rotic-chat-window").animate(
+            { scrollTop: 2000 },
+            "fast"
+        );
+    }
     $("#rotic-btn").click(function () {
+
         if ($("#rotic-text").val().trim()) {
             $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
             var text = $("#rotic-text").val().trim();
             $("#rotic-text").val("");
             $(".rotic-chat-window").animate(
-                { scrollTop: $(document).height() },
+                { scrollTop: 2000 },
                 "slow"
             );
             $.ajax({
@@ -26,6 +45,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status) {
                         $(".rotic-chat-window").append(appendRemote(res.response));
+                        setCookie("__rotic-bot", getCookie("__rotic-bot") + text + " * " + res.response + " + ")
                         $("#rotic-text").focus();
                     }
                 },
@@ -33,6 +53,7 @@ $(document).ready(function () {
                     $(".rotic-chat-window").append(
                         appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                     );
+                    setCookie("__rotic-bot", getCookie("__rotic-bot") + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
                     $("#rotic-text").focus();
                 },
             });
@@ -104,6 +125,25 @@ $(document).ready(function () {
         });
     });
 });
+
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";" + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 function appendSelf(text) {
     return `
@@ -212,7 +252,7 @@ function appendChatbox() {
         z-index: 999;
         top: 0;
         right: 0;
-        height: 45px !important;
+        height: 40px !important;
         width: 100%;
         background: white;
         border-top: 1px solid #5BC5CB;
@@ -235,7 +275,10 @@ function appendChatbox() {
         height: 492px !important;
         background: #fff;
         overflow: auto;
-        padding: 52px 0 0 0;
+        margin-top: 52px;
+        padding: 0 0 0 0;
+        scrollbar-color: #5FC5C4;
+        scrollbar-width: 4px;
       }
       .rotic-chat-input {
         flex: 0 0 auto;
@@ -396,6 +439,7 @@ function appendChatbox() {
         color: lightgray;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/1.5.1/js.cookie.min.js" integrity="sha512-Z3UcgwES8UeRIeYKnrauzudJByVb8mfrbOR7CbB5C5AAoOiVp95T9o3hogd+gJh0c+q88qO7Bbylxx7iN1xaFA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
   </div>`;
 }
