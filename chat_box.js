@@ -2,7 +2,11 @@ $(document).ready(function () {
     $("body").append(appendChatbox());
     var chats = getCookie("__rotic-bot");
     var checkShowed = false;
+    var converter = new showdown.Converter();
     let count = 0;
+
+    var h = converter.makeHtml("[درست و نادرست جبران کسری بودجه؛ از مالیات بر ارزش افزوده تا ارتقای بهره‌وری](https://www.yjc.ir/fa/news/7530726/درست-و-نادرست-جبران-کسری-بودجه-از-مالیات-بر-ارزش-افزوده-تا-ارتقای-بهره‌وری) خبرها حکایت می‌کنند در سال ۹۹ همزمان با کسری شدید بودجه، درآمد نفتی به شدت کاهش یافته است. [تاکید پکن بر لزوم اجرایی شدن لغو تحریم‌های تسلیحاتی ایران](https://www.yjc.ir/fa/news/7532093/تاکید-پکن-بر-لزوم-اجرایی-شدن-لغو-تحریم‌های-تسلیحاتی-ایران) نمایندگی دائم چین در سازمان ملل در پیامی بر لزوم اجرایی شدن لغو تحریم تسلیحاتی ایران تاکید کرد. [روش آموزش زنده ماندن کودکان پس از سقوط به آب](https://www.yjc.ir/fa/news/7530890/روش-آموزش-زنده-ماندن-کودکان-پس-از-سقوط-به-آب) ویدئویی که در آن یک مربی شنا، روش زنده ماندن به کودکان خردسال پس از سقوط در آب را آموزش می دهد به ویدئویی داغ تبدیل شده است. [رزمایش پدافند هوایی از فردا در بیش از نیمی از کشور آغاز می‌شود](https://www.yjc.ir/fa/news/7532117/رزمایش-پدافند-هوایی-از-فردا-در-بیش-از-نیمی-از-کشور-آغاز-می‌شود) رزمایش مشترک تخصصی پدافند هوایی مدافعان آسمان ولایت ۹۹ از فردا آغاز می‌شود. [افزایش تعداد موارد مثبت، ابتلا و فوت بیماران کووید ۱۹ در فارس/ مجموعه سلامت با بحران جدی مواجه شده است](https://www.yjc.ir/fa/news/7532002/افزایش-تعداد-موارد-مثبت-ابتلا-و-فوت-بیماران-کووید-۱۹-در-فارس-مجموعه-سلامت-با-بحران-جدی-مواجه-شده-است) معاون درمان دانشگاه علوم پزشکی شیراز گفت: تعداد موارد مثبت، ابتلا و فوت بیماران کووید ۱۹، افزایش یافته و مجموعه سلامت فارس با بحران جدی مواجه شده است. [رده‌بندی باشگاه‌های فوتبال جهان/ پرسپولیس در بین ۱۰۰ تیم برتر دنیا باقی ماند](https://www.yjc.ir/fa/news/7532073/رده‌بندی-باشگاه‌های-فوتبال-جهان-پرسپولیس-در-بین-۱۰۰-تیم-برتر-دنیا-باقی-ماند) تیم فوتبال پرسپولیس تهران در تازه‌ترین رده‌بندی باشگاه‌های جهان، همچنان در رتبه نخست باشگاه‌های ایران قرار دارد.\n");
+    $(".rotic-chat-window").append(appendRemote(h));
     if(chats !== "") {
         chats.split("+").forEach(function (chat) {
             if(chats.split("+").length - count <= 15) {
@@ -20,7 +24,6 @@ $(document).ready(function () {
         );
     }
     $("#rotic-btn").click(function () {
-
         if ($("#rotic-text").val().trim()) {
             $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
             var text = $("#rotic-text").val().trim();
@@ -44,7 +47,7 @@ $(document).ready(function () {
                 }),
                 success: function (res) {
                     if (res.status) {
-                        $(".rotic-chat-window").append(appendRemote(res.response));
+                        $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
                         setCookie("__rotic-bot", getCookie("__rotic-bot") + text + " * " + res.response + " + ")
                         $("#rotic-text").focus();
                     }
@@ -330,7 +333,6 @@ function appendChatbox() {
         padding: 0;
       }
       .rotic-msg-box {
-        word-break: break-all;
         line-height: 1.5;
         display: flex;
         background: #5b5e6c;
@@ -338,7 +340,7 @@ function appendChatbox() {
         padding: 10px 24px 0 24px;
         margin-left: 12px;
         border-radius: 0px 6px 6px 6px;
-        max-width: 80%;
+        max-width: 253px !important;
         width: auto;
         float: left;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -357,11 +359,19 @@ function appendChatbox() {
         flex-direction: column;
         width: calc(100% - 50px);
       }
+      .rotic-flr a {
+      display: block;
+        color: #5BC5CB;
+        text-decoration: none;
+      }
+      .rotic-flr p{
+        max-width: 205px;
+      }
       .rotic-messages {
         flex: 1 0 auto;
       }
       .rotic-msg {
-        display: inline-block;
+      width: auto;
         font-size: 11pt;
         line-height: 13pt;
         color: white;
@@ -439,7 +449,6 @@ function appendChatbox() {
         color: lightgray;
       }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/1.5.1/js.cookie.min.js" integrity="sha512-Z3UcgwES8UeRIeYKnrauzudJByVb8mfrbOR7CbB5C5AAoOiVp95T9o3hogd+gJh0c+q88qO7Bbylxx7iN1xaFA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
   </div>`;
 }
