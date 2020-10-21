@@ -4,14 +4,6 @@ $(document).ready(function () {
     var checkShowed = false;
     var converter = new showdown.Converter();
     let count = 0;
-    var a = [
-        { salam: "sdfsdf"},
-        { khoobi: "ssdfa"}
-    ]
-
-    a.forEach(function (chat){
-        $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0], Object.values(chat)[0]));
-    })
     if(chats !== "") {
         chats.split("+").forEach(function (chat) {
             if(chats.split("+").length - count <= 15) {
@@ -56,22 +48,24 @@ $(document).ready(function () {
                     api: "6a105d7f17b029f067615f47b6e6b43211",
                 }),
                 success: function (res) {
+                    console.log(res)
                     if (res.status) {
-                        if(res.provider.source == "public conversation" || res.provider.source == "private conversation") {
-                            if(res.response.buttons) {
-                                $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response.string)));
-                                setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response.string + " + ")
+
+                            if(res.options.buttons !== null) {
+                                $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
+                                setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
                                 $("#rotic-text").focus();
-                                res.response.buttons.forEach(function (chat) {
+                                res.options.buttons.forEach(function (chat) {
                                     $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   " + ")
                                 })
+                                console.log(res)
                             } else {
-                                $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response.string)));
-                                setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response.string + " + ")
+                                $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
+                                setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
                                 $("#rotic-text").focus();
                             }
-                        }
+
                     }
                 },
                 error: function (e) {
@@ -151,7 +145,7 @@ $(document).ready(function () {
     });
     $(".rotic-response-button").click(function (){
         const text = $(this).attr("text");
-        const link = $(this).attr("link")
+        const link = $(this).attr("link");
         $(".rotic-chat-window").append(appendSelf($(this).attr("text")));
         $(".rotic-chat-window").animate(
             { scrollTop: 2000 },
@@ -171,19 +165,20 @@ $(document).ready(function () {
                 api: "6a105d7f17b029f067615f47b6e6b43211",
             }),
             success: function (res) {
+                console.log(res)
                 if (res.status) {
                     if(res.provider.source == "public conversation" || res.provider.source == "private conversation") {
-                        if(res.response.buttons) {
+                        if(res.options.buttons) {
                             $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response.string + " + ")
+                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
                             $("#rotic-text").focus();
-                            res.response.buttons.forEach(function (chat) {
+                            res.options.buttons.forEach(function (chat) {
                                 $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
                                 setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   " + ")
                             })
                         } else {
                             $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response.string + " + ")
+                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
                             $("#rotic-text").focus();
                         }
                     }
@@ -265,6 +260,7 @@ function appendChatbox() {
     <div id="rotic-btn-show">
       <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
     </div>
+    //
     <section class="rotic-chatbox">
       <div class="rotic-close-box">
         <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"> <p class="rotic-image-logo__p">powered by </p>
@@ -280,6 +276,7 @@ function appendChatbox() {
         </button>
       </form>
     </section>
+    //
     <style>
       @font-face {
         font-family: 'IranSans';
@@ -540,6 +537,7 @@ function appendChatbox() {
         color: lightgray;
       }
       .rotic-response-button {
+        font-family: IRANSans;
         margin-left: 12px;
         float: left;
       }
