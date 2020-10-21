@@ -328,7 +328,7 @@
                         console.log(res)
                         if (res.status && res.response != null) {
 
-                                if(res.options.buttons) {س
+                                if(res.options.buttons) {
                                     $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
                                     $("#rotic-text").focus();
