@@ -8,12 +8,12 @@
     <style>
         @font-face {
             font-family: 'IranSans';
-            src: url('../fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
-            src: url('../fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
-            url('../fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
-            url('../fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
-            url('../fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
-            url('../fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
+            src: url('/fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
+            src: url('/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
+            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
+            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
+            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
             font-weight: normal;
             font-style: normal;
         }
@@ -259,7 +259,7 @@
                     count++;
                 });
                 $(".rotic-chat-window").animate(
-                    { scrollTop: 2000 },
+                    { scrollTop: 5000 },
                     "fast"
                 );
             }
@@ -269,8 +269,8 @@
                     var text = $("#rotic-text").val().trim();
                     $("#rotic-text").val("");
                     $(".rotic-chat-window").animate(
-                        { scrollTop: 2000 },
-                        "slow"
+                        { scrollTop: 5000 },
+                        "fast"
                     );
                     $.ajax({
                         method: "POST",
@@ -295,11 +295,14 @@
                                         $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
                                         setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   " + ")
                                     })
-                                    console.log(res)
                                 } else {
                                     $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
                                     $("#rotic-text").focus();
+                                    $(".rotic-chat-window").animate(
+                                        { scrollTop: 5000 },
+                                        "fast"
+                                    );
                                 }
 
                             }
@@ -310,6 +313,10 @@
                             );
                             setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
                             $("#rotic-text").focus();
+                            $(".rotic-chat-window").animate(
+                                { scrollTop: 5000 },
+                                "fast"
+                            );
                         },
                     });
                 }
