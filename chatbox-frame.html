@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>iframe</title>
     <style>
-        @font-face {
-            font-family: 'IranSans';
-            src: url("http://mincdn.ir/font/IranSans/IRANSansWeb.woff") format("woff");
-            font-weight: normal;
-        }
         @media only screen and (max-width: 768px) {
             .rotic-container {
                 right: 0 !important;
@@ -280,9 +275,7 @@
                             api: "6a105d7f17b029f067615f47b6e6b43211",
                         }),
                         success: function (res) {
-                            console.log(res)
-                            if (res.status) {
-
+                            if (res.status && res.response != null) {
                                 if(res.options.buttons !== null) {
                                     $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
@@ -333,9 +326,9 @@
                     }),
                     success: function (res) {
                         console.log(res)
-                        if (res.status) {
-                            if(res.provider.source == "public conversation" || res.provider.source == "private conversation") {
-                                if(res.options.buttons) {
+                        if (res.status && res.response != null) {
+
+                                if(res.options.buttons) {س
                                     $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
                                     $("#rotic-text").focus();
@@ -348,7 +341,7 @@
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
                                     $("#rotic-text").focus();
                                 }
-                            }
+
                         }
                     },
                     error: function (e) {
