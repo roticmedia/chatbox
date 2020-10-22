@@ -261,7 +261,7 @@
                 });
                 $(".rotic-chat-window").animate(
                     { scrollTop: 5000 },
-                    "fast"
+                    "slow"
                 );
             }
             $("#rotic-btn").click(function () {
@@ -271,7 +271,7 @@
                     $("#rotic-text").val("");
                     $(".rotic-chat-window").animate(
                         { scrollTop: 5000 },
-                        "fast"
+                        "slow"
                     );
                     $.ajax({
                         method: "POST",
@@ -299,11 +299,11 @@
                                 } else {
                                     $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
                                     setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
-                                    $("#rotic-text").focus();
                                     $(".rotic-chat-window").animate(
                                         { scrollTop: 5000 },
-                                        "fast"
+                                        "slow"
                                     );
+                                    $("#rotic-text").focus();
                                 }
 
                             }
@@ -312,12 +312,12 @@
                             $(".rotic-chat-window").append(
                                 appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                             );
-                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
-                            $("#rotic-text").focus();
                             $(".rotic-chat-window").animate(
                                 { scrollTop: 5000 },
-                                "fast"
+                                "slow"
                             );
+                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
+                            $("#rotic-text").focus();
                         },
                     });
                 }

@@ -100,7 +100,7 @@ function appendChatbox() {
             .rotic-chatbox {
                 right: 36px !important;
                 width: 300px !important;
-                height: 594px !important;
+                height: 553px !important;
                 bottom: -600px !important;
             }
         }
@@ -111,7 +111,7 @@ function appendChatbox() {
             opacity: 0;
             right: 36px;
             width: 300px;
-            height: 594px;
+            height: 553px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
