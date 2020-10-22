@@ -290,7 +290,7 @@
                             if (res.status && res.response != null) {
                                 if(res.options.buttons !== null) {
                                     $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
+                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + "*" + res.response + "+")
                                     $("#rotic-text").focus();
                                     res.options.buttons.forEach(function (chat) {
                                         $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
@@ -344,20 +344,18 @@
                         api: "6a105d7f17b029f067615f47b6e6b43211",
                     }),
                     success: function (res) {
-                        console.log(res)
                         if (res.status && res.response != null) {
-
                                 if(res.options.buttons) {
                                     $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " + res.response + " + ")
+                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + "*" + res.response + "+")
                                     $("#rotic-text").focus();
                                     res.options.buttons.forEach(function (chat) {
                                         $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
-                                        setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   " + ")
+                                        setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   "+")
                                     })
                                 } else {
                                     $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
+                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + "*" + res.response + "+")
                                     $("#rotic-text").focus();
                                 }
 
@@ -367,7 +365,6 @@
                         $(".rotic-chat-window").append(
                             appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                         );
-                        console.log(text)
                         setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
                         $("#rotic-text").focus();
                     },
