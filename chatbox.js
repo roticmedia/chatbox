@@ -13,7 +13,7 @@ $(document).ready(function () {
             opacity: {
                 value: 0,
                 easing: "easeInExpo",
-                duration: 800,
+                duration: 900,
             },
         });
         if (checkShowed == false) {
@@ -61,7 +61,7 @@ $(document).ready(function () {
             opacity: {
                 value: 1,
                 easing: "easeOutExpo",
-                duration: 800,
+                duration: 900,
                 delay: 1300,
             },
         });
@@ -126,9 +126,9 @@ function appendChatbox() {
             position: fixed;
             background: none;
             border: none;
-            bottom: 30px;
+            bottom: 200px;
             border-radius: 50%;
-            right: 30px;
+            right: 40px;
             box-shadow: 10px 10px 30px lightgray;
         }
         #rotic-image {
@@ -144,7 +144,7 @@ function appendChatbox() {
             z-index: 999;
             top: 0;
             right: 0;
-            height: 40px !important;
+            height: 41px !important;
             width: 100%;
             background: white;
             border-top: 1px solid #5BC5CB;
