@@ -240,6 +240,7 @@
     <script>
         $(document).ready(function () {
             var chats = getCookie("__rotic-bot");
+            showdown.setOption('openLinksInNewWindow', 'true');
             var converter = new showdown.Converter();
             let count = 0;
             if(chats !== "") {
