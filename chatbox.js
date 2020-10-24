@@ -76,7 +76,7 @@ function appendChatbox() {
             <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#5FC5C4" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#000" /></svg>
         </div>
     </div>
-    <iframe class="rotic-iframe-chatbox" src="./chatbox-frame.html" frameborder="0"></iframe>
+    <iframe class="rotic-iframe-chatbox" src="https://rotic.ir/widgets/6a105d7f17b029f067615f47b6e6b432/6a105d7f17b029f067615f47b6e6b43211" frameborder="0"></iframe>
 </div>
 <div id="rotic-btn-show">
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
@@ -109,7 +109,7 @@ function appendChatbox() {
             position: fixed;
             bottom: -600px;
             opacity: 0;
-            right: 36px;
+            left: 20px;
             width: 300px;
             height: 553px;
             display: flex;
@@ -132,14 +132,14 @@ function appendChatbox() {
             position: fixed;
             background: none;
             border: none;
-            bottom: 180px;
+            bottom: 30px;
             border-radius: 50%;
-            right: 40px;
-            box-shadow: 10px 10px 30px lightgray;
+            left: 36px;
+            box-shadow: 0px 0px 30px lightgray;
         }
         #rotic-image {
-            height: 72px;
-            width: 72px;
+            height: 60px;
+            width: 60px;
             border-radius: 50%;
             user-drag: none; 
             user-select: none;
