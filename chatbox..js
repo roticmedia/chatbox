@@ -1,75 +1,78 @@
+import $ from "jquery";
+import anime from "animejs/lib/anime.es.js";
+
 $(document).ready(function () {
-    $("body").append(appendChatbox());
-    var checkShowed = false;
-    $("#rotic-btn-show").click(function () {
-        anime({
-            targets: "#rotic-btn-show",
-            translateY: {
-                delay: 0,
-                easing: "easeInExpo",
-                value: 250,
-                duration: 1000,
-            },
-            opacity: {
-                value: 0,
-                easing: "easeInExpo",
-                duration: 900,
-            },
-        });
-        if (checkShowed == false) {
-            $(".rotic-chatbox").css({
-                visibility: "visible",
-            });
-            anime({
-                targets: ".rotic-chatbox",
-                translateY: {
-                    value: -624,
-                    easing: "easeOutExpo",
-                    delay: 1100,
-                },
-                opacity: {
-                    value: 1,
-                    easing: "easeOutExpo",
-                    delay: 1300,
-                },
-            });
-            checkShowed = true;
-        }
+  $("body").append(appendChatbox());
+  var checkShowed = false;
+  $("#rotic-btn-show").click(function () {
+    anime({
+      targets: "#rotic-btn-show",
+      translateY: {
+        delay: 0,
+        easing: "easeInExpo",
+        value: 250,
+        duration: 1000,
+      },
+      opacity: {
+        value: 0,
+        easing: "easeInExpo",
+        duration: 900,
+      },
     });
-    $(".rotic-close-text").click(function () {
-        anime({
-            targets: ".rotic-chatbox",
-            translateY: {
-                value: +624,
-                easing: "easeInExpo",
-            },
-            opacity: {
-                value: 0,
-                easing: "easeInExpo",
-            },
-            duration: 1000,
-        });
-        checkShowed = false;
-        anime({
-            targets: "#rotic-btn-show",
-            translateY: {
-                delay: 1100,
-                easing: "easeOutExpo",
-                value: 0,
-                duration: 1000,
-            },
-            opacity: {
-                value: 1,
-                easing: "easeOutExpo",
-                duration: 900,
-                delay: 1300,
-            },
-        });
+    if (checkShowed == false) {
+      $(".rotic-chatbox").css({
+        visibility: "visible",
+      });
+      anime({
+        targets: ".rotic-chatbox",
+        translateY: {
+          value: -624,
+          easing: "easeOutExpo",
+          delay: 1100,
+        },
+        opacity: {
+          value: 1,
+          easing: "easeOutExpo",
+          delay: 1300,
+        },
+      });
+      checkShowed = true;
+    }
+  });
+  $(".rotic-close-text").click(function () {
+    anime({
+      targets: ".rotic-chatbox",
+      translateY: {
+        value: +624,
+        easing: "easeInExpo",
+      },
+      opacity: {
+        value: 0,
+        easing: "easeInExpo",
+      },
+      duration: 1000,
     });
+    checkShowed = false;
+    anime({
+      targets: "#rotic-btn-show",
+      translateY: {
+        delay: 1100,
+        easing: "easeOutExpo",
+        value: 0,
+        duration: 1000,
+      },
+      opacity: {
+        value: 1,
+        easing: "easeOutExpo",
+        duration: 900,
+        delay: 1300,
+      },
+    });
+  });
 });
 
 function appendChatbox() {
-    return `<div class="rotic-chatbox">
+  return `<div class="rotic-chatbox">
     <div class="rotic-close-box">
         <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"> <p class="rotic-image-logo__p">powered by </p>
         <div class="rotic-close-text">
@@ -206,6 +209,5 @@ function appendChatbox() {
             height: 100%;
         }
     </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
-`
+`;
 }
