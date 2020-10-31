@@ -1,10 +1,9 @@
-import $ from "jquery";
-import anime from "animejs/lib/anime.es.js";
+var $rotic = $.noConflict();
 
-$(document).ready(function () {
-  $("body").append(appendChatbox());
+$rotic(document).ready(function () {
+  $rotic("body").append(appendChatbox());
   var checkShowed = false;
-  $("#rotic-btn-show").click(function () {
+  $rotic("#rotic-btn-show").click(function () {
     anime({
       targets: "#rotic-btn-show",
       translateY: {
@@ -20,7 +19,7 @@ $(document).ready(function () {
       },
     });
     if (checkShowed == false) {
-      $(".rotic-chatbox").css({
+      $rotic(".rotic-chatbox").css({
         visibility: "visible",
       });
       anime({
@@ -39,7 +38,7 @@ $(document).ready(function () {
       checkShowed = true;
     }
   });
-  $(".rotic-close-text").click(function () {
+  $rotic(".rotic-close-text").click(function () {
     anime({
       targets: ".rotic-chatbox",
       translateY: {
@@ -209,5 +208,6 @@ function appendChatbox() {
             height: 100%;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
 `;
 }
