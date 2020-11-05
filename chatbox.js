@@ -1,3 +1,6 @@
+import $ from "jquery";
+import anime from "animejs";
+
 var $rotic = $.noConflict();
 
 $rotic(document).ready(function () {
@@ -207,7 +210,5 @@ function appendChatbox() {
             width: 100%;
             height: 100%;
         }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
-`;
+    </style>`;
 }

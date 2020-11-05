@@ -1,403 +1,521 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
+      integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>iframe</title>
     <style>
-        @font-face {
-            font-family: 'IranSans';
-            src: url('/fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
-            src: url('/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
-            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
-            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
-            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
-            url('/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @media only screen and (max-width: 768px) {
-            .rotic-container {
-                right: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                bottom: -624px !important;
-            }
-            .rotic-chat-window {
-                height: calc(100% - 110px) !important;
-            }
-        }
-        @media only screen and (min-width: 768px) {
-            .rotic-container {
-                right: 36px !important;
-                width: 300px !important;
-                height: 594px !important;
-                bottom: -600px !important;
-            }
-        }
-        html,
-        body {
-            direction: rtl;
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: IranSans
-        }
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #5FC5C4;
-            border-radius: 2px;
-        }
+      @font-face {
+        font-family: "IranSans";
+        src: url("/fonts/IrSansMedium/IRANSansFaNum-Medium.eot");
+        src: url("/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix")
+            format("embedded-opentype"),
+          url("/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2") format("woff2"),
+          url("/fonts/IrSansMedium/IRANSansFaNum-Medium.woff") format("woff"),
+          url("/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf") format("truetype"),
+          url("/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans")
+            format("svg");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @media only screen and (max-width: 768px) {
         .rotic-container {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 553px;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+          right: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          bottom: -624px !important;
         }
         .rotic-chat-window {
-            flex: auto;
-            height: calc(100% - 100px);
-            background: #fff;
-            overflow: auto;
-            padding-top: 47px;
-            padding: 0 0 0 0;
-            scrollbar-color: #5FC5C4;
-            scrollbar-width: 4px;
+          height: calc(100% - 110px) !important;
         }
-        .rotic-chat-input {
-            flex: 0 0 auto;
-            height: 60px;
-            background: #fff;
-            border-top: 1px solid #5BC5CB;
-            margin-bottom: 0;
-        }
-        .rotic-chat-input input {
-            font-family: IRANSans;
-            height: 60px;
-            line-height: 60px;
-            outline: 0 none;
-            border: none;
-            width: calc(100% - 70px);
-            color: black;
-            text-indent: 10px;
-            font-size: 11pt;
-            padding: 0 10px 0 0;
-            background: #fff;
-        }
-        .rotic-chat-input button {
-            float: left;
-            outline: 0 none;
-            border: none;
-            background: rgba(255, 255, 255, 0.25);
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            padding: 2px 0 0 0;
-            margin: 10px;
-            transition: all 0.15s ease-in-out;
-        }
-        .rotic-chat-input input[good] + button {
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-            background: #5BC5CB;
-        }
-        .rotic-chat-input input[good] + button:hover {
-            box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        .rotic-chat-input input[good] + button path {
-            fill: white;
-        }
-        .rotic-msg-container {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            margin: 0px 0 10px 0;
-            padding: 0;
-        }
-        .rotic-msg-box {
-            word-break: break-word;
-            line-height: 1.5;
-            display: flex;
-            background: #5b5e6c;
-            color: white;
-            padding: 0px 24px 0 24px;
-            margin-left: 16px;
-            border-radius: 0px 6px 6px 6px;
-            max-width: 253px !important;
-            width: auto;
-            float: left;
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-        }
-        .rotic-user-img {
-            display: inline-block;
-            border-radius: 50%;
-            height: 40px;
-            width: 40px;
-            background: #5BC5CB;
-            margin: 0 10px 10px 0;
-        }
-        .rotic-msg:first-of-type {
-            margin-top: 8px;
-        }
-        .rotic-flr {
-            flex: 1 0 auto;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - 50px);
-        }
-        .rotic-flr a {
-            display: block;
-            color: #5BC5CB;
-            text-decoration: none;
-        }
-        .rotic-flr p{
-            max-width: 205px;
-            width: auto;
-            font-size: 10pt;
-            line-height: 13pt;
-            color: white;
-            margin: 10px 0 10px 0;
-        }
-        .rotic-messages {
-            flex: 1 0 auto;
-        }
-        .rotic-msg {
-            width: auto;
-            font-size: 11pt;
-            line-height: 13pt;
-            color: white;
-            margin: 0 0 15px 0;
-        }
-        .rotic-msg:first-of-type {
-            margin-top: 8px;
-        }
-        .rotic-timestamp {
-            color: rgba(0, 0, 0, 0.38);
-            font-size: 8pt;
-            margin-bottom: 10px;
-        }
-        .rotic-username {
-            margin-right: 3px;
-        }
-        .rotic-posttime {
-            margin-left: 3px;
-        }
-        .rotic-msg-self .rotic-msg-box {
-            border-radius: 6px 0px 6px 6px;
-            margin-right: 16px;
-            background-image: linear-gradient(to bottom, #5EC5C4 , #4CC6EB);
-            color: white !important;
-            float: right;
-        }
-        .rotic-msg-self .rotic-user-img {
-            margin: 0 0 10px 10px;
-        }
-        .rotic-msg-self .rotic-msg {
-            text-align: right;
-        }
-        .rotic-msg-self .rotic-timestamp {
-            text-align: right;
-        }
-
-        #rotic-svg {
-            transform: rotate(180deg);
-        }
-        #rotic-svg:hover {
-            cursor: pointer;
-        }
-        .rotic-response-button {
-            font-family: IRANSans;
-            margin-left: 12px;
-            float: left;
-        }
+      }
+      @media only screen and (min-width: 768px) {
         .rotic-container {
-            width: 100%;
-            height: 100%;
+          right: 36px !important;
+          width: 300px !important;
+          height: 594px !important;
+          bottom: -600px !important;
         }
+      }
+      html,
+      body {
+        direction: rtl;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: IranSans;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #5fc5c4;
+        border-radius: 2px;
+      }
+      .rotic-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 553px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .rotic-chat-window {
+        flex: auto;
+        height: calc(100% - 100px);
+        background: #fff;
+        overflow: auto;
+        padding-top: 47px;
+        padding: 0 0 0 0;
+        scrollbar-color: #5fc5c4;
+        scrollbar-width: 4px;
+      }
+      .rotic-chat-input {
+        flex: 0 0 auto;
+        height: 60px;
+        background: #fff;
+        border-top: 1px solid #5bc5cb;
+        margin-bottom: 0;
+      }
+      .rotic-chat-input input {
+        font-family: IRANSans;
+        height: 60px;
+        line-height: 60px;
+        outline: 0 none;
+        border: none;
+        width: calc(100% - 70px);
+        color: black;
+        text-indent: 10px;
+        font-size: 11pt;
+        padding: 0 10px 0 0;
+        background: #fff;
+      }
+      .rotic-chat-input button {
+        float: left;
+        outline: 0 none;
+        border: none;
+        background: rgba(255, 255, 255, 0.25);
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        padding: 2px 0 0 0;
+        margin: 10px;
+        transition: all 0.15s ease-in-out;
+      }
+      .rotic-chat-input input[good] + button {
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+        background: #5bc5cb;
+      }
+      .rotic-chat-input input[good] + button:hover {
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      .rotic-chat-input input[good] + button path {
+        fill: white;
+      }
+      .rotic-msg-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin: 0px 0 10px 0;
+        padding: 0;
+      }
+      .rotic-msg-box {
+        word-break: break-word;
+        line-height: 1.5;
+        display: flex;
+        background: #5b5e6c;
+        color: white;
+        padding: 0px 24px 0 24px;
+        margin-left: 16px;
+        border-radius: 0px 6px 6px 6px;
+        max-width: 253px !important;
+        width: auto;
+        float: left;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+      }
+      .rotic-user-img {
+        display: inline-block;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        background: #5bc5cb;
+        margin: 0 10px 10px 0;
+      }
+      .rotic-msg:first-of-type {
+        margin-top: 8px;
+      }
+      .rotic-flr {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 50px);
+      }
+      .rotic-flr a {
+        display: block;
+        color: #5bc5cb;
+        text-decoration: none;
+      }
+      .rotic-flr p {
+        max-width: 205px;
+        width: auto;
+        font-size: 10pt;
+        line-height: 13pt;
+        color: white;
+        margin: 10px 0 10px 0;
+      }
+      .rotic-messages {
+        flex: 1 0 auto;
+      }
+      .rotic-msg {
+        width: auto;
+        font-size: 11pt;
+        line-height: 13pt;
+        color: white;
+        margin: 0 0 15px 0;
+      }
+      .rotic-msg:first-of-type {
+        margin-top: 8px;
+      }
+      .rotic-timestamp {
+        color: rgba(0, 0, 0, 0.38);
+        font-size: 8pt;
+        margin-bottom: 10px;
+      }
+      .rotic-username {
+        margin-right: 3px;
+      }
+      .rotic-posttime {
+        margin-left: 3px;
+      }
+      .rotic-msg-self .rotic-msg-box {
+        border-radius: 6px 0px 6px 6px;
+        margin-right: 16px;
+        background-image: linear-gradient(to bottom, #5ec5c4, #4cc6eb);
+        color: white !important;
+        float: right;
+      }
+      .rotic-msg-self .rotic-user-img {
+        margin: 0 0 10px 10px;
+      }
+      .rotic-msg-self .rotic-msg {
+        text-align: right;
+      }
+      .rotic-msg-self .rotic-timestamp {
+        text-align: right;
+      }
+
+      #rotic-svg {
+        transform: rotate(180deg);
+      }
+      #rotic-svg:hover {
+        cursor: pointer;
+      }
+      .rotic-response-button {
+        font-family: IRANSans;
+        margin-left: 12px;
+        float: left;
+      }
+      .rotic-container {
+        width: 100%;
+        height: 100%;
+      }
+      .rotic-response-button {
+        margin-left: 16px;
+        margin-right: 12px;
+        max-height: 253px;
+        word-break: break-word;
+        font-size: 10pt;
+        line-height: 1.5;
+      }
     </style>
-</head>
-<body >
+  </head>
+  <body>
     <div class="rotic-container">
-        <section class="rotic-chat-window"></section>
-        <form class="rotic-chat-input" onsubmit="return false;">
-            <input id="rotic-text" type="text" autocomplete="off" placeholder="پیامتان را تایپ کنید">
-            <button id="rotic-btn">
-                <svg id="rotic-svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path fill="#5FC5C4" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </button>
-        </form>
+      <section class="rotic-chat-window"></section>
+      <form class="rotic-chat-input" onsubmit="return false;">
+        <input
+          id="rotic-text"
+          type="text"
+          autocomplete="off"
+          placeholder="پیامتان را تایپ کنید"
+        />
+        <button id="rotic-btn">
+          <svg
+            id="rotic-svg"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path fill="#5FC5C4" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+          </svg>
+        </button>
+      </form>
     </div>
-    <script
-            src="https://code.jquery.com/jquery-3.5.1.min.js"
-            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
-
     <script>
-        $(document).ready(function () {
-            var chats = getCookie("__rotic-bot");
-            showdown.setOption('openLinksInNewWindow', 'true');
-            var converter = new showdown.Converter();
-            let count = 0;
-            if(chats !== "") {
-                chats.split("+").forEach(function (chat) {
-                    if(chats.split("+").length - count <= 15) {
-                        var splitedChat = chat.split("*");
-                        if(splitedChat[2] !== undefined) {
-                            if(splitedChat[0] === "text") {
-                                $(".rotic-chat-window").append(appendSelf(converter.makeHtml(splitedChat[1])));
-                                $(".rotic-chat-window").append(appendRemote(converter.makeHtml(splitedChat[2])));
-                            } else if (splitedChat[0] === "button") {
-                                $(".rotic-chat-window").append(appendButton(splitedChat[1], splitedChat[2]));
-                            }
-
-                        }
-                    }
-                    count++;
-                });
-                $(".rotic-chat-window").animate(
-                    { scrollTop: 5000 },
-                    "slow"
-                );
+      $(document).ready(function () {
+        var chats = getCookie("__rotic-bot");
+        showdown.setOption("openLinksInNewWindow", "true");
+        var converter = new showdown.Converter();
+        let count = 0;
+        if (chats !== "") {
+          chats.split("+").forEach(function (chat) {
+            if (chats.split("+").length - count <= 15) {
+              var splitedChat = chat.split("*");
+              if (splitedChat[2] !== undefined) {
+                if (splitedChat[0] === "text") {
+                  $(".rotic-chat-window").append(
+                    appendSelf(converter.makeHtml(splitedChat[1]))
+                  );
+                  $(".rotic-chat-window").append(
+                    appendRemote(converter.makeHtml(splitedChat[2]))
+                  );
+                } else if (splitedChat[0] === "button") {
+                  $(".rotic-chat-window").append(
+                    appendButton(splitedChat[1], splitedChat[2])
+                  );
+                }
+              }
             }
-            $("#rotic-btn").click(function () {
-                if ($("#rotic-text").val().trim()) {
-                    $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
-                    var text = $("#rotic-text").val().trim();
-                    $("#rotic-text").val("");
-                    $(".rotic-chat-window").animate(
-                        { scrollTop: 5000 },
-                        "slow"
+            count++;
+          });
+          $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+        }
+        $("#rotic-btn").click(function () {
+          if ($("#rotic-text").val().trim()) {
+            $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
+            var text = $("#rotic-text").val().trim();
+            $("#rotic-text").val("");
+            $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+            $.ajax({
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              dataType: "json",
+              crossDomain: true,
+              url:
+                "https://rotic.ir/api/v3/services/6a105d7f17b029f067615f47b6e6b432/ai",
+              data: JSON.stringify({
+                data: text.trim(),
+                api: "6a105d7f17b029f067615f47b6e6b43211",
+              }),
+              success: function (res) {
+                if (res.status && res.response != null) {
+                  if (res.options.buttons !== null) {
+                    $(".rotic-chat-window").append(
+                      appendRemote(converter.makeHtml(res.response))
                     );
-                    $.ajax({
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        dataType: "json",
-                        crossDomain: true,
-                        url:
-                            "https://rotic.ir/api/v3/services/6a105d7f17b029f067615f47b6e6b432/ai",
-                        data: JSON.stringify({
-                            data: text.trim(),
-                            api: "6a105d7f17b029f067615f47b6e6b43211",
-                        }),
-                        success: function (res) {
-                            if (res.status && res.response != null) {
-                                if(res.options.buttons !== null) {
-                                    $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + "*" + res.response + "+")
-                                    $("#rotic-text").focus();
-                                    res.options.buttons.forEach(function (chat) {
-                                        $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
-                                        setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   " + ")
-                                    })
-                                } else {
-                                    $(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response)));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + " * " + res.response + " + ")
-                                    $(".rotic-chat-window").animate(
-                                        { scrollTop: 5000 },
-                                        "slow"
-                                    );
-                                    $("#rotic-text").focus();
-                                }
-                            }
-                        },
-                        error: function (e) {
-                            $(".rotic-chat-window").append(
-                                appendRemote("مشکلی در اتصال اینترنت وجود دارد")
-                            );
-                            $(".rotic-chat-window").animate(
-                                { scrollTop: 5000 },
-                                "slow"
-                            );
-                            setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
-                            $("#rotic-text").focus();
-                        },
+                    setCookie(
+                      "__rotic-bot",
+                      getCookie("__rotic-bot") +
+                        "text" +
+                        "*" +
+                        text +
+                        "*" +
+                        res.response +
+                        "+"
+                    );
+                    $("#rotic-text").focus();
+                    JSON.parse(res.options.buttons).forEach(function (chat) {
+                      $(".rotic-chat-window").append(
+                        appendButton(Object.keys(chat)[0])
+                      );
+                      setCookie(
+                        "__rotic-bot",
+                        getCookie("__rotic-bot") +
+                          "button" +
+                          "*" +
+                          Object.keys(chat)[0] +
+                          "*" +
+                          Object.values(chat)[0] +
+                          " + "
+                      );
                     });
+                  } else {
+                    $(".rotic-chat-window").append(
+                      appendRemote(converter.makeHtml(res.response))
+                    );
+                    setCookie(
+                      "__rotic-bot",
+                      getCookie("__rotic-bot") +
+                        "text" +
+                        "*" +
+                        text +
+                        " * " +
+                        res.response +
+                        " + "
+                    );
+                    $(".rotic-chat-window").animate(
+                      { scrollTop: 5000 },
+                      "slow"
+                    );
+                    $("#rotic-text").focus();
+                  }
                 }
-            });
-            $(".rotic-response-button").click(function (){
-                const text = $(this).attr("text");
-                const link = $(this).attr("link");
-                $(".rotic-chat-window").append(appendSelf($(this).attr("text")));
-                $(".rotic-chat-window").animate(
-                    { scrollTop: 2000 },
-                    "slow"
+              },
+              error: function (e) {
+                $(".rotic-chat-window").append(
+                  appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                 );
-                $.ajax({
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    dataType: "json",
-                    crossDomain: true,
-                    url:
-                        "https://rotic.ir/api/v3/services/6a105d7f17b029f067615f47b6e6b432/ai",
-                    data: JSON.stringify({
-                        data: link.trim(),
-                        api: "6a105d7f17b029f067615f47b6e6b43211",
-                    }),
-                    success: function (res) {
-                        if (res.status && res.response != null) {
-                                if(res.options.buttons) {
-                                    $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + "*" + res.response + "+")
-                                    $("#rotic-text").focus();
-                                    res.options.buttons.forEach(function (chat) {
-                                        $(".rotic-chat-window").append(appendButton(Object.keys(chat)[0]));
-                                        setCookie("__rotic-bot", getCookie("__rotic-bot") + "button" + "*"  + Object.keys(chat)[0] + "*" + Object.values(chat)[0] +   "+")
-                                    })
-                                } else {
-                                    $(".rotic-chat-window").append(appendRemote($(this).attr("text")));
-                                    setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*"  + text + "*" + res.response + "+")
-                                    $("#rotic-text").focus();
-                                }
-
-                        }
-                    },
-                    error: function (e) {
-                        $(".rotic-chat-window").append(
-                            appendRemote("مشکلی در اتصال اینترنت وجود دارد")
-                        );
-                        setCookie("__rotic-bot", getCookie("__rotic-bot") + "text" + "*" + text + " * " +  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") + " + ")
-                        $("#rotic-text").focus();
-                    },
-                });
-            })
-        })
-
-        function setCookie(cname, cvalue) {
-            document.cookie = cname + "=" + cvalue + ";" + ";path=/ SameSite=None; Secure";
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
+                $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+                setCookie(
+                  "__rotic-bot",
+                  getCookie("__rotic-bot") +
+                    "text" +
+                    "*" +
+                    text +
+                    " * " +
+                    decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
+                    " + "
+                );
+                $("#rotic-text").focus();
+              },
+            });
+          }
+        });
+        $(document).on("click", ".rotic-response-button", function (e) {
+          const text = $(e.target).text();
+          $(".rotic-chat-window").append(appendSelf($(e.target).text()));
+          $(".rotic-chat-window").animate({ scrollTop: 2000 }, "slow");
+          $.ajax({
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            dataType: "json",
+            crossDomain: true,
+            url:
+              "https://rotic.ir/api/v3/services/6a105d7f17b029f067615f47b6e6b432/ai",
+            data: JSON.stringify({
+              data: text.trim(),
+              api: "6a105d7f17b029f067615f47b6e6b43211",
+            }),
+            success: function (res) {
+              if (res.status && res.response != null) {
+                if (res.options.buttons) {
+                  $(".rotic-chat-window").append(appendRemote(res.response));
+                  setCookie(
+                    "__rotic-bot",
+                    getCookie("__rotic-bot") +
+                      "text" +
+                      "*" +
+                      text +
+                      "*" +
+                      res.response +
+                      "+"
+                  );
+                  $("#rotic-text").focus();
+                  JSON.parse(res.options.buttons).forEach(function (chat) {
+                    $(".rotic-chat-window").append(
+                      appendButton(Object.keys(chat)[0])
+                    );
+                    setCookie(
+                      "__rotic-bot",
+                      getCookie("__rotic-bot") +
+                        "button" +
+                        "*" +
+                        Object.keys(chat)[0] +
+                        "*" +
+                        Object.values(chat)[0] +
+                        "+"
+                    );
+                  });
+                } else {
+                  $(".rotic-chat-window").append(appendRemote(res.response));
+                  setCookie(
+                    "__rotic-bot",
+                    getCookie("__rotic-bot") +
+                      "text" +
+                      "*" +
+                      text +
+                      "*" +
+                      res.response +
+                      "+"
+                  );
+                  $("#rotic-text").focus();
                 }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
+              }
+            },
+            error: function (e) {
+              $(".rotic-chat-window").append(
+                appendRemote("مشکلی در اتصال اینترنت وجود دارد")
+              );
+              setCookie(
+                "__rotic-bot",
+                getCookie("__rotic-bot") +
+                  "text" +
+                  "*" +
+                  text +
+                  " * " +
+                  decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
+                  " + "
+              );
+              $("#rotic-text").focus();
+            },
+          });
+        });
+      });
 
-        function appendSelf(text) {
-            return `
+      function setCookie(cname, cvalue) {
+        document.cookie =
+          cname + "=" + cvalue + ";" + ";path=/ SameSite=None; Secure";
+      }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      function appendSelf(text) {
+        return `
         <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0">
             <div class="rotic-msg-box">
                 <div class="rotic-flr">
@@ -408,10 +526,10 @@
             </div>
         </article>
     `;
-        }
+      }
 
-        function appendRemote(text) {
-            return `
+      function appendRemote(text) {
+        return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
             <div class="rotic-msg-box">
                 <div class="rotic-flr">
@@ -422,18 +540,17 @@
             </div>
         </article>
     `;
-        }
+      }
 
-        function appendButton(text, link) {
-            return `
+      function appendButton(text, link) {
+        return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
-            <button text="${text}" link="${link}"  class="btn btn-border btn-circle rotic-response-button">
+            <button text="${text}" link="${link}"  class="btn btn-info rotic-response-button">
             ${text}
             </button>
         </article>
     `;
-        }
+      }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>
