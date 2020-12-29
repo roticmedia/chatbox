@@ -1,9 +1,17 @@
-import $ from "jquery";
-import anime from "animejs";
-
 var $rotic = $.noConflict();
 
+class chat {
+  constructor() {
+    this.isSetUser = false;
+  }
+
+  setUser() {
+    this.isSetUser = true;
+  }
+}
+
 $rotic(document).ready(function () {
+  let Chat = new chat();
   $rotic("body").append(appendChatbox());
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
