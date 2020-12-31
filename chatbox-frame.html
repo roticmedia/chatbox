@@ -300,6 +300,15 @@
     <script>
       var $rotic = $.noConflict();
       $rotic(document).ready(function () {
+        let otherData = null;
+        let setUser = false;
+
+
+        window.addEventListener("message", (e) => {
+          if (e.type === "setUser") {
+            otherData = e.data.value
+          }
+        }, false)
         function playRemoteMessage() {
           let audio = document.getElementById("rotic-audio-remote-message");
           audio.play();
