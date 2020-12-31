@@ -55,7 +55,7 @@
           bottom: -624px !important;
         }
         .rotic-chat-window {
-          height: calc(100% - 110px) !important;
+          height: calc(100% - 115px) !important;
         }
       }
       @media only screen and (min-width: 768px) {
@@ -96,8 +96,10 @@
         user-select: none;
       }
       .rotic-chat-window {
+        position: fixed;
+        bottom: 115px;
         flex: auto;
-        height: calc(100% - 100px);
+        height: calc(100% - 150px);
         background: #fff;
         overflow: auto;
         padding-top: 47px;
@@ -106,6 +108,9 @@
         scrollbar-width: 4px;
       }
       .rotic-chat-input {
+        width: 100%;
+        position: fixed;
+        bottom: 55px;
         flex: 0 0 auto;
         height: 60px;
         background: #fff;
@@ -265,7 +270,7 @@
       }
     </style>
   </head>
-  <body onload="init();">
+  <body>
     <div class="rotic-container">
       <section class="rotic-chat-window"></section>
       <form class="rotic-chat-input" onsubmit="return false;">
@@ -289,8 +294,19 @@
         </button>
       </form>
     </div>
+    <audio src="assets/self-message.mp3" id="rotic-audio-self-message"></audio>
+    <audio src="assets/remote-message.mp3" id="rotic-audio-remote-message"></audio>
     <script>
-      $(document).ready(function () {
+      var $rotic = $.noConflict();
+      $rotic(document).ready(function () {
+        function playRemoteMessage() {
+          let audio = document.getElementById("rotic-audio-remote-message");
+          audio.play();
+        }
+        function playSelfMessage() {
+          let audio = document.getElementById("rotic-audio-self-message");
+          audio.play();
+        }
         var chats = getCookie("__rotic-bot");
         showdown.setOption("openLinksInNewWindow", "true");
         var converter = new showdown.Converter();
@@ -301,14 +317,14 @@
               var splitedChat = chat.split("*");
               if (splitedChat[2] !== undefined) {
                 if (splitedChat[0] === "text") {
-                  $(".rotic-chat-window").append(
+                  $rotic(".rotic-chat-window").append(
                     appendSelf(converter.makeHtml(splitedChat[1]))
                   );
-                  $(".rotic-chat-window").append(
+                  $rotic(".rotic-chat-window").append(
                     appendRemote(converter.makeHtml(splitedChat[2]))
                   );
                 } else if (splitedChat[0] === "button") {
-                  $(".rotic-chat-window").append(
+                  $rotic(".rotic-chat-window").append(
                     appendButton(splitedChat[1], splitedChat[2])
                   );
                 }
@@ -316,15 +332,16 @@
             }
             count++;
           });
-          $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+          $rotic(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
         }
-        $("#rotic-btn").click(function () {
-          if ($("#rotic-text").val().trim()) {
-            $(".rotic-chat-window").append(appendSelf($("#rotic-text").val()));
-            var text = $("#rotic-text").val().trim();
-            $("#rotic-text").val("");
-            $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
-            $.ajax({
+        $rotic("#rotic-btn").click(function () {
+          if ($rotic("#rotic-text").val().trim()) {
+            playSelfMessage();
+            $rotic(".rotic-chat-window").append(appendSelf($rotic("#rotic-text").val()));
+            var text = $rotic("#rotic-text").val().trim();
+            $rotic("#rotic-text").val("");
+            $rotic(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+            $rotic.ajax({
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -340,7 +357,8 @@
               success: function (res) {
                 if (res.status && res.response != null) {
                   if (res.options.buttons !== null) {
-                    $(".rotic-chat-window").append(
+                    playRemoteMessage();
+                    $rotic(".rotic-chat-window").append(
                       appendRemote(converter.makeHtml(res.response))
                     );
                     setCookie(
@@ -353,9 +371,9 @@
                         res.response +
                         "+"
                     );
-                    $("#rotic-text").focus();
+                    $rotic("#rotic-text").focus();
                     JSON.parse(res.options.buttons).forEach(function (chat) {
-                      $(".rotic-chat-window").append(
+                      $rotic(".rotic-chat-window").append(
                         appendButton(Object.keys(chat)[0])
                       );
                       setCookie(
@@ -370,7 +388,8 @@
                       );
                     });
                   } else {
-                    $(".rotic-chat-window").append(
+                    playRemoteMessage();
+                    $rotic(".rotic-chat-window").append(
                       appendRemote(converter.makeHtml(res.response))
                     );
                     setCookie(
@@ -383,19 +402,20 @@
                         res.response +
                         " + "
                     );
-                    $(".rotic-chat-window").animate(
+                    $rotic(".rotic-chat-window").animate(
                       { scrollTop: 5000 },
                       "slow"
                     );
-                    $("#rotic-text").focus();
+                    $rotic("#rotic-text").focus();
                   }
                 }
               },
               error: function (e) {
-                $(".rotic-chat-window").append(
+                playRemoteMessage()
+                $rotic(".rotic-chat-window").append(
                   appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                 );
-                $(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
+                $rotic(".rotic-chat-window").animate({ scrollTop: 5000 }, "slow");
                 setCookie(
                   "__rotic-bot",
                   getCookie("__rotic-bot") +
@@ -406,16 +426,17 @@
                     decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
                     " + "
                 );
-                $("#rotic-text").focus();
+                $rotic("#rotic-text").focus();
               },
             });
           }
         });
-        $(document).on("click", ".rotic-response-button", function (e) {
-          const text = $(e.target).text();
-          $(".rotic-chat-window").append(appendSelf($(e.target).text()));
-          $(".rotic-chat-window").animate({ scrollTop: 2000 }, "slow");
-          $.ajax({
+        $rotic(document).on("click", ".rotic-response-button", function (e) {
+          const text = $rotic(e.target).text();
+          playRemoteMessage()
+          $rotic(".rotic-chat-window").append(appendSelf($rotic(e.target).text()));
+          $rotic(".rotic-chat-window").animate({ scrollTop: 2000 }, "slow");
+          $rotic.ajax({
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -431,7 +452,8 @@
             success: function (res) {
               if (res.status && res.response != null) {
                 if (res.options.buttons) {
-                  $(".rotic-chat-window").append(appendRemote(res.response));
+                  playRemoteMessage();
+                  $rotic(".rotic-chat-window").append(appendRemote(res.response));
                   setCookie(
                     "__rotic-bot",
                     getCookie("__rotic-bot") +
@@ -442,9 +464,9 @@
                       res.response +
                       "+"
                   );
-                  $("#rotic-text").focus();
+                  $rotic("#rotic-text").focus();
                   JSON.parse(res.options.buttons).forEach(function (chat) {
-                    $(".rotic-chat-window").append(
+                    $rotic(".rotic-chat-window").append(
                       appendButton(Object.keys(chat)[0])
                     );
                     setCookie(
@@ -459,7 +481,8 @@
                     );
                   });
                 } else {
-                  $(".rotic-chat-window").append(appendRemote(res.response));
+                  playRemoteMessage();
+                  $rotic(".rotic-chat-window").append(appendRemote(res.response));
                   setCookie(
                     "__rotic-bot",
                     getCookie("__rotic-bot") +
@@ -470,12 +493,13 @@
                       res.response +
                       "+"
                   );
-                  $("#rotic-text").focus();
+                  $rotic("#rotic-text").focus();
                 }
               }
             },
             error: function (e) {
-              $(".rotic-chat-window").append(
+              playRemoteMessage()
+              $rotic(".rotic-chat-window").append(
                 appendRemote("مشکلی در اتصال اینترنت وجود دارد")
               );
               setCookie(
@@ -488,7 +512,7 @@
                   decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
                   " + "
               );
-              $("#rotic-text").focus();
+              $rotic("#rotic-text").focus();
             },
           });
         });
