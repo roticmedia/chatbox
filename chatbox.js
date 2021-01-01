@@ -1,10 +1,27 @@
 var $rotic = $.noConflict();
 
+class rotic {
+  constructor() {
+    this.isSetUser = false;
+    this.userData = {
+      userName: null,
+      phoneNumber: null,
+      otherData: null
+    }
+  }
+  setUser(userName, phoneNumber, otherData) {
+    this.isSetUser = true;
+    this.userData = {
+      userName,
+      phoneNumber,
+      otherData
+    }
+  }
+}
+
 $rotic(document).ready(function () {
+  let Rotic = new rotic();
   $rotic("body").append(appendChatbox());
-
-
-
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
     anime({
@@ -121,6 +138,7 @@ $rotic(document).ready(function () {
         data: JSON.stringify({
           data: text.trim(),
           api: "6a105d7f17b029f067615f47b6e6b43211",
+          other: this.userData
         }),
         success: function (res) {
           if (res.status && res.response != null) {
@@ -211,10 +229,11 @@ $rotic(document).ready(function () {
       dataType: "json",
       crossDomain: true,
       url:
-          "https://rotic.ir/api/v3/services/6a105d7f17b029f067615f47b6e6b432/ai",
+          "https://rotic.ir/api/v4/services/6a105d7f17b029f067615f47b6e6b432/ai",
       data: JSON.stringify({
         data: text.trim(),
         api: "6a105d7f17b029f067615f47b6e6b43211",
+        other: this.userData
       }),
       success: function (res) {
         if (res.status && res.response != null) {
