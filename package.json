@@ -1,0 +1,28 @@
+{
+  "name": "rotic-chatbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chatbox-min.js",
+  "scripts": {
+    "test": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roticmedia/Rotic-Chatbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roticmedia/Rotic-Chatbox/issues"
+  },
+  "homepage": "https://github.com/roticmedia/Rotic-Chatbox#readme",
+  "dependencies": {
+    "animejs": "^3.2.1",
+    "jquery": "^3.5.1",
+    "showdown": "^1.9.1",
+    "webpack": "^5.11.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.3.1"
+  }
+}

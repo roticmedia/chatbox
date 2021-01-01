@@ -1,3 +1,6 @@
+const $ = require("jquery");
+const showdown = require("showdown")
+
 var $rotic = $.noConflict();
 
 class rotic {
@@ -367,7 +370,29 @@ function appendButton(text, link) {
 }
 
 function appendChatbox() {
-  return `<div class="rotic-chatbox">
+  return `<div class="rotic-chatbox"> 
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
+            integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw=="
+            crossorigin="anonymous"
+    ></script>
     <div class="rotic-close-box">
         <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"> <p class="rotic-image-logo__p">powered by </p>
         <div class="rotic-close-text">
@@ -397,7 +422,7 @@ function appendChatbox() {
         </button>
       </form>
     </div>
-    <audio src="assets/self-message.mp3" id="rotic-audio-self-message"></audio>
+    <audio src="../assets/self-message.mp3" id="rotic-audio-self-message"></audio>
 </div>
 <div id="rotic-btn-show">
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
@@ -414,6 +439,7 @@ function appendChatbox() {
                 width: 100% !important;
                 height: 100% !important;
                 bottom: -624px !important;
+                right: 0;
             }
         }
         @media only screen and (min-width: 768px) {
