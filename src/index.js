@@ -34,9 +34,8 @@ class rotic {
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
   let Rotic = new rotic();
-
-
   var checkShowed = false;
+
   $rotic("#rotic-btn-show").click(function () {
     anime({
       targets: "#rotic-btn-show",
@@ -102,6 +101,7 @@ $rotic(document).ready(function () {
       },
     });
   });
+
   function playSelfMessage() {
     let audio = document.getElementById("rotic-audio-self-message");
     audio.play();
@@ -336,6 +336,51 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+var $document = $rotic(document)
+var hash = {}
+var setup = false
+
+$rotic.event.special.clickout = {
+  setup: function (data, namespaces, eventHandle) {
+    if (setup) return
+
+    $document.on('click.clickout-handler', function (event) {
+      $rotic.each(hash, function (index, obj) {
+        var condition = true
+
+        $rotic.each(obj.elements, function (i, el) {
+          if ($rotic(event.target).closest(el).length) condition = false
+        })
+
+        if (condition) {
+          obj.handler.call($rotic(obj.elements), event)
+        }
+      })
+    })
+
+    setup = true
+  },
+
+  teardown: function () {
+    if (hash) return
+    $document.off('click.clickout-handler')
+    setup = false
+  },
+
+  add: function (handleObj) {
+    var guid = handleObj.guid
+    if (!hash.hasOwnProperty(guid)) {
+      hash[guid] = {elements: [this], handler: handleObj.handler}
+    } else {
+      hash[guid].elements.push(this)
+    }
+  },
+
+  remove: function (handleObj) {
+    delete hash[handleObj.guid]
+  }
 }
 
 function appendSelf(text) {
