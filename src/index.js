@@ -6,6 +6,7 @@ var $rotic = $.noConflict();
 class rotic {
   constructor() {
     this.isSetUser = false;
+    this.left = getCookie("__rotic-setting-left")
     this.userData = {
       userName: null,
       phoneNumber: null,
@@ -20,11 +21,19 @@ class rotic {
       otherData
     }
   }
+  changeLeft(amount) {
+    setCookie("__rotic-setting-left", amount)
+  }
 }
 
 $rotic(document).ready(function () {
-  let Rotic = new rotic();
   $rotic("body").append(appendChatbox());
+  let Rotic = new rotic();
+
+  if (Rotic.left) {
+    $rotic(".rotic-chatbox").css("left", Rotic.left)
+  }
+
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
     anime({
@@ -313,7 +322,7 @@ $rotic(document).ready(function () {
 
 function setCookie(cname, cvalue) {
   document.cookie =
-      cname + "=" + cvalue + ";" + ";path=/ SameSite=None; Secure";
+      cname + "=" + cvalue + ";" + ";path=/";
 }
 
 function getCookie(cname) {
