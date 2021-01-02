@@ -5,16 +5,14 @@ var $rotic = $.noConflict();
 
 class rotic {
   constructor() {
-    this.isSetUser = false;
-    this.left = getCookie("__rotic-setting-left")
-    this.userData = {
-      userName: null,
-      phoneNumber: null,
-      otherData: null
+    try {
+      this.setting = JSON.parse(getCookie("__rotic-setting"))
+    } catch (err) {
+      this.setting = null;
     }
+    this.userData = null;
   }
   setUser(userName, phoneNumber, otherData) {
-    this.isSetUser = true;
     this.userData = {
       userName,
       phoneNumber,
@@ -22,7 +20,14 @@ class rotic {
     }
   }
   changeLeft(amount) {
-    setCookie("__rotic-setting-left", amount)
+    this.setting.left = amount;
+    setCookie("__rotic-setting", JSON.stringify({
+      ...this.setting,
+      left: amount
+    }))
+    if (this.setting.left) {
+      $rotic(".rotic-chatbox").css("left", amount)
+    }
   }
 }
 
@@ -30,9 +35,6 @@ $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
   let Rotic = new rotic();
 
-  if (Rotic.left) {
-    $rotic(".rotic-chatbox").css("left", Rotic.left)
-  }
 
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
@@ -107,10 +109,8 @@ $rotic(document).ready(function () {
   var chats = getCookie("__rotic-bot");
   showdown.setOption("openLinksInNewWindow", "true");
   var converter = new showdown.Converter();
-  let count = 0;
   if (chats !== "") {
     chats.split("+").forEach(function (chat) {
-      if (chats.split("+").length - count <= 15) {
         var splitedChat = chat.split("*");
         if (splitedChat[2] !== undefined) {
           if (splitedChat[0] === "text") {
@@ -126,8 +126,6 @@ $rotic(document).ready(function () {
             );
           }
         }
-      }
-      count++;
     });
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
   }
