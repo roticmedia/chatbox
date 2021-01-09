@@ -6,6 +6,7 @@ var $rotic = $.noConflict();
 const helper = require("./helper")
 const { appendRemote, appendSelf, appendChatbox, appendButton } = require("./append");
 const { setCookie, getCookie } = require("./cookie")
+const { checkGoftino } = require("./thirdParty")
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -37,7 +38,6 @@ class rotic {
     }
   }
   setInit() {
-    console.log(getCookie("__rotic-bot"))
     if (getCookie("__rotic-bot") === "") {
       helper.initRequest();
     }
@@ -52,6 +52,8 @@ const startEvent = new Event("rotic-start")
 
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
+  checkGoftino();
+
   window.dispatchEvent(startEvent);
   var checkShowed = false;
 
