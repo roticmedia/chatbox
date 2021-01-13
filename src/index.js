@@ -6,7 +6,7 @@ var $rotic = $.noConflict();
 const helper = require("./helper")
 const { appendRemote, appendSelf, appendChatbox, appendButton } = require("./append");
 const { setCookie, getCookie } = require("./cookie")
-const { checkGoftino } = require("./thirdParty")
+const { hideGoftino, showGoftino } = require("./thirdParty")
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -52,8 +52,13 @@ const startEvent = new Event("rotic-start")
 
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
-  checkGoftino();
 
+  hideGoftino();
+
+  setTimeout(() => {
+    alert(1)
+    showGoftino()
+  }, 2000)
   window.dispatchEvent(startEvent);
   var checkShowed = false;
 
