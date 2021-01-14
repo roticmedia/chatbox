@@ -89,7 +89,6 @@ function appendChatbox() {
         </button>
       </form>
     </div>
-    <audio src="../assets/self-message.mp3" id="rotic-audio-self-message"></audio>
 </div>
 <div id="rotic-btn-show">
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>

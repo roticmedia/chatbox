@@ -1,7 +1,6 @@
 const $ = require("jquery");
-var $rotic = $.noConflict();
 
-const hideGoftino = () => {
+const hide = () => {
     try {
         window.addEventListener('goftino_ready', function () {
             let style = document.createElement("style");
@@ -20,7 +19,7 @@ const hideGoftino = () => {
     }
 }
 
-const showGoftino = () => {
+const show = () => {
     try {
         let frame = document.getElementById("goftino_w")
         let style = frame.contentWindow.document.getElementById("rotic-hotfix")
@@ -30,7 +29,19 @@ const showGoftino = () => {
     }
 }
 
+
+const open = () => {
+    try {
+        let script = document.createElement("script");
+        script.innerHTML = `
+            Goftino.open(); 
+        `
+        document.body.appendChild(script)
+    } catch (err) {}
+}
+
 module.exports = {
-    hideGoftino,
-    showGoftino
+    hide,
+    show,
+    open
 }
