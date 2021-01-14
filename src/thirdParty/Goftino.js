@@ -1,5 +1,7 @@
 const $ = require("jquery");
 
+
+
 const hide = () => {
     try {
         window.addEventListener('goftino_ready', function () {
@@ -7,13 +9,8 @@ const hide = () => {
             style.type = "text/css"
             style.id = "rotic-hotfix"
             style.appendChild(document.createTextNode(""));
-            style.innerHTML = "#box-widget-icon { display: none !important; }"
-            let frame = document.getElementById("goftino_w")
-
-            frame.addEventListener("load", (e) => {
-                e.target.contentDocument.head.appendChild(style)
-            })
-
+            style.innerHTML = "#goftino_w { display: none !important; }"
+            document.body.appendChild(style)
         });
     } catch (err) {
     }
@@ -21,9 +18,8 @@ const hide = () => {
 
 const show = () => {
     try {
-        let frame = document.getElementById("goftino_w")
-        let style = frame.contentWindow.document.getElementById("rotic-hotfix")
-        style.innerHTML = "#box-widget-icon { display: block !important; }"
+        let style = document.getElementById("rotic-hotfix")
+        style.innerHTML = "#goftino_w { display: block !important; }"
     } catch (err) {
         console.log(err)
     }

@@ -6,7 +6,7 @@ var $rotic = $.noConflict();
 const helper = require("./helper")
 const { appendRemote, appendSelf, appendChatbox, appendButton } = require("./append");
 const { setCookie, getCookie } = require("./cookie")
-const Goftino = require("./thirdParty/Goftino")
+const goftino = require("./thirdParty/Goftino")
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -28,14 +28,19 @@ class rotic {
     }
   }
   changeLeft(amount) {
-    this.setting.left = amount;
-    setCookie("__rotic-setting", JSON.stringify({
-      ...this.setting,
-      left: amount
-    }))
-    if (this.setting.left) {
-      $rotic(".rotic-chatbox").css("left", amount)
+    try {
+      this.setting.left = amount;
+      setCookie("__rotic-setting", JSON.stringify({
+        ...this.setting,
+        left: amount
+      }))
+      if (this.setting.left) {
+        $rotic(".rotic-chatbox").css("left", amount)
+      }
+    } catch (err) {
+      console.log(err)
     }
+
   }
   setInit() {
     if (getCookie("__rotic-bot") === "") {
@@ -53,10 +58,11 @@ const startEvent = new Event("rotic-start")
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
 
-
   window.dispatchEvent(startEvent);
-  var checkShowed = false;
 
+  goftino.hide();
+
+  var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
     anime({
       targets: "#rotic-btn-show",
@@ -130,7 +136,6 @@ $rotic(document).ready(function () {
         var splitedChat = chat.split("*");
         if (splitedChat[2] !== undefined) {
           if (splitedChat[0] === "text") {
-            console.log(splitedChat[2].trim())
             if (splitedChat[1].trim() !== " ") {
               $rotic(".rotic-chat-window").append(
                   appendSelf(converter.makeHtml(splitedChat[1]))
@@ -141,7 +146,6 @@ $rotic(document).ready(function () {
                   appendRemote(converter.makeHtml(splitedChat[2]))
               );
             }
-
           } else if (splitedChat[0] === "button") {
             $rotic(".rotic-chat-window").append(
                 appendButton(splitedChat[1], splitedChat[2])
@@ -172,6 +176,7 @@ $rotic(document).ready(function () {
           other: this.userData
         }),
         success: function (res) {
+          console.log(res)
           if (res.status && res.response != null) {
             if (res.options.buttons !== null) {
               $rotic(".rotic-chat-window").append(
@@ -223,6 +228,35 @@ $rotic(document).ready(function () {
               $rotic("#rotic-text").focus();
             }
           } else {
+            $rotic(".rotic-chat-window").append(
+                appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
+            );
+            $rotic(".rotic-chat-window").append(
+                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+            );
+
+            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+
+            setTimeout(() => {
+              goftino.show();
+              goftino.open();
+
+              anime({
+                targets: ".rotic-chatbox",
+                translateY: {
+                  value: +624,
+                  easing: "easeInExpo",
+                },
+                opacity: {
+                  value: 0,
+                  easing: "easeInExpo",
+                },
+                duration: 1000,
+              });
+              checkShowed = false;
+
+            }, 5000)
+
             setCookie(
                 "__rotic-bot",
                 getCookie("__rotic-bot") +
@@ -236,7 +270,6 @@ $rotic(document).ready(function () {
           }
         },
         error: function (e) {
-          alert(1)
           $rotic(".rotic-chat-window").append(
               appendRemote("مشکلی در اتصال اینترنت وجود دارد")
           );
@@ -322,6 +355,27 @@ $rotic(document).ready(function () {
             $rotic("#rotic-text").focus();
           }
         } else {
+          alert("ما قادر به پاسخ گویی نیستیم و کار را کارشناسان انسانی می سپاریم")
+          setTimeout(() => {
+            goftino.show();
+            goftino.open();
+
+            anime({
+              targets: ".rotic-chatbox",
+              translateY: {
+                value: +624,
+                easing: "easeInExpo",
+              },
+              opacity: {
+                value: 0,
+                easing: "easeInExpo",
+              },
+              duration: 1000,
+            });
+            checkShowed = false;
+
+          }, 2000)
+
           setCookie(
               "__rotic-bot",
               getCookie("__rotic-bot") +
