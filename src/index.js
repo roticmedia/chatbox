@@ -57,6 +57,7 @@ const startEvent = new Event("rotic-start")
 
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
+  $rotic(".rotic-chat-window").scrollTop(10000000000000);
 
   window.dispatchEvent(startEvent);
 
@@ -64,6 +65,7 @@ $rotic(document).ready(function () {
 
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
+    $rotic(".rotic-chat-window").scrollTop(10000000000000);
     anime({
       targets: "#rotic-btn-show",
       translateY: {
@@ -153,8 +155,9 @@ $rotic(document).ready(function () {
           }
         }
     });
-    $rotic(".rotic-chat-window").scrollTop(10000000000000);
   }
+  $rotic(".rotic-chat-window").scrollTop(10000000000000);
+
   $rotic("#rotic-btn").click(function () {
     if ($rotic("#rotic-text").val().trim()) {
       $rotic(".rotic-chat-window").append(appendSelf($rotic("#rotic-text").val()));
@@ -231,15 +234,18 @@ $rotic(document).ready(function () {
             $rotic(".rotic-chat-window").append(
                 appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
             );
-            $rotic(".rotic-chat-window").append(
-                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
-            );
-
             $rotic(".rotic-chat-window").scrollTop(10000000000000);
+            setTimeout(() => {
+              $rotic(".rotic-chat-window").append(
+                  appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+              );
+              $rotic(".rotic-chat-window").scrollTop(10000000000000);
+            }, 1000)
 
             setTimeout(() => {
               goftino.show();
               goftino.open();
+              goftino.showInitMessage()
 
               anime({
                 targets: ".rotic-chatbox",
@@ -355,10 +361,21 @@ $rotic(document).ready(function () {
             $rotic("#rotic-text").focus();
           }
         } else {
-          alert("ما قادر به پاسخ گویی نیستیم و کار را کارشناسان انسانی می سپاریم")
+          $rotic(".rotic-chat-window").append(
+              appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
+          );
+          $rotic(".rotic-chat-window").scrollTop(10000000000000);
+          setTimeout(() => {
+            $rotic(".rotic-chat-window").append(
+                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+            );
+            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+          }, 1000)
+
           setTimeout(() => {
             goftino.show();
             goftino.open();
+            goftino.showInitMessage()
 
             anime({
               targets: ".rotic-chatbox",
@@ -374,7 +391,7 @@ $rotic(document).ready(function () {
             });
             checkShowed = false;
 
-          }, 2000)
+          }, 5000)
 
           setCookie(
               "__rotic-bot",

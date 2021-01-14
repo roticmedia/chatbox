@@ -36,8 +36,34 @@ const open = () => {
     } catch (err) {}
 }
 
+const showInitMessage = () => {
+    try {
+        setTimeout(() => {
+            let script = document.createElement("script");
+            script.innerHTML = `
+            Goftino.sendMessage({
+                text: "شما از چت بات هوشمند روتیک به اینجا منتقل شدید"
+            }); 
+        `
+            document.body.appendChild(script)
+
+            setTimeout(() => {
+                let script1 = document.createElement("script");
+                script1.innerHTML = `
+                    Goftino.sendMessage({
+                        text: "در خواست شما چیست"
+                    }); 
+                `
+                document.body.appendChild(script1)
+            }, 1000)
+        }, 1000)
+
+    } catch (err) {}
+}
+
 module.exports = {
     hide,
     show,
-    open
+    open,
+    showInitMessage
 }
