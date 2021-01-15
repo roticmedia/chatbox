@@ -17,7 +17,7 @@ class rotic {
       this.setting = JSON.parse(getCookie("__rotic-setting"))
     } catch (err) {
       this.setting = {
-        driver: "none",
+        driver: "goftino",
         left: 32
       };
     }
@@ -68,9 +68,9 @@ const thirdParty = handleThirdParty(Rotic.setting.driver)
 const startEvent = new Event("rotic-start")
 
 
-
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
+
   $rotic(".rotic-chat-window").scrollTop(10000000000000);
   Rotic.setDriver("Goftino");
   window.dispatchEvent(startEvent);
