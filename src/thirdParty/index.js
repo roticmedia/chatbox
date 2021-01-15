@@ -1,11 +1,15 @@
 const Goftino = require("./Goftino")
 
-const handleThirdParty = () => {
+const handleThirdParty = (driver) => {
     try {
-        window.addEventListener("goftino-ready", () => {
-
-        })
+        if (driver === "goftino") {
+            return Goftino;
+        }
     } catch (err) {
         console.log(err)
     }
+}
+
+module.exports = {
+    handleThirdParty
 }

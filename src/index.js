@@ -6,7 +6,7 @@ var $rotic = $.noConflict();
 const helper = require("./helper")
 const { appendRemote, appendSelf, appendChatbox, appendButton } = require("./append");
 const { setCookie, getCookie } = require("./cookie")
-const goftino = require("./thirdParty/Goftino")
+const { handleThirdParty } = require("./thirdParty/index");
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -16,7 +16,10 @@ class rotic {
     try {
       this.setting = JSON.parse(getCookie("__rotic-setting"))
     } catch (err) {
-      this.setting = null;
+      this.setting = {
+        driver: "none",
+        left: 32
+      };
     }
     this.userData = null;
   }
@@ -25,6 +28,16 @@ class rotic {
       userName,
       phoneNumber,
       otherData
+    }
+  }
+  setDriver(driver) {
+    try {
+      this.setting.driver = driver.toLowerCase();
+      setCookie("__rotic-setting", JSON.stringify({
+        ...this.setting
+      }))
+    } catch(err) {
+      console.log(err)
     }
   }
   changeLeft(amount) {
@@ -40,7 +53,6 @@ class rotic {
     } catch (err) {
       console.log(err)
     }
-
   }
   setInit() {
     if (getCookie("__rotic-bot") === "") {
@@ -51,6 +63,8 @@ class rotic {
 
 window.Rotic = new rotic();
 
+const thirdParty = handleThirdParty(Rotic.setting.driver)
+
 const startEvent = new Event("rotic-start")
 
 
@@ -58,10 +72,10 @@ const startEvent = new Event("rotic-start")
 $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
   $rotic(".rotic-chat-window").scrollTop(10000000000000);
-
+  Rotic.setDriver("Goftino");
   window.dispatchEvent(startEvent);
 
-  goftino.hide();
+  thirdParty.hide();
 
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
@@ -243,9 +257,9 @@ $rotic(document).ready(function () {
             }, 1000)
 
             setTimeout(() => {
-              goftino.show();
-              goftino.open();
-              goftino.showInitMessage()
+              thirdParty.show();
+              thirdParty.open();
+              thirdParty.showInitMessage()
 
               anime({
                 targets: ".rotic-chatbox",
@@ -373,9 +387,9 @@ $rotic(document).ready(function () {
           }, 1000)
 
           setTimeout(() => {
-            goftino.show();
-            goftino.open();
-            goftino.showInitMessage()
+            thirdParty.show();
+            thirdParty.open();
+            thirdParty.showInitMessage()
 
             anime({
               targets: ".rotic-chatbox",
