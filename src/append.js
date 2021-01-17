@@ -145,6 +145,7 @@ function appendChatbox() {
             border: none;
             bottom: 30px;
             border-radius: 50%;
+            outline: none;
             left: 36px;
             box-shadow: 0px 0px 30px lightgray;
         }

@@ -72,10 +72,15 @@ $rotic(document).ready(function () {
   $rotic("body").append(appendChatbox());
 
   $rotic(".rotic-chat-window").scrollTop(10000000000000);
-  Rotic.setDriver("Goftino");
   window.dispatchEvent(startEvent);
 
   thirdParty.hide();
+
+  let btn = document.getElementById("rotic-btn-show")
+  setTimeout(() => {
+    console.log(1)
+    btn.click()
+  }, 1000);
 
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
