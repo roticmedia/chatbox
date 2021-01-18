@@ -36,6 +36,7 @@ class rotic {
       setCookie("__rotic-setting", JSON.stringify({
         ...this.setting
       }))
+      thirdParty = handleThirdParty(driver)
     } catch(err) {
       console.log(err)
     }
@@ -61,26 +62,46 @@ class rotic {
   }
 }
 
+let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-const thirdParty = handleThirdParty(Rotic.setting.driver)
 
 const startEvent = new Event("rotic-start")
 
 
 $rotic(document).ready(function () {
+  let loaded = false;
+
   $rotic("body").append(appendChatbox());
 
   $rotic(".rotic-chat-window").scrollTop(10000000000000);
   window.dispatchEvent(startEvent);
 
-  thirdParty.hide();
+  if (getCookie("__rotic-driver") !== "true") {
+    thirdParty.hide();
+  }
 
-  let btn = document.getElementById("rotic-btn-show")
-  setTimeout(() => {
-    console.log(1)
-    btn.click()
-  }, 1000);
+
+
+
+  window.addEventListener("goftino_ready", () => {
+    try {
+      Rotic.setDriver("goftino")
+      loaded = true;
+      if (getCookie("__rotic-driver") === "true") {
+        $rotic("#rotic-btn-show").css("display", "none")
+      }
+    } catch (err) {}
+  })
+  window.addEventListener("raychat_ready", () => {
+    try {
+      Rotic.setDriver("raychat")
+      loaded = true
+      if (getCookie("__rotic-driver") === "true") {
+        $rotic("#rotic-btn-show").css("display", "none")
+      }
+    } catch (err) {}
+  })
 
   var checkShowed = false;
   $rotic("#rotic-btn-show").click(function () {
@@ -198,7 +219,6 @@ $rotic(document).ready(function () {
           other: this.userData
         }),
         success: function (res) {
-          console.log(res)
           if (res.status && res.response != null) {
             if (res.options.buttons !== null) {
               $rotic(".rotic-chat-window").append(
@@ -250,48 +270,50 @@ $rotic(document).ready(function () {
               $rotic("#rotic-text").focus();
             }
           } else {
-            $rotic(".rotic-chat-window").append(
-                appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
-            );
-            $rotic(".rotic-chat-window").scrollTop(10000000000000);
-            setTimeout(() => {
+            if (loaded === true) {
               $rotic(".rotic-chat-window").append(
-                  appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+                  appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
               );
               $rotic(".rotic-chat-window").scrollTop(10000000000000);
-            }, 1000)
+              setTimeout(() => {
+                $rotic(".rotic-chat-window").append(
+                    appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+                );
+                $rotic(".rotic-chat-window").scrollTop(10000000000000);
+              }, 1000)
 
-            setTimeout(() => {
-              thirdParty.show();
-              thirdParty.open();
-              thirdParty.showInitMessage()
+              setTimeout(() => {
+                thirdParty.show();
+                thirdParty.open();
+                thirdParty.showInitMessage()
 
-              anime({
-                targets: ".rotic-chatbox",
-                translateY: {
-                  value: +624,
-                  easing: "easeInExpo",
-                },
-                opacity: {
-                  value: 0,
-                  easing: "easeInExpo",
-                },
-                duration: 1000,
-              });
-              checkShowed = false;
+                anime({
+                  targets: ".rotic-chatbox",
+                  translateY: {
+                    value: +624,
+                    easing: "easeInExpo",
+                  },
+                  opacity: {
+                    value: 0,
+                    easing: "easeInExpo",
+                  },
+                  duration: 1000,
+                });
+                checkShowed = false;
 
-            }, 5000)
+              }, 5000)
 
-            setCookie(
-                "__rotic-bot",
-                getCookie("__rotic-bot") +
-                "text" +
-                "*" +
-                text +
-                " * " +
-                "null" +
-                " + "
-            );
+              setCookie(
+                  "__rotic-bot",
+                  getCookie("__rotic-bot") +
+                  "text" +
+                  "*" +
+                  text +
+                  " * " +
+                  "null" +
+                  " + "
+              );
+            }
           }
         },
         error: function (e) {
@@ -380,48 +402,50 @@ $rotic(document).ready(function () {
             $rotic("#rotic-text").focus();
           }
         } else {
-          $rotic(".rotic-chat-window").append(
-              appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
-          );
-          $rotic(".rotic-chat-window").scrollTop(10000000000000);
-          setTimeout(() => {
+          if (loaded === true) {
             $rotic(".rotic-chat-window").append(
-                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+                appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
             );
             $rotic(".rotic-chat-window").scrollTop(10000000000000);
-          }, 1000)
+            setTimeout(() => {
+              $rotic(".rotic-chat-window").append(
+                  appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+              );
+              $rotic(".rotic-chat-window").scrollTop(10000000000000);
+            }, 1000)
 
-          setTimeout(() => {
-            thirdParty.show();
-            thirdParty.open();
-            thirdParty.showInitMessage()
+            setTimeout(() => {
+              thirdParty.show();
+              thirdParty.open();
+              thirdParty.showInitMessage()
 
-            anime({
-              targets: ".rotic-chatbox",
-              translateY: {
-                value: +624,
-                easing: "easeInExpo",
-              },
-              opacity: {
-                value: 0,
-                easing: "easeInExpo",
-              },
-              duration: 1000,
-            });
-            checkShowed = false;
+              anime({
+                targets: ".rotic-chatbox",
+                translateY: {
+                  value: +624,
+                  easing: "easeInExpo",
+                },
+                opacity: {
+                  value: 0,
+                  easing: "easeInExpo",
+                },
+                duration: 1000,
+              });
+              checkShowed = false;
 
-          }, 5000)
+            }, 5000)
 
-          setCookie(
-              "__rotic-bot",
-              getCookie("__rotic-bot") +
-              "text" +
-              "*" +
-              text +
-              " * " +
-              "null" +
-              " + "
-          );
+            setCookie(
+                "__rotic-bot",
+                getCookie("__rotic-bot") +
+                "text" +
+                "*" +
+                text +
+                " * " +
+                "null" +
+                " + "
+            );
+          }
         }
       },
       error: function (e) {
