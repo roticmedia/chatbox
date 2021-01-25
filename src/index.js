@@ -19,12 +19,18 @@ class rotic {
             this.setting = {
                 driver: "goftino",
                 left: 32,
-                scroll: 500
+                scroll: 0
             };
         }
         this.userData = null;
+        this.isOpen = false;
     }
-
+    open() {
+        openChat()
+    }
+    close() {
+        closeChat()
+    }
     setUser(userName, phoneNumber, otherData) {
         this.userData = {
             userName,
@@ -32,7 +38,6 @@ class rotic {
             otherData
         }
     }
-
     setDriver(driver) {
         try {
             this.setting.driver = driver.toLowerCase();
@@ -44,8 +49,7 @@ class rotic {
             console.log(err)
         }
     }
-
-    changeLeft(amount) {
+    setLeft(amount) {
         try {
             this.setting.left = amount;
             setCookie("__rotic-setting", JSON.stringify({
@@ -59,7 +63,6 @@ class rotic {
             console.log(err)
         }
     }
-
     setScroll(scroll) {
         this.setting.scroll = scroll;
         setCookie("__rotic-setting", JSON.stringify({
@@ -80,7 +83,6 @@ $rotic(document).ready(function () {
     let loaded = false;
     let welcomeMessage = "welcomeMessage";
     let checkScrolled = false;
-    let checkShowed = false;
 
 
     $rotic("body").append(appendChatbox());
@@ -115,110 +117,17 @@ $rotic(document).ready(function () {
 
 
     $rotic("#rotic-btn-show").click(function () {
-        $rotic(".rotic-chat-window").scrollTop(10000000000000);
-        anime({
-            targets: "#rotic-btn-show",
-            translateY: {
-                delay: 0,
-                easing: "easeInExpo",
-                value: 250,
-                duration: 1000,
-            },
-            opacity: {
-                value: 0,
-                easing: "easeInExpo",
-                duration: 900,
-            },
-        });
-        if (checkShowed == false) {
-            $rotic(".rotic-chatbox").css({
-                visibility: "visible",
-            });
-            anime({
-                targets: ".rotic-chatbox",
-                translateY: {
-                    value: -624,
-                    easing: "easeOutExpo",
-                    delay: 1100,
-                },
-                opacity: {
-                    value: 1,
-                    easing: "easeOutExpo",
-                    delay: 1300,
-                },
-            });
-            checkShowed = true;
-        }
+        openChat()
     });
     $rotic(".rotic-close-text").click(function () {
-        anime({
-            targets: ".rotic-chatbox",
-            translateY: {
-                value: +624,
-                easing: "easeInExpo",
-            },
-            opacity: {
-                value: 0,
-                easing: "easeInExpo",
-            },
-            duration: 1000,
-        });
-        checkShowed = false;
-        anime({
-            targets: "#rotic-btn-show",
-            translateY: {
-                delay: 1100,
-                easing: "easeOutExpo",
-                value: 0,
-                duration: 1000,
-            },
-            opacity: {
-                value: 1,
-                easing: "easeOutExpo",
-                duration: 900,
-                delay: 1300,
-            },
-        });
+        closeChat()
     });
     $(window).scroll(function (event) {
         let scroll = $(window).scrollTop();
-        if (scroll > Rotic.setting.scroll) {
+        if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
             if (checkScrolled === false) {
                 checkScrolled = true;
-                $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                anime({
-                    targets: "#rotic-btn-show",
-                    translateY: {
-                        delay: 0,
-                        easing: "easeInExpo",
-                        value: 250,
-                        duration: 1000,
-                    },
-                    opacity: {
-                        value: 0,
-                        easing: "easeInExpo",
-                        duration: 900,
-                    },
-                });
-                if (checkShowed === false) {
-                    checkShowed = true;
-                    $rotic(".rotic-chatbox").css({
-                        visibility: "visible",
-                    });
-                    anime({
-                        targets: ".rotic-chatbox",
-                        translateY: {
-                            value: -624,
-                            easing: "easeOutExpo",
-                            delay: 1100,
-                        },
-                        opacity: {
-                            value: 1,
-                            easing: "easeOutExpo",
-                            delay: 1300,
-                        },
-                    });
-                }
+                openChat();
             }
         }
     });
@@ -357,7 +266,7 @@ $rotic(document).ready(function () {
                                     },
                                     duration: 1000,
                                 });
-                                checkShowed = false;
+                                Rotic.isOpen = false;
 
                             }, 5000)
 
@@ -489,7 +398,7 @@ $rotic(document).ready(function () {
                                 },
                                 duration: 1000,
                             });
-                            checkShowed = false;
+                            Rotic.isOpen = false;
 
                         }, 5000)
 
@@ -526,4 +435,72 @@ $rotic(document).ready(function () {
         });
     });
 });
+
+
+const openChat = () => {
+    $rotic(".rotic-chat-window").scrollTop(10000000000000);
+    anime({
+        targets: "#rotic-btn-show",
+        translateY: {
+            delay: 0,
+            easing: "easeInExpo",
+            value: 250,
+            duration: 1000,
+        },
+        opacity: {
+            value: 0,
+            easing: "easeInExpo",
+            duration: 900,
+        },
+    });
+    if (Rotic.isOpen === false) {
+        Rotic.isOpen = true;
+        $rotic(".rotic-chatbox").css({
+            visibility: "visible",
+        });
+        anime({
+            targets: ".rotic-chatbox",
+            translateY: {
+                value: -624,
+                easing: "easeOutExpo",
+                delay: 1100,
+            },
+            opacity: {
+                value: 1,
+                easing: "easeOutExpo",
+                delay: 1300,
+            },
+        });
+    }
+}
+const closeChat = () => {
+    anime({
+        targets: ".rotic-chatbox",
+        translateY: {
+            value: +624,
+            easing: "easeInExpo",
+        },
+        opacity: {
+            value: 0,
+            easing: "easeInExpo",
+        },
+        duration: 1000,
+    });
+    Rotic.isOpen = false;
+    anime({
+        targets: "#rotic-btn-show",
+        translateY: {
+            delay: 1100,
+            easing: "easeOutExpo",
+            value: 0,
+            duration: 1000,
+        },
+        opacity: {
+            value: 1,
+            easing: "easeOutExpo",
+            duration: 900,
+            delay: 1300,
+        },
+    });
+}
 
