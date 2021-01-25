@@ -1,6 +1,6 @@
-function appendSelf(text) {
+function appendSelf(text, id) {
     return `
-        <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0">
+        <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
                 <div class="rotic-flr">
                     <div class="rotic-messages">
@@ -12,7 +12,7 @@ function appendSelf(text) {
     `;
 }
 
-function appendRemoteNoBtn(text) {
+function appendRemoteNoBtn(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
             <div class="rotic-msg-box">
@@ -26,9 +26,9 @@ function appendRemoteNoBtn(text) {
     `;
 }
 
-function appendRemote(text) {
+function appendRemote(text, id) {
     return `
-        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
                 <div class="rotic-flr">
                     <div class="rotic-messages">
@@ -37,7 +37,7 @@ function appendRemote(text) {
                 </div>
             </div>
         </article>
-        <div class="rotic-feedback">
+        <div class="rotic-feedback" uuid=${id}> 
             <button type="button" class="btn btn-success btn-feedback-true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -138,6 +138,7 @@ function appendChatbox() {
                 height: 100% !important;
                 bottom: -624px !important;
                 right: 0;
+                border-radius: 0;
             }
         }
         @media only screen and (min-width: 768px) {
@@ -145,6 +146,7 @@ function appendChatbox() {
                 width: 300px !important;
                 height: 553px !important;
                 bottom: -600px !important;
+                border-radius: 5px;
             }
         }
         .rotic-chatbox {
@@ -257,7 +259,7 @@ function appendChatbox() {
           bottom: -624px !important;
         }
         .rotic-chat-window {
-          height: calc(100% - 115px) !important;
+          height: calc(100% - 110px) !important;
         }
       }
       @media only screen and (min-width: 768px) {
@@ -306,6 +308,7 @@ function appendChatbox() {
         height: calc(100% - 110px);
         background: #fff;
         overflow: auto;
+        overflow-x: hidden;
         padding-top: 47px;
         padding: 0 0 0 0;
         scrollbar-color: #5fc5c4;

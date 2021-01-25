@@ -22,6 +22,7 @@
     "jquery": "^3.5.1",
     "jquery-clickout": "^0.0.3",
     "showdown": "^1.9.1",
+    "uuid": "^8.3.2",
     "webpack": "^5.11.1"
   },
   "devDependencies": {

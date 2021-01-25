@@ -1,5 +1,6 @@
 const $ = require("jquery");
 const showdown = require("showdown")
+const { v4 } = require("uuid")
 
 var $rotic = $.noConflict();
 
@@ -135,27 +136,6 @@ $rotic(document).ready(function () {
     var chats = getCookie("__rotic-bot");
 
     if (chats !== "") {
-        chats.split("+").forEach(function (chat) {
-            var splitedChat = chat.split("*");
-            if (splitedChat[2] !== undefined) {
-                if (splitedChat[0] === "text") {
-                    if (splitedChat[1].trim() !== " ") {
-                        $rotic(".rotic-chat-window").append(
-                            appendSelf(converter.makeHtml(splitedChat[1]))
-                        );
-                    }
-                    if (splitedChat[2].trim() !== "null") {
-                        $rotic(".rotic-chat-window").append(
-                            appendRemote(converter.makeHtml(splitedChat[2]))
-                        );
-                    }
-                } else if (splitedChat[0] === "button") {
-                    $rotic(".rotic-chat-window").append(
-                        appendButton(splitedChat[1], splitedChat[2])
-                    );
-                }
-            }
-        });
     } else {
         if (welcomeMessage !== "") {
             $rotic(".rotic-chat-window").append(
@@ -167,7 +147,9 @@ $rotic(document).ready(function () {
 
     $rotic("#rotic-btn").click(function () {
         if ($rotic("#rotic-text").val().trim()) {
-            $rotic(".rotic-chat-window").append(appendSelf($rotic("#rotic-text").val()));
+            const uuid = v4()
+            $rotic(".rotic-chat-window").append(appendSelf($rotic("#rotic-text").val(), uuid));
+            selfMessage(uuid)
             var text = $rotic("#rotic-text").val().trim();
             $rotic("#rotic-text").val("");
             $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -189,7 +171,7 @@ $rotic(document).ready(function () {
                     if (res.status && res.response != null) {
                         if (res.options.buttons !== null) {
                             $rotic(".rotic-chat-window").append(
-                                appendRemote(converter.makeHtml(res.response))
+                                appendRemote(converter.makeHtml(res.response), uuid)
                             );
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             setCookie(
@@ -221,7 +203,7 @@ $rotic(document).ready(function () {
                             });
                         } else {
                             $rotic(".rotic-chat-window").append(
-                                appendRemote(converter.makeHtml(res.response))
+                                appendRemote(converter.makeHtml(res.response), uuid)
                             );
                             setCookie(
                                 "__rotic-bot",
@@ -304,8 +286,9 @@ $rotic(document).ready(function () {
         }
     });
     $rotic(document).on("click", ".rotic-response-button", function (e) {
+        const uuid = v4()
         const text = $rotic(e.target).text();
-        $rotic(".rotic-chat-window").append(appendSelf($rotic(e.target).text()));
+        $rotic(".rotic-chat-window").append(appendSelf($rotic(e.target).text(), uuid));
         $rotic(".rotic-chat-window").scrollTop(10000000000000);
         $rotic.ajax({
             method: "POST",
@@ -324,7 +307,7 @@ $rotic(document).ready(function () {
             success: function (res) {
                 if (res.status && res.response != null) {
                     if (res.options.buttons) {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response));
+                        $rotic(".rotic-chat-window").append(appendRemote(res.response), uuid);
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setCookie(
                             "__rotic-bot",
@@ -354,7 +337,7 @@ $rotic(document).ready(function () {
                             );
                         });
                     } else {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response));
+                        $rotic(".rotic-chat-window").append(appendRemote(res.response), uuid);
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setCookie(
                             "__rotic-bot",
@@ -502,5 +485,17 @@ const closeChat = () => {
             delay: 1300,
         },
     });
+}
+const selfMessage = (uuid) => {
+    let el = document.querySelector(`[uuid="${uuid}"]`)
+    console.log(el)
+    anime({
+        targets: el,
+        translateX: {
+            value: -16,
+            duration: 1000,
+            easing: "easeOutExpo",
+        }
+    })
 }
 
