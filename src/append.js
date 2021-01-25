@@ -12,6 +12,20 @@ function appendSelf(text) {
     `;
 }
 
+function appendRemoteNoBtn(text) {
+    return `
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+            <div class="rotic-msg-box">
+                <div class="rotic-flr">
+                    <div class="rotic-messages">
+                        <p>${text}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
 function appendRemote(text) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
@@ -478,5 +492,6 @@ module.exports ={
     appendButton,
     appendChatbox,
     appendRemote,
-    appendSelf
+    appendSelf,
+    appendRemoteNoBtn
 }

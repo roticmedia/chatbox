@@ -4,7 +4,7 @@ const showdown = require("showdown")
 var $rotic = $.noConflict();
 
 const helper = require("./helper")
-const {appendRemote, appendSelf, appendChatbox, appendButton} = require("./append");
+const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn} = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
 
@@ -159,7 +159,7 @@ $rotic(document).ready(function () {
     } else {
         if (welcomeMessage !== "") {
             $rotic(".rotic-chat-window").append(
-                appendRemote(converter.makeHtml(welcomeMessage))
+                appendRemoteNoBtn(converter.makeHtml(welcomeMessage))
             );
         }
     }
