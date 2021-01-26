@@ -138,12 +138,12 @@ $rotic(document).ready(function () {
 
     if (chats !== "") {
     } else {
-        if (welcomeMessage !== "") {
-            let uuid = v4();
-            $rotic(".rotic-chat-window").append(
-                appendRemoteNoBtn(converter.makeHtml(welcomeMessage), uuid)
-            );
-        }
+        // if (welcomeMessage !== "") {
+        //     let uuid = v4();
+        //     $rotic(".rotic-chat-window").append(
+        //         appendRemoteNoBtn(converter.makeHtml(welcomeMessage), uuid)
+        //     );
+        // }
     }
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
 
@@ -242,7 +242,8 @@ $rotic(document).ready(function () {
                                 thirdParty.show();
                                 thirdParty.open();
                                 thirdParty.showInitMessage()
-                                closeChat()
+                                closeForever()
+
                                 Rotic.isOpen = false;
 
                             }, 5000)
@@ -364,28 +365,12 @@ $rotic(document).ready(function () {
                             remoteMessage(uuid)
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         }, 1000)
-
                         setTimeout(() => {
                             thirdParty.show();
                             thirdParty.open();
                             thirdParty.showInitMessage()
-
-                            anime({
-                                targets: ".rotic-chatbox",
-                                translateY: {
-                                    value: +624,
-                                    easing: "easeInExpo",
-                                },
-                                opacity: {
-                                    value: 0,
-                                    easing: "easeInExpo",
-                                },
-                                duration: 1000,
-                            });
-                            Rotic.isOpen = false;
-
+                            closeForever()
                         }, 5000)
-
                         setCookie(
                             "__rotic-bot",
                             getCookie("__rotic-bot") +
@@ -486,6 +471,22 @@ const closeChat = () => {
             delay: 1300,
         },
     });
+}
+
+const closeForever = () => {
+    anime({
+        targets: ".rotic-chatbox",
+        translateY: {
+            value: +624,
+            easing: "easeInExpo",
+        },
+        opacity: {
+            value: 0,
+            easing: "easeInExpo",
+        },
+        duration: 1000,
+    });
+    Rotic.isOpen = false;
 }
 const selfMessage = (uuid) => {
     let el = document.querySelectorAll(`[uuid="${uuid}"]`)
