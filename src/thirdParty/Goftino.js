@@ -31,6 +31,7 @@ const show = () => {
 const open = () => {
     try {
         let script = document.createElement("script");
+        script.id = "rotic-goftino-hotfix"
         script.innerHTML = `
             Goftino.open(); 
         `
@@ -42,6 +43,7 @@ const showInitMessage = () => {
     try {
         setTimeout(() => {
             let script = document.createElement("script");
+            script.id = "rotic-goftino-message"
             script.innerHTML = `
             Goftino.sendMessage({
                 text: "شما از چت بات هوشمند روتیک به اینجا منتقل شدید"
@@ -51,6 +53,7 @@ const showInitMessage = () => {
 
             setTimeout(() => {
                 let script1 = document.createElement("script");
+                script1.id = "rotic-goftino-message1"
                 script1.innerHTML = `
                     Goftino.sendMessage({
                         text: "در خواست شما چیست"
