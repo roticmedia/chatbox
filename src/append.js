@@ -14,7 +14,7 @@ function appendSelf(text, id) {
 
 function appendRemoteNoBtn(text, id) {
     return `
-        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
                 <div class="rotic-flr">
                     <div class="rotic-messages">
@@ -373,8 +373,9 @@ function appendChatbox() {
         display: flex;
         background: #5b5e6c;
         color: white;
+        opacity: 0.2;
         padding: 0px 24px 0 24px;
-        margin-left: 16px;
+        margin-left: 0px;
         border-radius: 0px 6px 6px 6px;
         max-width: 253px !important;
         width: auto;
@@ -413,6 +414,8 @@ function appendChatbox() {
       }
       .rotic-messages {
         flex: 1 0 auto;
+        direction: rtl;
+        text-align: justify;
       }
       .rotic-msg {
         width: auto;
@@ -437,7 +440,8 @@ function appendChatbox() {
       }
       .rotic-msg-self .rotic-msg-box {
         border-radius: 6px 0px 6px 6px;
-        margin-right: 16px;
+        margin-right: 0;
+        opacity: 0.2;
         background-image: linear-gradient(to bottom, #5ec5c4, #4cc6eb);
         color: white !important;
         float: right;
@@ -481,12 +485,14 @@ function appendChatbox() {
         font-size: 10px;
       }
       .btn-feedback-false {
-        margin-left: 16px;
+        margin-left: 0px;
         font-size: 10px;
+        opacity: 0.2;
       }
       .btn-feedback-true {
         font-size: 10px;
         margin-left: 9px;
+        opacity: 0.2;
       }
     </style>`;
 }
