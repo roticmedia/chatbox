@@ -27,6 +27,7 @@ const show = () => {
 const open = () => {
     try {
         let script = document.createElement("script");
+        script.id = "rotic-raycaht-open"
         script.innerHTML = `
             window.Raychat.open(); 
         `
@@ -39,6 +40,7 @@ const showInitMessage = () => {
     try {
         setTimeout(() => {
             let script = document.createElement("script");
+            script.id = "rotic-raycaht-message"
             script.innerHTML = `
             window.Raychat.sendOfflineMessage("شما از چت بات هوشمند روتیک به اینجا منتقل شدید"); 
         `
@@ -46,6 +48,7 @@ const showInitMessage = () => {
 
             setTimeout(() => {
                 let script1 = document.createElement("script");
+                script1.id = "rotic-raycaht-message1"
                 script1.innerHTML = `
                     window.Raychat.sendOfflineMessage("در خواست شما چیست"); 
                 `

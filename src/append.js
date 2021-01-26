@@ -43,7 +43,7 @@ function appendRemote(text, id) {
 function appendButton(text, link) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
-            <button text="${text}" link="${link}"  class="btn btn-info rotic-response-button">
+            <button text="${text}" link="${link}"  class="rotic-response-button">
             ${text}
             </button>
         </article>
@@ -52,28 +52,7 @@ function appendButton(text, link) {
 
 function appendChatbox() {
     return `<div class="rotic-chatbox"> 
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-            crossorigin="anonymous"
-    />
-    <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-            crossorigin="anonymous"
-    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
-            integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw=="
-            crossorigin="anonymous"
-    ></script>
     <div class="rotic-close-box">
         <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"> <p class="rotic-image-logo__p">powered by </p>
         <div class="rotic-close-text">
@@ -466,6 +445,22 @@ function appendChatbox() {
         word-break: break-word;
         font-size: 10pt;
         line-height: 1.5;
+        background: gray;
+        color: white;
+        padding: 2px;
+        border-radius: 5px;
+        min-width: 100px;
+        min-height: 40px;
+        box-shadow: 0 5px 10px lightgrey;
+        cursor: pointer;
+        border: solid 0 white;
+      }
+      .rotic-response-button:hover {
+        background: darkgray;
+        transition: background 200ms ease-in;
+      }
+      .rotic-response-button {
+        transition: all 200ms ease-out;
       }
       .rotic-feedback {
         padding: 0;

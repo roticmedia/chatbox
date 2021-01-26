@@ -87,6 +87,7 @@ $rotic(document).ready(function () {
 
 
     $rotic("body").append(appendChatbox());
+    $rotic(".rotic-chat-window").append(appendButton("سلام و درود","سلام و درود"))
 
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
     window.dispatchEvent(startEvent);
@@ -304,7 +305,8 @@ $rotic(document).ready(function () {
             success: function (res) {
                 if (res.status && res.response != null) {
                     if (res.options.buttons) {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response), uuid);
+                        $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
+                        remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setCookie(
                             "__rotic-bot",
@@ -334,7 +336,8 @@ $rotic(document).ready(function () {
                             );
                         });
                     } else {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response), uuid);
+                        $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
+                        remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setCookie(
                             "__rotic-bot",
