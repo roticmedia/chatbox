@@ -1,5 +1,6 @@
 const Goftino = require("./Goftino")
 const Raychat = require("./Raychat")
+const Crisp = require("./Crisp")
 
 const handleThirdParty = (driver) => {
     try {
@@ -7,6 +8,8 @@ const handleThirdParty = (driver) => {
             return Goftino;
         } else if (driver === "raychat") {
             return Raychat;
+        } else if (driver === "crisp") {
+            return Crisp;
         } else {
             return {
                 hide: () => {
@@ -18,9 +21,12 @@ const handleThirdParty = (driver) => {
                     style.innerHTML += "#raychatBtn { display: none !important; }"
                     document.body.appendChild(style)
                 },
-                show: () => {},
-                open: () => {},
-                showInitMessage: () => {}
+                show: () => {
+                },
+                open: () => {
+                },
+                showInitMessage: () => {
+                }
             }
         }
     } catch (err) {

@@ -37,6 +37,7 @@ function appendRemote(text, id) {
                 </div>
             </div>
         </article>
+        <div uuid=${id} class="rotic-feedback">پاسخمو گرفتم</div>
     `;
 }
 
@@ -288,7 +289,7 @@ function appendChatbox() {
         flex: 0 0 auto;
         height: 60px;
         background: #fff;
-        border-top: 1px solid #5bc5cb;
+        border-top: 2px solid #5bc5cb;
         margin-bottom: 0;
       }
       .rotic-chat-input input {
@@ -464,18 +465,15 @@ function appendChatbox() {
       }
       .rotic-feedback {
         padding: 0;
-        margin-bottom: 10px;
+        font-size: 6px;
+        font-weight: lighter;
+        color: gray;
+        direction: ltr;
+        margin: 0 0 10px 16px;
         font-size: 10px;
       }
-      .btn-feedback-false {
-        margin-left: 0px;
-        font-size: 10px;
-        opacity: 0.2;
-      }
-      .btn-feedback-true {
-        font-size: 10px;
-        margin-left: 9px;
-        opacity: 0.2;
+      .rotic-feedback:hover {
+        cursor: pointer;
       }
     </style>`;
 }

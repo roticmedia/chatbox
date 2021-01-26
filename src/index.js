@@ -32,10 +32,10 @@ class rotic {
     close() {
         closeChat()
     }
-    setUser(userName, phoneNumber, otherData) {
+    setUser(userName, name, otherData) {
         this.userData = {
-            userName,
-            phoneNumber,
+            username,
+            name,
             otherData
         }
     }
@@ -76,23 +76,23 @@ class rotic {
 let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-
+Rotic.setDriver("crisp");
 const startEvent = new Event("rotic-start")
 
 
 $rotic(document).ready(function () {
-    let loaded = false;
-    let welcomeMessage = "welcomeMessage";
+    let loaded = true;
+    let welcomeMessage = "{{welcomeMessage}}";
     let checkScrolled = false;
 
 
     $rotic("body").append(appendChatbox());
-    $rotic(".rotic-chat-window").append(appendButton("سلام و درود","سلام و درود"))
 
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
     window.dispatchEvent(startEvent);
 
     if (getCookie("__rotic-driver") !== "true") {
+        alert(1)
         thirdParty.hide();
     }
 
@@ -143,7 +143,6 @@ $rotic(document).ready(function () {
             $rotic(".rotic-chat-window").append(
                 appendRemoteNoBtn(converter.makeHtml(welcomeMessage), uuid)
             );
-            remoteMessage(uuid)
         }
     }
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -168,7 +167,7 @@ $rotic(document).ready(function () {
                 data: JSON.stringify({
                     data: text.trim(),
                     api: "6a105d7f17b029f067615f47b6e6b43211",
-                    other: this.userData
+                    user_data: this.userData
                 }),
                 success: function (res) {
                     if (res.status && res.response != null) {
@@ -300,7 +299,7 @@ $rotic(document).ready(function () {
             data: JSON.stringify({
                 data: text.trim(),
                 api: "6a105d7f17b029f067615f47b6e6b43211",
-                other: this.userData
+                user_data: this.userData
             }),
             success: function (res) {
                 if (res.status && res.response != null) {
@@ -354,13 +353,15 @@ $rotic(document).ready(function () {
                 } else {
                     if (loaded === true) {
                         $rotic(".rotic-chat-window").append(
-                            appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"))
+                            appendRemote(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
                         );
+                        remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setTimeout(() => {
                             $rotic(".rotic-chat-window").append(
-                                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"))
+                                appendRemote(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"), uuid)
                             );
+                            remoteMessage(uuid)
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         }, 1000)
 
@@ -519,5 +520,20 @@ const remoteMessage = (uuid) => {
             easing: "easeOutExpo"
         }
     })
+    if (el[2]) {
+        anime({
+            targets: el[3].querySelector(".rotic-msg-remote .rotic-msg-box"),
+            translateX: {
+                value: 16,
+                duration: 500,
+                easing: "easeOutExpo",
+            },
+            opacity: {
+                value: 1,
+                duration: 500,
+                easing: "easeOutExpo"
+            }
+        })
+    }
 }
 
