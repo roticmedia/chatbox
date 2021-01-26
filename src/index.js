@@ -176,7 +176,6 @@ $rotic(document).ready(function () {
                                 appendRemote(converter.makeHtml(res.response), uuid)
                             );
                             remoteMessage(uuid)
-                            feedbackMessage(uuid)
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             setCookie(
                                 "__rotic-bot",
@@ -210,7 +209,6 @@ $rotic(document).ready(function () {
                                 appendRemote(converter.makeHtml(res.response), uuid)
                             );
                             remoteMessage(uuid)
-                            feedbackMessage(uuid)
                             setCookie(
                                 "__rotic-bot",
                                 getCookie("__rotic-bot") +
@@ -507,23 +505,6 @@ const remoteMessage = (uuid) => {
     let el = document.querySelectorAll(`[uuid="${uuid}"]`)
     anime({
         targets: el[1].querySelector(".rotic-msg-remote .rotic-msg-box"),
-        translateX: {
-            value: 16,
-            duration: 500,
-            easing: "easeOutExpo",
-        },
-        opacity: {
-            value: 1,
-            duration: 500,
-            easing: "easeOutExpo"
-        }
-    })
-}
-
-const feedbackMessage = (uuid) => {
-    let el = document.querySelectorAll(`[uuid="${uuid}"]`)
-    anime({
-        targets: el[2].querySelectorAll("button"),
         translateX: {
             value: 16,
             duration: 500,
