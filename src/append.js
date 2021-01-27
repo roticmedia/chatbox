@@ -260,13 +260,7 @@ function appendChatbox() {
         padding: 0;
         font-family: IranSans;
       }
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #5fc5c4;
-        border-radius: 2px;
-      }
+ 
       .rotic-container {
         position: fixed;
         top: 0;
@@ -294,6 +288,15 @@ function appendChatbox() {
         padding: 0 0 0 0;
         scrollbar-color: #5fc5c4;
         scrollbar-width: 4px;
+        
+        
+      }
+      .rotic-chat-window::-webkit-scrollbar {
+          width: 4px;
+      }
+      .rotic-chat-window::-webkit-scrollbar-thumb {
+          background-color: #5fc5c4;
+          border-radius: 2px;
       }
       .rotic-chat-input {
         width: 100%;
