@@ -2,6 +2,8 @@ const Goftino = require("./Goftino")
 const Raychat = require("./Raychat")
 const Crisp = require("./Crisp")
 const Retain = require("./Retain")
+const Intercome = require("./Intercome")
+const SmartSupp = require("./SmartSupp")
 
 const handleThirdParty = (driver) => {
     try {
@@ -13,23 +15,16 @@ const handleThirdParty = (driver) => {
             return Crisp;
         } else if (driver === "retain") {
             return Retain;
+        } else if (driver === "intercome") {
+            return Intercome;
+        } else if (driver === "smartsupp") {
+            return SmartSupp;
         } else {
             return {
-                hide: () => {
-                    let style = document.createElement("style");
-                    style.type = "text/css"
-                    style.id = "rotic-hotfix"
-                    style.appendChild(document.createTextNode(""));
-                    style.innerHTML = "#goftino_w { display: none !important; }"
-                    style.innerHTML += "#raychatBtn { display: none !important; }"
-                    document.body.appendChild(style)
-                },
-                show: () => {
-                },
-                open: () => {
-                },
-                showInitMessage: () => {
-                }
+                hide: () => {},
+                show: () => {},
+                open: () => {},
+                showInitMessage: () => {}
             }
         }
     } catch (err) {

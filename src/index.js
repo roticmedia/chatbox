@@ -77,7 +77,7 @@ class rotic {
 let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-Rotic.setDriver("{{driver}}");
+Rotic.setDriver("smartsupp");
 const startEvent = new Event("rotic-start")
 
 
