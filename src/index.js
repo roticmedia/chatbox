@@ -77,7 +77,7 @@ class rotic {
 let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-Rotic.setDriver("crisp");
+Rotic.setDriver("{{driver}}");
 const startEvent = new Event("rotic-start")
 
 

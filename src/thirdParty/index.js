@@ -1,6 +1,7 @@
 const Goftino = require("./Goftino")
 const Raychat = require("./Raychat")
 const Crisp = require("./Crisp")
+const Retain = require("./Retain")
 
 const handleThirdParty = (driver) => {
     try {
@@ -10,6 +11,8 @@ const handleThirdParty = (driver) => {
             return Raychat;
         } else if (driver === "crisp") {
             return Crisp;
+        } else if (driver === "retain") {
+            return Retain;
         } else {
             return {
                 hide: () => {
