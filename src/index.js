@@ -85,7 +85,7 @@ $rotic(document).ready(function () {
     let loaded = true;
     let welcomeMessage = "{{welcomeMessage}}";
     let checkScrolled = false;
-    var chats = getCookie("__rotic-bot");
+    let chats = getCookie("__rotic-bot");
     let uniqueToken = getCookie("__utok");
 
 
@@ -96,6 +96,8 @@ $rotic(document).ready(function () {
 
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
+    } else {
+        $rotic("#rotic-btn-show").css("display", "none")
     }
 
     window.addEventListener("goftino_ready", () => {
@@ -462,7 +464,7 @@ const remoteMessage = (uuid) => {
     })
     if (el[2]) {
         anime({
-            targets: el[3].querySelector(".rotic-msg-remote .rotic-msg-box"),
+            targets: el[2].querySelector(".rotic-msg-remote .rotic-msg-box"),
             translateX: {
                 value: 16,
                 duration: 500,
