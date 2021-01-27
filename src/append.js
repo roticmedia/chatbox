@@ -497,7 +497,7 @@ function appendChatbox() {
         font-weight: lighter;
         color: gray;
         direction: ltr;
-        margin: 0 0 10px 16px;
+        margin: 0 0 10px 24px;
         font-size: 10px;
       }
       .rotic-resolve:hover {

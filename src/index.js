@@ -139,13 +139,15 @@ $rotic(document).ready(function () {
     });
 
     if (chats !== "") {
-    } else {
-        if (welcomeMessage !== "") {
-            $rotic(".rotic-chat-window").append(
-                appendRemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
-            );
-        }
     }
+
+
+    if (welcomeMessage !== "") {
+        $rotic(".rotic-chat-window").append(
+            appendRemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
+        );
+    }
+
 
     $rotic("#rotic-btn").click(function () {
         if ($rotic("#rotic-text").val().trim()) {
