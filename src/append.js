@@ -25,6 +25,19 @@ function appendRemoteNoBtn(text, id) {
         </article>
     `;
 }
+function appendRemoteNoBtnNoAnimation(text) {
+    return `
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+            <div class="rotic-msg-box-noAnimation">
+                <div class="rotic-flr">
+                    <div class="rotic-messages">
+                        <p>${text}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    `;
+}
 
 function appendRemote(text, id) {
     return `
@@ -37,7 +50,7 @@ function appendRemote(text, id) {
                 </div>
             </div>
         </article>
-        <div uuid=${id} class="rotic-feedback">پاسخمو گرفتم</div>
+        <div uuid=${id} class="rotic-resolve">پاسخمو گرفتم</div>
     `;
 }
 
@@ -350,6 +363,21 @@ function appendChatbox() {
         float: left;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
       }
+      .rotic-msg-box-noAnimation {
+        word-break: break-word;
+        line-height: 1.5;
+        display: flex;
+        background: #5b5e6c;
+        color: white;
+        opacity: 1;
+        padding: 0px 24px 0 24px;
+        margin-left: 16px;
+        border-radius: 0px 6px 6px 6px;
+        max-width: 253px !important;
+        width: auto;
+        float: left;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+      }
       .rotic-user-img {
         display: inline-block;
         border-radius: 50%;
@@ -463,7 +491,7 @@ function appendChatbox() {
       .rotic-response-button {
         transition: all 200ms ease-out;
       }
-      .rotic-feedback {
+      .rotic-resolve {
         padding: 0;
         font-size: 6px;
         font-weight: lighter;
@@ -472,7 +500,7 @@ function appendChatbox() {
         margin: 0 0 10px 16px;
         font-size: 10px;
       }
-      .rotic-feedback:hover {
+      .rotic-resolve:hover {
         cursor: pointer;
       }
     </style>`;
@@ -483,5 +511,6 @@ module.exports ={
     appendChatbox,
     appendRemote,
     appendSelf,
-    appendRemoteNoBtn
+    appendRemoteNoBtn,
+    appendRemoteNoBtnNoAnimation
 }

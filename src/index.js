@@ -5,9 +5,10 @@ const { v4 } = require("uuid")
 var $rotic = $.noConflict();
 
 const helper = require("./helper")
-const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn} = require("./append");
+const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn, appendRemoteNoBtnNoAnimation} = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
+const resolve = require("./request/resolve")
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -32,7 +33,7 @@ class rotic {
     close() {
         closeChat()
     }
-    setUser(userName, name, otherData) {
+    setUser(username, name, otherData) {
         this.userData = {
             username,
             name,
@@ -84,6 +85,8 @@ $rotic(document).ready(function () {
     let loaded = true;
     let welcomeMessage = "{{welcomeMessage}}";
     let checkScrolled = false;
+    var chats = getCookie("__rotic-bot");
+    let uniqueToken = getCookie("__utok");
 
 
     $rotic("body").append(appendChatbox());
@@ -92,7 +95,6 @@ $rotic(document).ready(function () {
     window.dispatchEvent(startEvent);
 
     if (getCookie("__rotic-driver") !== "true") {
-        alert(1)
         thirdParty.hide();
     }
 
@@ -134,18 +136,14 @@ $rotic(document).ready(function () {
         }
     });
 
-    var chats = getCookie("__rotic-bot");
-
     if (chats !== "") {
     } else {
-        // if (welcomeMessage !== "") {
-        //     let uuid = v4();
-        //     $rotic(".rotic-chat-window").append(
-        //         appendRemoteNoBtn(converter.makeHtml(welcomeMessage), uuid)
-        //     );
-        // }
+        if (welcomeMessage !== "") {
+            $rotic(".rotic-chat-window").append(
+                appendRemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
+            );
+        }
     }
-    $rotic(".rotic-chat-window").scrollTop(10000000000000);
 
     $rotic("#rotic-btn").click(function () {
         if ($rotic("#rotic-text").val().trim()) {
@@ -403,6 +401,9 @@ $rotic(document).ready(function () {
             },
         });
     });
+    $rotic(document).on("click", ".rotic-resolve", (e) => {
+        resolve(uniqueToken);
+    })
 });
 
 
@@ -472,7 +473,6 @@ const closeChat = () => {
         },
     });
 }
-
 const closeForever = () => {
     anime({
         targets: ".rotic-chatbox",
@@ -505,7 +505,6 @@ const selfMessage = (uuid) => {
     })
 
 }
-
 const remoteMessage = (uuid) => {
     let el = document.querySelectorAll(`[uuid="${uuid}"]`)
     anime({
