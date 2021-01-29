@@ -78,7 +78,7 @@ class rotic {
 let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-Rotic.setDriver("smartsupp");
+Rotic.setDriver("");
 const startEvent = new Event("rotic-start")
 
 
@@ -97,7 +97,7 @@ $rotic(document).ready(function () {
 
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
-    } else {
+    } else if (Rotic.setting.driver !== ""){
         $rotic("#rotic-btn-show").css("display", "none")
     }
 
