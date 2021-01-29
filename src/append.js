@@ -66,7 +66,6 @@ function appendButton(text, link) {
 
 function appendChatbox() {
     return `<div class="rotic-chatbox"> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous"></script>
     <div class="rotic-close-box">
         <img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"> <p class="rotic-image-logo__p">powered by </p>
         <div class="rotic-close-text">
@@ -101,17 +100,7 @@ function appendChatbox() {
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
 </div>
 <style>
-        @font-face {
-            font-family: 'IranSans';
-            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
-            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
-            font-weight: normal;
-            font-style: normal;
-        }
+        @font-face {font-family: "IranSans"; src: url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.eot"); src: url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.woff") format("woff"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.svg#IRAN Sans") format("svg"); }
 
         @media only screen and (max-width: 768px) {
             .rotic-chatbox {

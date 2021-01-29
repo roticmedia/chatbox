@@ -1,6 +1,7 @@
 const $ = require("jquery");
 const showdown = require("showdown")
 const { v4 } = require("uuid")
+const anime = require("./util/anime")
 
 var $rotic = $.noConflict();
 
