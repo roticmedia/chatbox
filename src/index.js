@@ -98,6 +98,7 @@ $rotic(document).ready(function () {
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
     } else if (Rotic.setting.driver !== ""){
+        setCookie("__rotic-driver", "false")
         $rotic("#rotic-btn-show").css("display", "none")
     }
 
@@ -482,6 +483,9 @@ const remoteMessage = (uuid) => {
     }
 }
 const handleNull = (text, uuid) => {
+    if (Rotic.setting.driver === "") {
+        return;
+    }
     $rotic(".rotic-chat-window").append(
         appendRemoteNoBtn(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
     );
