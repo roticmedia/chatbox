@@ -12,7 +12,7 @@ module.exports = (uniqueToken) => {
         crossDomain: true,
         data: JSON.stringify({
             uniqueToken,
-            messages: get("__rotic-bot")
+            messages: get()
         }),
     })
 }
