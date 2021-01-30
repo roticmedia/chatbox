@@ -518,6 +518,9 @@ function appendChatbox() {
         box-shadow: 0px 0px 50px 9px rgba(0,0,0,0.48);
         z-index:  9999998;
       }
+      .rotic-chatbox-toast:hover {
+        cursor: pointer;
+      }
     </style>`;
 }
 

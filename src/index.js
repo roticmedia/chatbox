@@ -417,13 +417,8 @@ const toastStartAnimation = () => {
         targets: document.querySelector(".rotic-chatbox-toast"),
         opacity: {
             value: 1,
-            duration: 500,
+            duration: 400,
             easing: "easeOutExpo"
-        },
-        translateX: {
-            value: 40,
-            duration: 500,
-            easing: "easeOutExpo",
         },
     })
 }
@@ -432,13 +427,8 @@ const toastEndAnimation = () => {
         targets: document.querySelector(".rotic-chatbox-toast"),
         opacity: {
             value: 0,
-            duration: 1000,
+            duration: 400,
             easing: "easeOutExpo"
-        },
-        translateY: {
-            value: 100,
-            duration: 2000,
-            easing: "easeOutExpo",
         },
         complete: () => {
             $rotic(".rotic-chatbox-toast").css("display", "none")
@@ -477,8 +467,11 @@ const handleNull = (text, uuid) => {
 const toast = (message) => {
     if (Rotic.isOpen === false) {
         toasted = true;
-        $rotic("body").append(appendToast(message, 0, 100));
+        $rotic("body").append(appendToast(message, Rotic.setting.left, 100));
         toastStartAnimation();
     }
+    $rotic(".rotic-chatbox-toast").click(() => {
+        toastEndAnimation()
+    })
 }
 
