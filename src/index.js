@@ -10,6 +10,7 @@ const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn,
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
 const resolve = require("./request/resolve")
+const storage = require("./util/localStorage")
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -88,7 +89,6 @@ $rotic(document).ready(function () {
     let checkScrolled = false;
     let chats = getCookie("__rotic-bot");
     let uniqueToken = getCookie("__utok");
-
 
     $rotic("body").append(appendChatbox());
 
@@ -181,48 +181,20 @@ $rotic(document).ready(function () {
                             );
                             remoteMessage(uuid)
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                            setCookie(
-                                "__rotic-bot",
-                                getCookie("__rotic-bot") +
-                                "text" +
-                                "*" +
-                                text +
-                                "*" +
-                                res.response +
-                                "+"
-                            );
+                            storage.set(text, res.response, res.options.buttons)
                             $rotic("#rotic-text").focus();
                             JSON.parse(res.options.buttons).forEach(function (chat) {
                                 $rotic(".rotic-chat-window").append(
                                     appendButton(Object.keys(chat)[0])
                                 );
                                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                                setCookie(
-                                    "__rotic-bot",
-                                    getCookie("__rotic-bot") +
-                                    "button" +
-                                    "*" +
-                                    Object.keys(chat)[0] +
-                                    "*" +
-                                    Object.values(chat)[0] +
-                                    " + "
-                                );
                             });
                         } else {
                             $rotic(".rotic-chat-window").append(
                                 appendRemote(converter.makeHtml(res.response), uuid)
                             );
                             remoteMessage(uuid)
-                            setCookie(
-                                "__rotic-bot",
-                                getCookie("__rotic-bot") +
-                                "text" +
-                                "*" +
-                                text +
-                                " * " +
-                                res.response +
-                                " + "
-                            );
+                            storage.set(text, res.response)
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             $rotic("#rotic-text").focus();
                         }
@@ -238,16 +210,6 @@ $rotic(document).ready(function () {
                     );
                     remoteMessage(uuid)
                     $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                    setCookie(
-                        "__rotic-bot",
-                        getCookie("__rotic-bot") +
-                        "text" +
-                        "*" +
-                        text +
-                        " * " +
-                        decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
-                        " + "
-                    );
                     $rotic("#rotic-text").focus();
                 },
             });
@@ -279,47 +241,19 @@ $rotic(document).ready(function () {
                         $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
                         remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                        setCookie(
-                            "__rotic-bot",
-                            getCookie("__rotic-bot") +
-                            "text" +
-                            "*" +
-                            text +
-                            "*" +
-                            res.response +
-                            "+"
-                        );
+                        storage.set(text, res.response, res.options.buttons)
                         $rotic("#rotic-text").focus();
                         JSON.parse(res.options.buttons).forEach(function (chat) {
                             $rotic(".rotic-chat-window").append(
                                 appendButton(Object.keys(chat)[0])
                             );
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                            setCookie(
-                                "__rotic-bot",
-                                getCookie("__rotic-bot") +
-                                "button" +
-                                "*" +
-                                Object.keys(chat)[0] +
-                                "*" +
-                                Object.values(chat)[0] +
-                                "+"
-                            );
                         });
                     } else {
                         $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
                         remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                        setCookie(
-                            "__rotic-bot",
-                            getCookie("__rotic-bot") +
-                            "text" +
-                            "*" +
-                            text +
-                            "*" +
-                            res.response +
-                            "+"
-                        );
+                        storage.set(text, res.response)
                         $rotic("#rotic-text").focus();
                     }
                 } else {
@@ -333,16 +267,6 @@ $rotic(document).ready(function () {
                     appendRemote("مشکلی در اتصال اینترنت وجود دارد")
                 );
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                setCookie(
-                    "__rotic-bot",
-                    getCookie("__rotic-bot") +
-                    "text" +
-                    "*" +
-                    text +
-                    " * " +
-                    decodeURIComponent(" مشکلی در اتصال اینترنت وجود دارد ") +
-                    " + "
-                );
                 $rotic("#rotic-text").focus();
             },
         });
@@ -486,6 +410,7 @@ const handleNull = (text, uuid) => {
     if (Rotic.setting.driver === "") {
         return;
     }
+    resolve(getCookie("__utok"));
     $rotic(".rotic-chat-window").append(
         appendRemoteNoBtn(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
     );
@@ -508,16 +433,5 @@ const handleNull = (text, uuid) => {
         Rotic.isOpen = false;
 
     }, 5000)
-
-    setCookie(
-        "__rotic-bot",
-        getCookie("__rotic-bot") +
-        "text" +
-        "*" +
-        text +
-        " * " +
-        "null" +
-        " + "
-    );
 }
 

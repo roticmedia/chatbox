@@ -1,4 +1,5 @@
 const $ = require("jquery")
+const { get } = require("../util/localStorage")
 
 module.exports = (uniqueToken) => {
     $.ajax({
@@ -9,9 +10,9 @@ module.exports = (uniqueToken) => {
         },
         dataType: "json",
         crossDomain: true,
-        data: uniqueToken,
-        success: (res) => {
-
-        }
+        data: JSON.stringify({
+            uniqueToken,
+            messages: get("__rotic-bot")
+        }),
     })
 }
