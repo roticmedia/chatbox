@@ -6,7 +6,7 @@ const anime = require("./util/anime")
 var $rotic = $.noConflict();
 
 const helper = require("./helper")
-const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn, appendRemoteNoBtnNoAnimation} = require("./append");
+const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn, appendRemoteNoBtnNoAnimation, appendToast} = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
 const resolve = require("./request/resolve")
@@ -82,14 +82,15 @@ window.Rotic = new rotic();
 Rotic.setDriver("");
 const startEvent = new Event("rotic-start")
 
+let loaded = true;
+let welcomeMessage = "{{welcomeMessage}}";
+let checkScrolled = false;
+let chats = getCookie("__rotic-bot");
+let uniqueToken = getCookie("__utok");
+let toasted = false;
+
 
 $rotic(document).ready(function () {
-    let loaded = true;
-    let welcomeMessage = "{{welcomeMessage}}";
-    let checkScrolled = false;
-    let chats = getCookie("__rotic-bot");
-    let uniqueToken = getCookie("__utok");
-
     $rotic("body").append(appendChatbox());
 
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -126,6 +127,10 @@ $rotic(document).ready(function () {
 
     $rotic("#rotic-btn-show").click(function () {
         openChat()
+        if (toasted === true) {
+            toastEndAnimation()
+            toasted = false;
+        }
     });
     $rotic(".rotic-close-text").click(function () {
         closeChat()
@@ -135,7 +140,7 @@ $rotic(document).ready(function () {
         if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
             if (checkScrolled === false) {
                 checkScrolled = true;
-                openChat();
+                toast("جه کمکی می توانم بکنم")
             }
         }
     });
@@ -406,6 +411,40 @@ const remoteMessage = (uuid) => {
         })
     }
 }
+
+const toastStartAnimation = () => {
+    anime({
+        targets: document.querySelector(".rotic-chatbox-toast"),
+        opacity: {
+            value: 1,
+            duration: 500,
+            easing: "easeOutExpo"
+        },
+        translateX: {
+            value: 40,
+            duration: 500,
+            easing: "easeOutExpo",
+        },
+    })
+}
+const toastEndAnimation = () => {
+    anime({
+        targets: document.querySelector(".rotic-chatbox-toast"),
+        opacity: {
+            value: 0,
+            duration: 1000,
+            easing: "easeOutExpo"
+        },
+        translateY: {
+            value: 100,
+            duration: 2000,
+            easing: "easeOutExpo",
+        },
+        complete: () => {
+            $rotic(".rotic-chatbox-toast").css("display", "none")
+        }
+    })
+}
 const handleNull = (text, uuid) => {
     if (Rotic.setting.driver === "") {
         return;
@@ -433,5 +472,13 @@ const handleNull = (text, uuid) => {
         Rotic.isOpen = false;
 
     }, 5000)
+}
+
+const toast = (message) => {
+    if (Rotic.isOpen === false) {
+        toasted = true;
+        $rotic("body").append(appendToast(message, 0, 100));
+        toastStartAnimation();
+    }
 }
 

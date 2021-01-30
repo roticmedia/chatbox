@@ -64,6 +64,14 @@ function appendButton(text, link) {
     `;
 }
 
+function appendToast(text, x, y) {
+    return `
+        <div class="rotic-chatbox-toast" style="bottom: ${y}; left: ${x}">
+            ${text}
+        </div>
+    `
+}
+
 function appendChatbox() {
     return `<div class="rotic-chatbox"> 
     <div class="rotic-close-box">
@@ -495,6 +503,21 @@ function appendChatbox() {
       .rotic-resolve:hover {
         cursor: pointer;
       }
+      .rotic-chatbox-toast {
+        position: fixed;
+        background: #5bc5cb;
+        padding: 7px 20px;
+        color: white;
+        font-family: IranSans;
+        font-size: 13px;
+        min-width: 100px;
+        text-align: center;
+        opacity: 0;
+        border-radius: 0px 6px 6px 6px;
+        -webkit-box-shadow: 0px 0px 50px 9px rgba(0,0,0,0.48); 
+        box-shadow: 0px 0px 50px 9px rgba(0,0,0,0.48);
+        z-index:  9999998;
+      }
     </style>`;
 }
 
@@ -504,5 +527,6 @@ module.exports ={
     appendRemote,
     appendSelf,
     appendRemoteNoBtn,
-    appendRemoteNoBtnNoAnimation
+    appendRemoteNoBtnNoAnimation,
+    appendToast
 }
