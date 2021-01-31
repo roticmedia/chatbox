@@ -82,7 +82,6 @@ window.Rotic = new rotic();
 Rotic.setDriver("");
 const startEvent = new Event("rotic-start")
 
-let loaded = true;
 let welcomeMessage = "{{welcomeMessage}}";
 let checkScrolled = false;
 let chats = getCookie("__rotic-bot");
@@ -106,7 +105,6 @@ $rotic(document).ready(function () {
     window.addEventListener("goftino_ready", () => {
         try {
             Rotic.setDriver("goftino")
-            loaded = true;
             if (getCookie("__rotic-driver") === "true") {
                 $rotic("#rotic-btn-show").css("display", "none")
             }
@@ -116,7 +114,6 @@ $rotic(document).ready(function () {
     window.addEventListener("raychat_ready", () => {
         try {
             Rotic.setDriver("raychat")
-            loaded = true
             if (getCookie("__rotic-driver") === "true") {
                 $rotic("#rotic-btn-show").css("display", "none")
             }
@@ -204,9 +201,7 @@ $rotic(document).ready(function () {
                             $rotic("#rotic-text").focus();
                         }
                     } else {
-                        if (loaded === true) {
-                            handleNull(text, uuid);
-                        }
+                        handleNull(text, uuid);
                     }
                 },
                 error: function (e) {
@@ -262,9 +257,7 @@ $rotic(document).ready(function () {
                         $rotic("#rotic-text").focus();
                     }
                 } else {
-                    if (loaded === true) {
-                       handleNull(text, uuid)
-                    }
+                    handleNull(text, uuid)
                 }
             },
             error: function (e) {
@@ -411,7 +404,6 @@ const remoteMessage = (uuid) => {
         })
     }
 }
-
 const toastStartAnimation = () => {
     anime({
         targets: document.querySelector(".rotic-chatbox-toast"),
@@ -436,6 +428,7 @@ const toastEndAnimation = () => {
     })
 }
 const handleNull = (text, uuid) => {
+    storage.set(text, null)
     if (Rotic.setting.driver === "") {
         return;
     }
@@ -458,12 +451,9 @@ const handleNull = (text, uuid) => {
         thirdParty.open();
         thirdParty.showInitMessage()
         closeForever()
-
         Rotic.isOpen = false;
-
     }, 5000)
 }
-
 const toast = (message) => {
     if (Rotic.isOpen === false) {
         toasted = true;
@@ -472,6 +462,7 @@ const toast = (message) => {
     }
     $rotic(".rotic-chatbox-toast").click(() => {
         toastEndAnimation()
+        openChat()
     })
 }
 
