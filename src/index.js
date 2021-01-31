@@ -213,6 +213,8 @@ $rotic(document).ready(function () {
                     $rotic("#rotic-text").focus();
                 },
             });
+        } else {
+            $rotic("#rotic-text").focus();
         }
     });
     $rotic(document).on("click", ".rotic-response-button", function (e) {
