@@ -84,6 +84,7 @@ const startEvent = new Event("rotic-start")
 
 let welcomeMessage = "welcome_message";
 let toastMessages = "toast_message".split(",,").reverse();
+let welcomeButton = "welcome_button".split(",");
 let checkScrolled = false;
 let chats = getCookie("__rotic-bot");
 let uniqueToken = getCookie("__utok");
@@ -154,6 +155,13 @@ $rotic(document).ready(function () {
         $rotic(".rotic-chat-window").append(
             appendRemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
         );
+    }
+    if (welcomeButton.length > 0) {
+        welcomeButton.forEach((button) => {
+            $rotic(".rotic-chat-window").append(
+                appendButton(button, button)
+            );
+        })
     }
 
 
