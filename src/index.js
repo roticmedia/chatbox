@@ -252,7 +252,7 @@ $rotic(document).ready(function () {
             success: function (res) {
                 if (res.status && res.response != null) {
                     if (res.options.buttons) {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
+                        $rotic(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response), uuid));
                         remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         storage.set(text, res.response, res.options.buttons)
@@ -264,11 +264,10 @@ $rotic(document).ready(function () {
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         });
                     } else {
-                        $rotic(".rotic-chat-window").append(appendRemote(res.response, uuid));
+                        $rotic(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response), uuid));
                         remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         storage.set(text, res.response)
-                        $rotic("#rotic-text").focus();
                     }
                 } else {
                     handleNull(text, uuid)
