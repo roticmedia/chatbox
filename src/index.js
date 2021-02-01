@@ -82,7 +82,8 @@ window.Rotic = new rotic();
 Rotic.setDriver("");
 const startEvent = new Event("rotic-start")
 
-let welcomeMessage = "{{welcomeMessage}}";
+let welcomeMessage = "welcome_message";
+let toastMessages = "toast_message".split(",,").reverse();
 let checkScrolled = false;
 let chats = getCookie("__rotic-bot");
 let uniqueToken = getCookie("__utok");
@@ -137,7 +138,10 @@ $rotic(document).ready(function () {
         if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
             if (checkScrolled === false) {
                 checkScrolled = true;
-                toast("جه کمکی می توانم بکنم")
+                toastMessages.forEach((toastMessage, index) => {
+                    toast(toastMessage, 40, 100 + (index * 40))
+                })
+                toasted = true;
             }
         }
     });
@@ -408,7 +412,7 @@ const remoteMessage = (uuid) => {
 }
 const toastStartAnimation = () => {
     anime({
-        targets: document.querySelector(".rotic-chatbox-toast"),
+        targets: document.querySelectorAll(".rotic-chatbox-toast"),
         opacity: {
             value: 1,
             duration: 400,
@@ -418,7 +422,7 @@ const toastStartAnimation = () => {
 }
 const toastEndAnimation = () => {
     anime({
-        targets: document.querySelector(".rotic-chatbox-toast"),
+        targets: document.querySelectorAll(".rotic-chatbox-toast"),
         opacity: {
             value: 0,
             duration: 400,
@@ -456,10 +460,9 @@ const handleNull = (text, uuid) => {
         Rotic.isOpen = false;
     }, 5000)
 }
-const toast = (message) => {
+const toast = (message, x, y) => {
     if (Rotic.isOpen === false) {
-        toasted = true;
-        $rotic("body").append(appendToast(message, Rotic.setting.left, 100));
+        $rotic("body").append(appendToast(message, x, y));
         toastStartAnimation();
     }
     $rotic(".rotic-chatbox-toast").click(() => {

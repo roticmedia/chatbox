@@ -50,7 +50,6 @@ function appendRemote(text, id) {
                 </div>
             </div>
         </article>
-        <div uuid=${id} class="rotic-resolve">پاسخمو گرفتم</div>
     `;
 }
 
@@ -66,7 +65,7 @@ function appendButton(text, link) {
 
 function appendToast(text, x, y) {
     return `
-        <div class="rotic-chatbox-toast" style="bottom: ${y}; left: ${x}">
+        <div class="rotic-chatbox-toast" style="bottom: ${y}px; left: ${x}px">
             ${text}
         </div>
     `
@@ -108,8 +107,18 @@ function appendChatbox() {
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
 </div>
 <style>
-        @font-face {font-family: "IranSans"; src: url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.eot"); src: url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.woff") format("woff"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/0b0a8c345731751b990403a2cf40fbec.svg#IRAN Sans") format("svg"); }
-
+         @font-face {
+            font-family: 'IranSans';
+            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
+            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
+            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
+            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
+            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
+            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
         @media only screen and (max-width: 768px) {
             .rotic-chatbox {
                 width: 100% !important;
