@@ -39,7 +39,7 @@ const open = () => {
     } catch (err) {}
 }
 
-const showInitMessage = () => {
+const showInitMessage = (text) => {
     try {
         setTimeout(() => {
             let script = document.createElement("script");
@@ -56,7 +56,7 @@ const showInitMessage = () => {
                 script1.id = "rotic-goftino-message1"
                 script1.innerHTML = `
                     Goftino.sendMessage({
-                        text: "در خواست شما چیست"
+                        text: "${text}"
                     }); 
                 `
                 document.body.appendChild(script1)

@@ -481,10 +481,10 @@ const handleNull = (text, uuid) => {
     setTimeout(() => {
         thirdParty.show();
         thirdParty.open();
-        thirdParty.showInitMessage()
+        thirdParty.showInitMessage(text)
         closeForever()
         Rotic.isOpen = false;
-    }, 5000)
+    }, 3000)
 }
 const toast = (message, x, y) => {
     if (Rotic.isOpen === false) {

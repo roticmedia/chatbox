@@ -36,7 +36,7 @@ const open = () => {
     }
 }
 
-const showInitMessage = () => {
+const showInitMessage = (text) => {
     try {
         setTimeout(() => {
             let script = document.createElement("script");
@@ -50,7 +50,7 @@ const showInitMessage = () => {
                 let script1 = document.createElement("script");
                 script1.id = "rotic-raycaht-message1"
                 script1.innerHTML = `
-                    window.Raychat.sendOfflineMessage("در خواست شما چیست"); 
+                    window.Raychat.sendOfflineMessage("${text}"); 
                 `
                 document.body.appendChild(script1)
             }, 1000)
