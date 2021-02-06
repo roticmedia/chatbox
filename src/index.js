@@ -5,7 +5,6 @@ const anime = require("./util/anime")
 
 var $rotic = $.noConflict();
 
-const helper = require("./helper")
 const append = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
