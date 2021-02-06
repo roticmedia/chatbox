@@ -9,6 +9,7 @@ const helper = require("./helper")
 const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn, appendRemoteNoBtnNoAnimation, appendToast, appendImage} = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
+const unique_token = require("./util/unique_token")
 const resolve = require("./request/resolve")
 const storage = require("./util/localStorage")
 
@@ -87,13 +88,15 @@ let toastMessages = "toast_message".split(",,").reverse();
 let welcomeButton = "welcome_button".split(",");
 let checkScrolled = false;
 let chats = getCookie("__rotic-bot");
-let uniqueToken = getCookie("__utok");
+let uniqueToken = 0;
 let toasted = false;
+(async () => {
+    uniqueToken = await unique_token();
+})()
 
 
 $rotic(document).ready(function () {
     $rotic("body").append(appendChatbox());
-
 
     $rotic(".rotic-chat-window").append(
         appendImage(test)
