@@ -71,9 +71,9 @@ function appendToast(text, x, y) {
     `
 }
 
-function appendImage(data) {
+function appendImage(data, id) {
     return`
-        <div class="rotic-response-image-container">
+        <div uuid=${id} class="rotic-response-image-container">
             <img class="rotic-response-image" src="data:image/png;base64,${data}" />
         </div>
     `

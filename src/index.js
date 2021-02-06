@@ -192,28 +192,29 @@ $rotic(document).ready(function () {
                 }),
                 success: function (res) {
                     if (res.status && res.response != null) {
-                        if (res.options.buttons !== null) {
-                            $rotic(".rotic-chat-window").append(
-                                appendRemote(converter.makeHtml(res.response), uuid)
-                            );
-                            remoteMessage(uuid)
-                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                            storage.set(text, res.response, res.options.buttons)
-                            $rotic("#rotic-text").focus();
+                        $rotic(".rotic-chat-window").append(
+                            appendRemote(converter.makeHtml(res.response), uuid)
+                        );
+                        remoteMessage(uuid)
+                        $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                        storage.set(text, res.response, res.options.buttons)
+                        $rotic("#rotic-text").focus();
+
+                        if (res.options.buttons) {
                             JSON.parse(res.options.buttons).forEach(function (chat) {
                                 $rotic(".rotic-chat-window").append(
                                     appendButton(Object.keys(chat)[0])
                                 );
                                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             });
-                        } else {
-                            $rotic(".rotic-chat-window").append(
-                                appendRemote(converter.makeHtml(res.response), uuid)
-                            );
-                            remoteMessage(uuid)
-                            storage.set(text, res.response)
-                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                            $rotic("#rotic-text").focus();
+                        }
+                        if (res.options.images) {
+                            JSON.parse(res.options.images).forEach(function (chat) {
+                                $rotic(".rotic-chat-window").append(
+                                    appendImage(chat, uuid)
+                                );
+                                $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                            });
                         }
                     } else {
                         handleNull(text, uuid);
@@ -254,23 +255,29 @@ $rotic(document).ready(function () {
             }),
             success: function (res) {
                 if (res.status && res.response != null) {
+                    $rotic(".rotic-chat-window").append(
+                        appendRemote(converter.makeHtml(res.response), uuid)
+                    );
+                    remoteMessage(uuid)
+                    $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                    storage.set(text, res.response, res.options.buttons)
+                    $rotic("#rotic-text").focus();
+
                     if (res.options.buttons) {
-                        $rotic(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response), uuid));
-                        remoteMessage(uuid)
-                        $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                        storage.set(text, res.response, res.options.buttons)
-                        $rotic("#rotic-text").focus();
                         JSON.parse(res.options.buttons).forEach(function (chat) {
                             $rotic(".rotic-chat-window").append(
                                 appendButton(Object.keys(chat)[0])
                             );
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         });
-                    } else {
-                        $rotic(".rotic-chat-window").append(appendRemote(converter.makeHtml(res.response), uuid));
-                        remoteMessage(uuid)
-                        $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                        storage.set(text, res.response)
+                    }
+                    if (res.options.images) {
+                        JSON.parse(res.options.images).forEach(function (chat) {
+                            $rotic(".rotic-chat-window").append(
+                                appendImage(chat, uuid)
+                            );
+                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                        });
                     }
                 } else {
                     handleNull(text, uuid)
