@@ -71,6 +71,14 @@ function appendToast(text, x, y) {
     `
 }
 
+function appendImage(data) {
+    return`
+        <div class="rotic-response-image-container">
+            <img class="rotic-response-image" src="data:image/png;base64,${data}" />
+        </div>
+    `
+}
+
 function appendChatbox() {
     return `<div class="rotic-chatbox"> 
     <div class="rotic-close-box">
@@ -530,6 +538,21 @@ function appendChatbox() {
       .rotic-chatbox-toast:hover {
         cursor: pointer;
       }
+      .rotic-response-image {
+        width: 100%;
+        border-radius: 6px 6px 6px 6px;
+      }
+      .rotic-response-image-container {
+        direction: ltr;
+        margin-left: 16px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: inline-block;
+        max-width: 90%;
+        float: left;
+        background: #5b5e6c;
+        border-radius: 0px 6px 6px 6px;
+      }
     </style>`;
 }
 
@@ -540,5 +563,6 @@ module.exports ={
     appendSelf,
     appendRemoteNoBtn,
     appendRemoteNoBtnNoAnimation,
-    appendToast
+    appendToast,
+    appendImage
 }
