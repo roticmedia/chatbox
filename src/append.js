@@ -1,3 +1,4 @@
+
 function appendSelf(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
@@ -118,12 +119,6 @@ function appendChatbox() {
 <style>
          @font-face {
             font-family: 'IranSans';
-            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot');
-            src: url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.eot?#iefix') format('embedded-opentype'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff2') format('woff2'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.woff') format('woff'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.ttf') format('truetype'),
-            url('https://rotic.ir/fonts/IrSansMedium/IRANSansFaNum-Medium.svg#AIranianSans') format('svg');
             font-weight: normal;
             font-style: normal;
         }

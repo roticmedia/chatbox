@@ -12,6 +12,7 @@ const {handleThirdParty} = require("./thirdParty/index");
 const unique_token = require("./util/unique_token")
 const resolve = require("./request/resolve")
 const storage = require("./util/localStorage")
+const font = require("./util/font")()
 
 showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
@@ -93,7 +94,6 @@ let toasted = false;
 (async () => {
     uniqueToken = await unique_token();
 })()
-
 
 $rotic(document).ready(function () {
     $rotic("body").append(appendChatbox());
@@ -288,8 +288,9 @@ $rotic(document).ready(function () {
             },
             error: function (e) {
                 $rotic(".rotic-chat-window").append(
-                    appendRemote("مشکلی در اتصال اینترنت وجود دارد")
+                    appendRemote("مشکلی در اتصال اینترنت وجود دارد", uuid)
                 );
+                remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 $rotic("#rotic-text").focus();
             },
