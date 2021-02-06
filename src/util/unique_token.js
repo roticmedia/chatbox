@@ -6,7 +6,7 @@ const unique_token = async () => {
         method: "get",
         url: "https://api.ipify.org",
         success: function (res) {
-            response =  res + "." + new Date().getTime()
+            response =  res + "**" + new Date().getTime()
         }
     })
 

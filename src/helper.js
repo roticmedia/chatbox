@@ -5,7 +5,7 @@ showdown.setOption("openLinksInNewWindow", "true");
 var converter = new showdown.Converter();
 
 
-const { appendRemote, appendSelf, appendChatbox, appendButton } = require("./append")
+const { Remote, Self, Chatbox, Button } = require("./append")
 const { setCookie, getCookie } = require("./cookie")
 
 const initRequest = () => {
@@ -27,7 +27,7 @@ const initRequest = () => {
             if (res.status && res.response != null) {
                 if (res.options.buttons !== null) {
                     $rotic(".rotic-chat-window").append(
-                        appendRemote(converter.makeHtml(res.response))
+                        Remote(converter.makeHtml(res.response))
                     );
                     $rotic(".rotic-chat-window").scrollTop(10000000000000);
                     setCookie(
@@ -43,7 +43,7 @@ const initRequest = () => {
                     $rotic("#rotic-text").focus();
                     JSON.parse(res.options.buttons).forEach(function (chat) {
                         $rotic(".rotic-chat-window").append(
-                            appendButton(Object.keys(chat)[0])
+                            Button(Object.keys(chat)[0])
                         );
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         setCookie(
@@ -59,7 +59,7 @@ const initRequest = () => {
                     });
                 } else {
                     $rotic(".rotic-chat-window").append(
-                        appendRemote(converter.makeHtml(res.response))
+                        Remote(converter.makeHtml(res.response))
                     );
                     setCookie(
                         "__rotic-bot",

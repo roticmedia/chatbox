@@ -6,7 +6,7 @@ const anime = require("./util/anime")
 var $rotic = $.noConflict();
 
 const helper = require("./helper")
-const {appendRemote, appendSelf, appendChatbox, appendButton, appendRemoteNoBtn, appendRemoteNoBtnNoAnimation, appendToast, appendImage} = require("./append");
+const append = require("./append");
 const {setCookie, getCookie} = require("./cookie")
 const {handleThirdParty} = require("./thirdParty/index");
 const unique_token = require("./util/unique_token")
@@ -96,10 +96,10 @@ let toasted = false;
 })()
 
 $rotic(document).ready(function () {
-    $rotic("body").append(appendChatbox());
+    $rotic("body").append(append.Chatbox());
 
     $rotic(".rotic-chat-window").append(
-        appendImage(test)
+        append.Image(test)
     );
     window.dispatchEvent(startEvent);
 
@@ -159,13 +159,13 @@ $rotic(document).ready(function () {
 
     if (welcomeMessage !== "") {
         $rotic(".rotic-chat-window").append(
-            appendRemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
+            append.RemoteNoBtnNoAnimation(converter.makeHtml(welcomeMessage))
         );
     }
     if (welcomeButton.length > 0) {
         welcomeButton.forEach((button) => {
             $rotic(".rotic-chat-window").append(
-                appendButton(button, button)
+                append.ButtonNoAnimation(button, button)
             );
         })
     }
@@ -174,7 +174,7 @@ $rotic(document).ready(function () {
     $rotic("#rotic-btn").click(function () {
         if ($rotic("#rotic-text").val().trim()) {
             const uuid = v4()
-            $rotic(".rotic-chat-window").append(appendSelf($rotic("#rotic-text").val(), uuid));
+            $rotic(".rotic-chat-window").append(append.Self($rotic("#rotic-text").val(), uuid));
             selfMessage(uuid)
             var text = $rotic("#rotic-text").val().trim();
             $rotic("#rotic-text").val("");
@@ -196,7 +196,7 @@ $rotic(document).ready(function () {
                 success: function (res) {
                     if (res.status && res.response != null) {
                         $rotic(".rotic-chat-window").append(
-                            appendRemote(converter.makeHtml(res.response), uuid)
+                            append.Remote(converter.makeHtml(res.response), uuid)
                         );
                         remoteMessage(uuid)
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -206,15 +206,16 @@ $rotic(document).ready(function () {
                         if (res.options.buttons) {
                             JSON.parse(res.options.buttons).forEach(function (chat) {
                                 $rotic(".rotic-chat-window").append(
-                                    appendButton(Object.keys(chat)[0])
+                                    append.Button(Object.keys(chat)[0])
                                 );
                                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             });
+                            buttonAnimation(uuid)
                         }
                         if (res.options.images) {
                             JSON.parse(res.options.images).forEach(function (chat) {
                                 $rotic(".rotic-chat-window").append(
-                                    appendImage(chat, uuid)
+                                    append.Image(chat, uuid)
                                 );
                                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             });
@@ -225,7 +226,7 @@ $rotic(document).ready(function () {
                 },
                 error: function (e) {
                     $rotic(".rotic-chat-window").append(
-                        appendRemoteNoBtn("مشکلی در اتصال اینترنت وجود دارد" , uuid)
+                        append.RemoteNoBtn("مشکلی در اتصال اینترنت وجود دارد" , uuid)
                     );
                     remoteMessage(uuid)
                     $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -239,7 +240,7 @@ $rotic(document).ready(function () {
     $rotic(document).on("click", ".rotic-response-button", function (e) {
         const uuid = v4()
         const text = $rotic(e.target).text();
-        $rotic(".rotic-chat-window").append(appendSelf($rotic(e.target).text(), uuid));
+        $rotic(".rotic-chat-window").append(append.Self($rotic(e.target).text(), uuid));
         selfMessage(uuid)
         $rotic(".rotic-chat-window").scrollTop(10000000000000);
         $rotic.ajax({
@@ -259,7 +260,7 @@ $rotic(document).ready(function () {
             success: function (res) {
                 if (res.status && res.response != null) {
                     $rotic(".rotic-chat-window").append(
-                        appendRemote(converter.makeHtml(res.response), uuid)
+                        append.Remote(converter.makeHtml(res.response), uuid)
                     );
                     remoteMessage(uuid)
                     $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -269,15 +270,16 @@ $rotic(document).ready(function () {
                     if (res.options.buttons) {
                         JSON.parse(res.options.buttons).forEach(function (chat) {
                             $rotic(".rotic-chat-window").append(
-                                appendButton(Object.keys(chat)[0])
+                                append.Button(Object.keys(chat)[0])
                             );
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         });
+                        buttonAnimation(uuid)
                     }
                     if (res.options.images) {
                         JSON.parse(res.options.images).forEach(function (chat) {
                             $rotic(".rotic-chat-window").append(
-                                appendImage(chat, uuid)
+                                append.Image(chat, uuid)
                             );
                             $rotic(".rotic-chat-window").scrollTop(10000000000000);
                         });
@@ -288,7 +290,7 @@ $rotic(document).ready(function () {
             },
             error: function (e) {
                 $rotic(".rotic-chat-window").append(
-                    appendRemote("مشکلی در اتصال اینترنت وجود دارد", uuid)
+                    append.Remote("مشکلی در اتصال اینترنت وجود دارد", uuid)
                 );
                 remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -431,6 +433,22 @@ const remoteMessage = (uuid) => {
         })
     }
 }
+const buttonAnimation = (uuid) => {
+    let el = document.querySelectorAll(`button[uuid="${uuid}"]`)
+    anime({
+        targets: el,
+        translateX: {
+            value: 16,
+            duration: 500,
+            easing: "easeOutExpo",
+        },
+        opacity: {
+            value: 1,
+            duration: 500,
+            easing: "easeOutExpo"
+        }
+    })
+}
 const toastStartAnimation = () => {
     anime({
         targets: document.querySelectorAll(".rotic-chatbox-toast"),
@@ -458,7 +476,7 @@ const handleNull = (text, uuid) => {
     storage.set(text, null)
     if (Rotic.setting.driver === "") {
         $rotic(".rotic-chat-window").append(
-            appendRemoteNoBtn(converter.makeHtml("برای دریافت پاسخ مناسب از روتیک لطفا با شماره تماس ۰۲۵۹۱۰۱۴۷۸۴ و یا ایمیل support@rotic.ir در ارتباط باشید"), uuid)
+            append.RemoteNoBtn(converter.makeHtml("برای دریافت پاسخ مناسب از روتیک لطفا با شماره تماس ۰۲۵۹۱۰۱۴۷۸۴ و یا ایمیل support@rotic.ir در ارتباط باشید"), uuid)
         );
         remoteMessage(uuid)
         $rotic(".rotic-chat-window").scrollTop(10000000000000);

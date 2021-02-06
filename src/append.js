@@ -1,5 +1,5 @@
 
-function appendSelf(text, id) {
+function Self(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
@@ -13,7 +13,7 @@ function appendSelf(text, id) {
     `;
 }
 
-function appendRemoteNoBtn(text, id) {
+function RemoteNoBtn(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
@@ -26,7 +26,7 @@ function appendRemoteNoBtn(text, id) {
         </article>
     `;
 }
-function appendRemoteNoBtnNoAnimation(text) {
+function RemoteNoBtnNoAnimation(text) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
             <div class="rotic-msg-box-noAnimation">
@@ -40,7 +40,7 @@ function appendRemoteNoBtnNoAnimation(text) {
     `;
 }
 
-function appendRemote(text, id) {
+function Remote(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box">
@@ -54,9 +54,9 @@ function appendRemote(text, id) {
     `;
 }
 
-function appendButton(text, link) {
+function  Button(text, link, id) {
     return `
-        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+        <article class="rotic-msg-container rotic-msg-remote" uuid=${id} id="rotic-msg-0">
             <button text="${text}" link="${link}"  class="rotic-response-button">
             ${text}
             </button>
@@ -64,7 +64,17 @@ function appendButton(text, link) {
     `;
 }
 
-function appendToast(text, x, y) {
+function ButtonNoAnimation(text, link) {
+    return `
+        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+            <button text="${text}" link="${link}"  class="rotic-response-button-noAnimation">
+            ${text}
+            </button>
+        </article>
+    `;
+}
+
+function Toast(text, x, y) {
     return `
         <div class="rotic-chatbox-toast" style="bottom: ${y}px; left: ${x}px">
             ${text}
@@ -72,7 +82,7 @@ function appendToast(text, x, y) {
     `
 }
 
-function appendImage(data, id) {
+function Image(data, id) {
     return`
         <div uuid=${id} class="rotic-response-image-container">
             <img class="rotic-response-image" src="data:image/png;base64,${data}" />
@@ -80,7 +90,7 @@ function appendImage(data, id) {
     `
 }
 
-function appendChatbox() {
+function Chatbox() {
     return `<div class="rotic-chatbox"> 
     <div class="rotic-close-box">
         <a href="https://rotic.ir/fa-ir" id="rotic-image-logo-link" target="_blank"><img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"></a> 
@@ -476,12 +486,18 @@ function appendChatbox() {
         margin-left: 12px;
         float: left;
       }
+      .rotic-response-button-noAnimation {
+        font-family: IRANSans;
+        margin-left: 12px;
+        float: left;
+      }
       .rotic-container {
         width: 100%;
         height: 100%;
       }
       .rotic-response-button {
-        margin-left: 16px;
+        margin-left: 0px;
+        opacity: 0;
         margin-right: 12px;
         max-height: 253px;
         word-break: break-word;
@@ -501,6 +517,29 @@ function appendChatbox() {
         transition: background 200ms ease-in;
       }
       .rotic-response-button {
+        transition: all 200ms ease-out;
+      }
+      .rotic-response-button-noAnimation {
+        margin-left: 16px;
+        margin-right: 12px;
+        max-height: 253px;
+        word-break: break-word;
+        font-size: 10pt;
+        line-height: 1.5;
+        background: gray;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 5px;
+        min-width: 100px;
+        box-shadow: 0 5px 10px lightgrey;
+        cursor: pointer;
+        border: solid 0 white;
+      }
+      .rotic-response-button-noAnimation:hover {
+        background: darkgray;
+        transition: background 200ms ease-in;
+      }
+      .rotic-response-button-noAnimation {
         transition: all 200ms ease-out;
       }
       .rotic-resolve {
@@ -552,12 +591,13 @@ function appendChatbox() {
 }
 
 module.exports ={
-    appendButton,
-    appendChatbox,
-    appendRemote,
-    appendSelf,
-    appendRemoteNoBtn,
-    appendRemoteNoBtnNoAnimation,
-    appendToast,
-    appendImage
+    Button,
+    Chatbox,
+    Remote,
+    Self,
+    RemoteNoBtn,
+    RemoteNoBtnNoAnimation,
+    Toast,
+    Image,
+    ButtonNoAnimation
 }
