@@ -447,12 +447,21 @@ const sendMessage = (text) => {
             }
         },
         error: function (e) {
-            $rotic(".rotic-chat-window").append(
-                append.Remote("مشکلی در اتصال اینترنت وجود دارد", uuid)
-            );
-            remoteMessage(uuid)
-            $rotic(".rotic-chat-window").scrollTop(10000000000000);
-            $rotic("#rotic-text").focus();
+            if (e.status === 500) {
+                $rotic(".rotic-chat-window").append(
+                    append.Remote("مشکلی در سرور وجود دارد", uuid)
+                );
+                remoteMessage(uuid)
+                $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                $rotic("#rotic-text").focus();
+            }  else {
+                $rotic(".rotic-chat-window").append(
+                    append.Remote("مشکلی در اتصال اینترنت وجود دارد", uuid)
+                );
+                remoteMessage(uuid)
+                $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                $rotic("#rotic-text").focus();
+            }
         },
     });
 }
