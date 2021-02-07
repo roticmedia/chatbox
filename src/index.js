@@ -367,13 +367,13 @@ const handleNull = (text, uuid) => {
     }
     resolve(getCookie("_utok"));
     $rotic(".rotic-chat-window").append(
-        appendRemoteNoBtn(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
+        append.RemoteNoBtn(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
     );
     remoteMessage(uuid)
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
     setTimeout(() => {
         $rotic(".rotic-chat-window").append(
-            appendRemoteNoBtn(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"), uuid)
+            append.RemoteNoBtn(converter.makeHtml("تا 4 ثانیه آینده به کارشناس انسانی هدایت میشوید"), uuid)
         );
         remoteMessage(uuid)
         $rotic(".rotic-chat-window").scrollTop(10000000000000);
@@ -389,7 +389,7 @@ const handleNull = (text, uuid) => {
 }
 const toast = (message, x, y) => {
     if (Rotic.isOpen === false) {
-        $rotic("body").append(appendToast(message, x, y));
+        $rotic("body").append(append.Toast(message, x, y));
         toastStartAnimation();
     }
     $rotic(".rotic-chatbox-toast").click(() => {
