@@ -91,6 +91,14 @@ function Image(data, id) {
     `
 }
 
+function ImageNoAnimation(data, id) {
+    return`
+        <div uuid=${id} class="rotic-response-image-container-noAnimation">
+            <img class="rotic-response-image" src="data:image/png;base64,${data}" />
+        </div>
+    `
+}
+
 function Chatbox() {
     return `<div class="rotic-chatbox"> 
     <div class="rotic-close-box">
@@ -498,7 +506,7 @@ function Chatbox() {
       }
       .rotic-response-button {
         margin-left: 0px;
-        opacity: 0;
+        opacity: 0.2;
         margin-right: 12px;
         max-height: 253px;
         word-break: break-word;
@@ -564,7 +572,7 @@ function Chatbox() {
         font-size: 13px;
         min-width: 100px;
         text-align: center;
-        opacity: 0;
+        opacity: 0.2;
         border-radius: 0px 6px 6px 6px;
         -webkit-box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.16); 
         box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.16);
@@ -578,6 +586,18 @@ function Chatbox() {
         border-radius: 6px 6px 6px 6px;
       }
       .rotic-response-image-container {
+        direction: ltr;
+        margin-left: 0px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: inline-block;
+        opacity: 0.2;
+        max-width: 90%;
+        float: left;
+        background: #5b5e6c;
+        border-radius: 0px 6px 6px 6px;
+      }
+      .rotic-response-image-container-noAnimation {
         direction: ltr;
         margin-left: 16px;
         margin-bottom: 10px;
@@ -600,5 +620,6 @@ module.exports ={
     RemoteNoBtnNoAnimation,
     Toast,
     Image,
-    ButtonNoAnimation
+    ButtonNoAnimation,
+    ImageNoAnimation
 }

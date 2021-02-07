@@ -99,8 +99,9 @@ $rotic(document).ready(function () {
     $rotic("body").append(append.Chatbox());
 
     $rotic(".rotic-chat-window").append(
-        append.Image(test)
+        append.Image(test, 111)
     );
+    imageAnimation(111)
     window.dispatchEvent(startEvent);
 
     if (getCookie("__rotic-driver") !== "true") {
@@ -395,6 +396,22 @@ const toast = (message, x, y) => {
     $rotic(".rotic-chatbox-toast").click(() => {
         toastEndAnimation()
         openChat()
+    })
+}
+const imageAnimation = (uuid) => {
+    let el = document.querySelectorAll(`.rotic-response-image-container[uuid="${uuid}"]`)
+    anime({
+        targets: el,
+        translateX: {
+            value: 16,
+            duration: 500,
+            easing: "easeOutExpo",
+        },
+        opacity: {
+            value: 1,
+            duration: 500,
+            easing: "easeOutExpo"
+        }
     })
 }
 const sendMessage = (text) => {
