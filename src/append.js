@@ -584,6 +584,7 @@ function Chatbox() {
       .rotic-response-image {
         width: 100%;
         border-radius: 6px 6px 6px 6px;
+        pointer-events: none;
         user-select: none;
       }
       .rotic-response-image-container {
@@ -593,7 +594,7 @@ function Chatbox() {
         padding: 10px;
         display: inline-block;
         opacity: 0.2;
-        max-width: 90%;
+        max-width: 80%;
         float: left;
         background: #5b5e6c;
         border-radius: 0px 6px 6px 6px;
@@ -604,7 +605,7 @@ function Chatbox() {
         margin-bottom: 10px;
         padding: 10px;
         display: inline-block;
-        max-width: 90%;
+        max-width: 80%;
         float: left;
         background: #5b5e6c;
         border-radius: 0px 6px 6px 6px;
