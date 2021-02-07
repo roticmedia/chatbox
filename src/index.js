@@ -92,6 +92,7 @@ let uniqueToken = 0;
 let toasted = false;
 (async () => {
     uniqueToken = await unique_token();
+    setCookie("_utok", uniqueToken)
 })()
 
 $rotic(document).ready(function () {
@@ -364,7 +365,7 @@ const handleNull = (text, uuid) => {
         $rotic(".rotic-chat-window").scrollTop(10000000000000);
         return;
     }
-    resolve(getCookie("__utok"));
+    resolve(getCookie("_utok"));
     $rotic(".rotic-chat-window").append(
         appendRemoteNoBtn(converter.makeHtml("پاسخی برای شما یافت نشد!"), uuid)
     );
