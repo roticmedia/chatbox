@@ -584,6 +584,7 @@ function Chatbox() {
       .rotic-response-image {
         width: 100%;
         border-radius: 6px 6px 6px 6px;
+        user-select: none;
       }
       .rotic-response-image-container {
         direction: ltr;
