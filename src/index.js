@@ -87,7 +87,6 @@ let welcomeMessage = "welcome_message";
 let toastMessages = "toast_message".split(",,").reverse();
 let welcomeButton = "welcome_button".split(",");
 let checkScrolled = false;
-let chats = getCookie("__rotic-bot");
 let uniqueToken = 0;
 let toasted = false;
 (async () => {
@@ -99,7 +98,7 @@ $rotic(document).ready(function () {
     $rotic("body").append(append.Chatbox());
 
     $rotic(".rotic-chat-window").append(
-        append.Loading(11)
+        append.ImageNoAnimation(test)
     );
     window.dispatchEvent(startEvent);
 
