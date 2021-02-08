@@ -1,4 +1,3 @@
-
 function Self(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
@@ -55,7 +54,7 @@ function Remote(text, id) {
     `;
 }
 
-function  Button(text, link, id) {
+function Button(text, link, id) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" uuid=${id} id="rotic-msg-0">
             <button text="${text}" link="${link}"  class="rotic-response-button">
@@ -84,7 +83,7 @@ function Toast(text, x, y) {
 }
 
 function Image(data, id) {
-    return`
+    return `
         <div uuid=${id} class="rotic-response-image-container">
             <img class="rotic-response-image" src="data:image/png;base64,${data}" />
         </div>
@@ -92,9 +91,20 @@ function Image(data, id) {
 }
 
 function ImageNoAnimation(data, id) {
-    return`
+    return `
         <div uuid=${id} class="rotic-response-image-container-noAnimation">
             <img class="rotic-response-image" src="data:image/png;base64,${data}" />
+        </div>
+    `
+}
+
+function Loading(id) {
+    return `
+        <div class="rotic-loading-message" uuid="${id}">
+            <div class="rotic-loading-message1"></div>
+            <div class="rotic-loading-message2"></div>
+            <div class="rotic-loading-message3"></div>
+            <div class="rotic-loading-message4"></div>
         </div>
     `
 }
@@ -610,10 +620,59 @@ function Chatbox() {
         background: #5b5e6c;
         border-radius: 0px 6px 6px 6px;
       }
+      .rotic-loading-message {
+        position:relative;
+        margin: 0 0 10px 0px;
+        opacity: 0.2;
+        padding: 15px 24px;
+        float: left;
+        background: #5b5e6c;
+        border-radius: 0px 6px 6px 6px;
+      }
+     .rotic-loading-message div {
+        height: 6px;
+        width: 6px;
+        border-radius:50%;
+        float:left;
+        margin: 0 3px;
+        background: white;
+    }
+    .rotic-loading-message1 {
+        -moz-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation: bounce 2.5s infinite ease-in-out;
+    }
+    .rotic-loading-message2 {
+        -moz-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation-delay: 0.5s;
+        animation-delay: 0.5s;
+    }
+    .rotic-loading-message3 {
+        -moz-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation-delay: 1s;
+        animation-delay: 1s;
+    }
+    .rotic-loading-message4 {
+        -moz-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation: bounce 2.5s infinite ease-in-out;
+        -webkit-animation-delay: 1.5s;
+        animation-delay: 1.5s;
+    }
+    @-moz-keyframes bounce {
+        0%,15% {-moz-transform: translate(0,0);}
+        30% {-moz-transform: translate(0,-4px);}
+        50%, 100% {-moz-transform: translate(0,0);};
+    }
+    @-webkit-keyframes bounce {
+        0%,20% {-webkit-transform: translate(0,0);}
+        30% {-webkit-transform: translate(0,-4px);}
+        50%, 100% {-webkit-transform: translate(0,0);};
+    }
     </style>`;
 }
 
-module.exports ={
+module.exports = {
     Button,
     Chatbox,
     Remote,
@@ -623,5 +682,6 @@ module.exports ={
     Toast,
     Image,
     ButtonNoAnimation,
-    ImageNoAnimation
+    ImageNoAnimation,
+    Loading
 }

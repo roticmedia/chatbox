@@ -99,9 +99,8 @@ $rotic(document).ready(function () {
     $rotic("body").append(append.Chatbox());
 
     $rotic(".rotic-chat-window").append(
-        append.Image(test, 111)
+        append.Loading(11)
     );
-    imageAnimation(111)
     window.dispatchEvent(startEvent);
 
     if (getCookie("__rotic-driver") !== "true") {
@@ -414,10 +413,28 @@ const imageAnimation = (uuid) => {
         }
     })
 }
+const loadingAnimation = (uuid) => {
+    let el = document.querySelectorAll(`.rotic-loading-message[uuid="${uuid}"]`)
+    anime({
+        targets: el,
+        translateX: {
+            value: 16,
+            duration: 500,
+            easing: "easeOutExpo",
+        },
+        opacity: {
+            value: 1,
+            duration: 500,
+            easing: "easeOutExpo"
+        }
+    })
+}
 const sendMessage = (text) => {
     const uuid = v4()
     $rotic(".rotic-chat-window").append(append.Self(text, uuid));
     selfMessage(uuid)
+    $rotic(".rotic-chat-window").append(append.Loading(uuid));
+    loadingAnimation(uuid)
     $rotic(".rotic-chat-window").scrollTop(10000000000000);
     $rotic.ajax({
         method: "POST",
@@ -435,10 +452,11 @@ const sendMessage = (text) => {
         }),
         success: function (res) {
             if (res.status && res.response != null) {
+                $rotic(document.querySelectorAll(`.rotic-loading-message[uuid="${uuid}"]`)).remove()
                 $rotic(".rotic-chat-window").append(
-                    append.Remote(converter.makeHtml(res.response), uuid)
+                    append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid)
                 );
-                remoteMessage(uuid)
+                //remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 storage.set(text, res.response, res.options.buttons)
                 $rotic("#rotic-text").focus();
@@ -465,18 +483,19 @@ const sendMessage = (text) => {
             }
         },
         error: function (e) {
+            $rotic(document.querySelectorAll(`.rotic-loading-message[uuid="${uuid}"]`)).remove()
             if (e.status === 500) {
                 $rotic(".rotic-chat-window").append(
-                    append.Remote("مشکلی در سرور وجود دارد", uuid)
+                    append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid)
                 );
-                remoteMessage(uuid)
+                //remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 $rotic("#rotic-text").focus();
             }  else {
                 $rotic(".rotic-chat-window").append(
-                    append.Remote("مشکلی در اتصال اینترنت وجود دارد", uuid)
+                    append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid)
                 );
-                remoteMessage(uuid)
+                //remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 $rotic("#rotic-text").focus();
             }
