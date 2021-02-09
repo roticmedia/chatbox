@@ -12,6 +12,59 @@ function Self(text, id) {
     `;
 }
 
+function paperClip() {
+    return `
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+\t viewBox="0 0 324.98 324.98" style="enable-background:new 0 0 324.98 324.98;" xml:space="preserve">
+<g>
+\t<g>
+\t\t<path d="M124.552,321.113c-2.593,0-5.187-0.978-7.18-2.94c-4.029-3.966-4.081-10.446-0.115-14.476l170.595-173.331
+\t\t\tc22.177-22.534,22.27-59.105,0.205-81.524l-7.685-7.809c-10.596-10.766-24.692-16.694-39.692-16.694
+\t\t\tc-15.115,0-29.349,6.006-40.082,16.91L31.038,211.664c-14.098,14.322-14.158,37.63-0.099,51.916l5.313,5.398
+\t\t\tc7.083,7.197,17.031,11.325,27.293,11.325c9.582,0,18.376-3.574,24.764-10.064l152.214-154.656
+\t\t\tc5.733-5.826,5.767-15.273,0.072-21.059l-2.837-2.884c-2.69-2.733-6.264-4.238-10.062-4.238c-3.838,0-7.461,1.534-10.202,4.318
+\t\t\tL76.805,234.671c-3.966,4.028-10.446,4.08-14.476,0.115c-4.029-3.965-4.081-10.446-0.115-14.476l140.691-142.95
+\t\t\tc6.62-6.726,15.425-10.43,24.792-10.43c9.327,0,18.082,3.676,24.652,10.351l2.837,2.885c13.487,13.701,13.454,36.032-0.073,49.776
+\t\t\tL102.901,284.599c-10.267,10.431-24.242,16.176-39.354,16.176c-15.711,0-30.976-6.355-41.884-17.438l-5.313-5.397
+\t\t\tc-21.854-22.205-21.792-58.395,0.138-80.677l169.56-170.414c14.572-14.807,33.988-22.982,54.633-22.982
+\t\t\tc20.529,0,39.808,8.1,54.282,22.807l7.685,7.809c29.856,30.337,29.764,79.792-0.207,110.244L131.847,318.057
+\t\t\tC129.844,320.092,127.198,321.113,124.552,321.113z"/>
+\t</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+    `
+}
+
 function RemoteNoBtn(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
@@ -85,7 +138,15 @@ function Toast(text, x, y) {
 function Image(data, id) {
     return `
         <div uuid=${id} class="rotic-response-image-container">
-            <img class="rotic-response-image" src="data:image/png;base64,${data}" />
+            <img class="rotic-response-image" src="${data}" />
+        </div>
+    `
+}
+
+function ImageSelf(data, id) {
+    return `
+        <div uuid=${id} class="rotic-response-image-container-self">
+            <img class="rotic-response-image" src="${data}" />
         </div>
     `
 }
@@ -127,6 +188,10 @@ function Chatbox() {
           autocomplete="off"
           placeholder="پیامتان را تایپ کنید"
         />
+        <div class="rotic-upload">
+            ${paperClip()}
+            <input type="file" id="rotic-input-file" style="opacity: 0.0 !important; position: absolute !important; bottom: 15px !important; left: 15px !important; width: 30px !important; height: 30px !important;"/>
+        </div>
         <button id="rotic-btn">
           <svg
             id="rotic-svg"
@@ -323,8 +388,7 @@ function Chatbox() {
         background: #fff;
         overflow: auto;
         overflow-x: hidden;
-        padding-top: 47px;
-        padding: 0 0 0 0;
+        padding: 47px 0 0 0;
         scrollbar-color: #5fc5c4;
         scrollbar-width: 4px;
         
@@ -353,7 +417,7 @@ function Chatbox() {
         line-height: 60px;
         outline: 0 none;
         border: none;
-        width: calc(100% - 70px);
+        width: calc(100% - 100px);
         color: black;
         text-indent: 10px;
         font-size: 11pt;
@@ -369,7 +433,7 @@ function Chatbox() {
         width: 40px;
         border-radius: 50%;
         padding: 2px 0 0 0;
-        margin: 10px;
+        margin: 10px 10px 10px 0;
         transition: all 0.15s ease-in-out;
       }
       .rotic-chat-input input[good] + button {
@@ -609,6 +673,17 @@ function Chatbox() {
         background: #5b5e6c;
         border-radius: 0px 6px 6px 6px;
       }
+      .rotic-response-image-container-self {
+        direction: ltr;
+        margin-right: 0px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: inline-block;
+        opacity: 0.2;
+        max-width: 80%;
+        background: #5ec5c4;
+        border-radius: 6px 0px 6px 6px;
+      }
       .rotic-response-image-container-noAnimation {
         direction: ltr;
         margin-left: 16px;
@@ -669,6 +744,22 @@ function Chatbox() {
         30% {-webkit-transform: translate(0,-4px);}
         50%, 100% {-webkit-transform: translate(0,0);};
     }
+    .rotic-upload {
+        height: 40px;
+        width: 40px;
+        float: left;
+        margin: 10px 0 10px 10px;
+        border-radius: 50%;
+    }
+    .rotic-upload svg {
+        margin: 7px;
+        height: 25px;
+        width: 25px;
+        fill: #5bc5cb;
+    }
+    #rotic-input-file:hover {
+        cursor: pointer;
+    }
     </style>`;
 }
 
@@ -683,5 +774,6 @@ module.exports = {
     Image,
     ButtonNoAnimation,
     ImageNoAnimation,
-    Loading
+    Loading,
+    ImageSelf
 }
