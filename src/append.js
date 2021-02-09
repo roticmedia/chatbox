@@ -161,12 +161,14 @@ function ImageNoAnimation(data, id) {
 
 function Loading(id) {
     return `
+    <div style="width: 100%; height: 36px; margin-bottom: 10px" class="rotic-loading-container" uuid="${id}">
         <div class="rotic-loading-message" uuid="${id}">
             <div class="rotic-loading-message1"></div>
             <div class="rotic-loading-message2"></div>
             <div class="rotic-loading-message3"></div>
             <div class="rotic-loading-message4"></div>
         </div>
+    </div>    
     `
 }
 

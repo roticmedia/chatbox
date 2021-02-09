@@ -99,6 +99,7 @@ $rotic(document).ready(function () {
 
     window.dispatchEvent(startEvent);
 
+
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
     } else if (Rotic.setting.driver !== ""){
@@ -477,7 +478,10 @@ const sendMessage = (text) => {
     selfMessage(uuid)
     $rotic(".rotic-chat-window").append(append.Loading(uuid));
     loadingAnimation(uuid)
-    $rotic(".rotic-chat-window").scrollTop(10000000000000);
+    setTimeout(() => {
+        $rotic(".rotic-chat-window").scrollTop(10000000000000);
+    }, 2)
+
     $rotic.ajax({
         method: "POST",
         headers: {
@@ -494,7 +498,7 @@ const sendMessage = (text) => {
         }),
         success: function (res) {
             if (res.status && res.response != null) {
-                $rotic(document.querySelectorAll(`.rotic-loading-message[uuid="${uuid}"]`)).remove()
+                $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).remove()
                 $rotic(".rotic-chat-window").append(
                     append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid)
                 );
@@ -525,7 +529,7 @@ const sendMessage = (text) => {
             }
         },
         error: function (e) {
-            $rotic(document.querySelectorAll(`.rotic-loading-message[uuid="${uuid}"]`)).remove()
+            $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).remove()
             if (e.status === 500) {
                 $rotic(".rotic-chat-window").append(
                     append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid)
