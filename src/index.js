@@ -136,7 +136,8 @@ $rotic(document).ready(function () {
     $rotic(".rotic-close-text").click(function () {
         closeChat()
     });
-    $(window).scroll(function (event) {
+    $(window).scroll(function (e) {
+
         let scroll = $(window).scrollTop();
         if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
             if (checkScrolled === false) {
@@ -204,6 +205,11 @@ $rotic(document).ready(function () {
                 fr.readAsDataURL(files[0]);
             }
         }
+    })
+    $rotic(document).on("mouseover", ".rotic-chatbox", function (e) {
+        $rotic(window).scroll(function (ev) {
+            ev.preventDefault()
+        })
     })
 });
 
