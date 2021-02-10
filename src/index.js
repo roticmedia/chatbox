@@ -478,9 +478,7 @@ const sendMessage = (text) => {
     selfMessage(uuid)
     $rotic(".rotic-chat-window").append(append.Loading(uuid));
     loadingAnimation(uuid)
-    setTimeout(() => {
-        $rotic(".rotic-chat-window").scrollTop(10000000000000);
-    }, 2)
+    $rotic(".rotic-chat-window").scrollTop(10000000000000);
 
     $rotic.ajax({
         method: "POST",
@@ -512,6 +510,7 @@ const sendMessage = (text) => {
                         $rotic(".rotic-chat-window").append(
                             append.Button(Object.keys(chat)[0])
                         );
+
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                     });
                     buttonAnimation(uuid)
@@ -523,6 +522,7 @@ const sendMessage = (text) => {
                         );
                         $rotic(".rotic-chat-window").scrollTop(10000000000000);
                     });
+                    imageAnimation(uuid)
                 }
             } else {
                 handleNull(text, uuid)
