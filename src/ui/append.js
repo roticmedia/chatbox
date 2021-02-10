@@ -173,7 +173,7 @@ function Loading(id) {
 }
 
 function Chatbox() {
-    return `<div class="rotic-chatbox"> 
+    return `<div class="rotic-chatbox">
     <div class="rotic-close-box">
         <a href="https://rotic.ir/fa-ir" id="rotic-image-logo-link" target="_blank"><img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"></a> 
         <p class="rotic-image-logo__p">powered by </p>

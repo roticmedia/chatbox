@@ -23,4 +23,6 @@
  * Date: 2020-05-04T22:49Z
  */
 
+/*! For license information please see shifty.js.LICENSE.txt */
+
 /*! showdown v 1.9.1 - 02-11-2019 */

@@ -2,10 +2,11 @@ const $ = require("jquery");
 const showdown = require("showdown")
 const { v4 } = require("uuid")
 const anime = require("./util/anime")
+const ProgressBar = require("progressbar.js")
 
 var $rotic = $.noConflict();
 
-const append = require("./append");
+const append = require("./ui/append");
 const {setCookie, getCookie} = require("./util/cookie")
 const {handleThirdParty} = require("./thirdParty/index");
 const unique_token = require("./util/unique_token")
@@ -98,7 +99,6 @@ $rotic(document).ready(function () {
     $rotic("body").append(append.Chatbox());
 
     window.dispatchEvent(startEvent);
-
 
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
