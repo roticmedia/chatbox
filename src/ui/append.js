@@ -172,6 +172,13 @@ function Loading(id) {
     `
 }
 
+function ProgressBar(id) {
+    return `
+        <div style="margin-bottom: 10px; transform: rotateY(180deg)" class="rotic-progress-container" uuid="${id}">
+        </div> 
+    `
+}
+
 function Chatbox() {
     return `<div class="rotic-chatbox">
     <div class="rotic-close-box">
@@ -762,6 +769,13 @@ function Chatbox() {
     #rotic-input-file:hover {
         cursor: pointer;
     }
+    .rotic-progress-container {
+        background: #5ec5c4;
+        border-radius: 0px 6px 6px 6px;
+        max-width: 80%;
+        padding: 15px 10px;
+        opacity: 0.2;
+    }
     </style>`;
 }
 
@@ -777,5 +791,6 @@ module.exports = {
     ButtonNoAnimation,
     ImageNoAnimation,
     Loading,
-    ImageSelf
+    ImageSelf,
+    ProgressBar
 }
