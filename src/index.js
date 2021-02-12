@@ -187,10 +187,10 @@ $rotic(document).ready(function () {
         let t = e.target || window.event.srcElement;
         let files = t.files;
         if (FileReader && files && files.length) {
-            let fileTypes = ['jpg', 'jpeg', 'png'];
+            let imagesTypes = ['jpg', 'jpeg', 'png'];
             let extension = files[0].name.split('.').pop().toLowerCase()
-            let isSuccess = fileTypes.indexOf(extension) > -1;
-            if (isSuccess) {
+            let isImage = imagesTypes.indexOf(extension) > -1;
+            if (isImage) {
                 let fr = new FileReader();
                 let uuid = v4();
                 $rotic(".rotic-chat-window").append(
