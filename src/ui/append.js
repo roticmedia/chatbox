@@ -179,6 +179,17 @@ function ProgressBar(id) {
     `
 }
 
+function upload (id, name) {
+    return `
+        <div class="rotic-upload-container" uuid="${id}">
+            <div>
+                <span>${name}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" x="0px" y="0px"><title>1.3</title><desc>Created with Sketch.</desc><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#ffffff"><path d="M14,19 L36,19 L42,24 L86,24 L86,81 L14,81 L14,19 Z M83,36 L83,27 L40.9138502,27 L34.9138502,22 L17,22 L17,36 L83,36 L83,36 Z M83,39 L83,39 L17,39 L17,78 L83,78 L83,39 Z"/></g></g></svg>
+            </div>
+        </div>
+    `
+}
+
 function Chatbox() {
     return `<div class="rotic-chatbox">
     <div class="rotic-close-box">
@@ -776,6 +787,38 @@ function Chatbox() {
         padding: 15px 10px;
         opacity: 0.2;
     }
+    .rotic-upload-container {
+        height: 40px;
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+    .rotic-upload-container div{
+        height: 40px;
+        background: #5bc5cb;
+        max-width: 90%;
+        border-radius: 6px 0 6px 6px;
+        margin: 0 16px 0 0;
+        font-size: 11px;
+        color: white;
+        width: auto;
+        position: relative;
+    }
+    .rotic-upload-container div span{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: "...";
+    }
+    .rotic-upload-container svg{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 30px;
+        border-radius: 6px 0 6px 6px;
+        background: #5bc5cb;
+    }
     </style>`;
 }
 
@@ -792,5 +835,6 @@ module.exports = {
     ImageNoAnimation,
     Loading,
     ImageSelf,
-    ProgressBar
+    ProgressBar,
+    upload
 }

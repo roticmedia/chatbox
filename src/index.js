@@ -1,6 +1,6 @@
 const $ = require("jquery");
 const showdown = require("showdown")
-const { v4 } = require("uuid")
+const {v4} = require("uuid")
 const anime = require("./util/anime")
 const ProgressBar = require("progressbar.js")
 
@@ -31,12 +31,15 @@ class rotic {
         this.userData = null;
         this.isOpen = false;
     }
+
     open() {
         openChat()
     }
+
     close() {
         closeChat()
     }
+
     setUser(username, name, otherData) {
         this.userData = {
             username,
@@ -44,6 +47,7 @@ class rotic {
             otherData
         }
     }
+
     setDriver(driver) {
         try {
             this.setting.driver = driver.toLowerCase();
@@ -55,6 +59,7 @@ class rotic {
             console.log(err)
         }
     }
+
     setLeft(amount) {
         try {
             this.setting.left = amount;
@@ -69,6 +74,7 @@ class rotic {
             console.log(err)
         }
     }
+
     setScroll(scroll) {
         this.setting.scroll = scroll;
         setCookie("__rotic-setting", JSON.stringify({
@@ -102,7 +108,7 @@ $rotic(document).ready(function () {
 
     if (getCookie("__rotic-driver") !== "true") {
         thirdParty.hide();
-    } else if (Rotic.setting.driver !== ""){
+    } else if (Rotic.setting.driver !== "") {
         setCookie("__rotic-driver", "false")
         $rotic("#rotic-btn-show").css("display", "none")
     }
@@ -190,73 +196,80 @@ $rotic(document).ready(function () {
             let imagesTypes = ['jpg', 'jpeg', 'png'];
             let extension = files[0].name.split('.').pop().toLowerCase()
             let isImage = imagesTypes.indexOf(extension) > -1;
-            if (isImage) {
-                let fr = new FileReader();
-                let uuid = v4();
-                $rotic(".rotic-chat-window").append(
-                    append.ProgressBar(uuid)
-                );
-                progressAnimation(uuid)
-                $rotic(".rotic-chat-window").scrollTop(10000000000000);
+            let fr = new FileReader();
+            let uuid = v4();
+            $rotic(".rotic-chat-window").append(
+                append.ProgressBar(uuid)
+            );
+            progressAnimation(uuid)
+            $rotic(".rotic-chat-window").scrollTop(10000000000000);
 
-                fr.onload = function () {
-                    $.ajax({
-                        xhr: function() {
-                            var xhr = new window.XMLHttpRequest();
-                            var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
-                                {
-                                    easing: 'easeInOut',
-                                    strokeWidth: 2,
-                                    style: {
-                                        transform: "rotateX(180deg)"
-                                    }
-                                });
-
-                            xhr.upload.addEventListener("progress", function(evt) {
-                                if (evt.lengthComputable) {
-                                    var percentComplete = evt.loaded / evt.total;
-                                    percentComplete = parseInt(percentComplete);
-                                    bar.animate(percentComplete);
+            fr.onload = function () {
+                $.ajax({
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+                        var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
+                            {
+                                easing: 'easeInOut',
+                                strokeWidth: 2,
+                                style: {
+                                    transform: "rotateX(180deg)"
+                                },
+                                svgStyle: {
+                                    border: "1px solid black"
                                 }
-                            }, false);
+                            });
 
-                            return xhr;
-                        },
-                        url: "https://httpbin.org/post",
-                        type: "POST",
-                        data: JSON.stringify(fr.result),
-                        contentType: "application/json",
-                        dataType: "json",
-                        success: function(result) {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).remove()
+                        xhr.upload.addEventListener("progress", function (evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = evt.loaded / evt.total;
+                                percentComplete = parseInt(percentComplete);
+                                bar.animate(percentComplete);
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    url: "https://httpbin.org/post",
+                    type: "POST",
+                    data: JSON.stringify(fr.result),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (result) {
+                        $rotic(`.rotic-progress-container[uuid="${uuid}"]`).remove()
+                        if (isImage) {
                             $rotic(".rotic-chat-window").append(append.ImageSelf(fr.result, uuid));
                             imageAnimationSelf(uuid)
                             setTimeout(function () {
                                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                             }, 10)
-                        },
-                        error: function (e) {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).remove()
-                            if (e.status === 500) {
-                                $rotic(".rotic-chat-window").append(
-                                    append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid)
-                                );
-                                //remoteMessage(uuid)
-                                $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                                $rotic("#rotic-text").focus();
-                            }  else {
-                                $rotic(".rotic-chat-window").append(
-                                    append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid)
-                                );
-                                //remoteMessage(uuid)
-                                $rotic(".rotic-chat-window").scrollTop(10000000000000);
-                                $rotic("#rotic-text").focus();
-                            }
-                        },
-                    });
-                }
-                fr.readAsDataURL(files[0]);
+                        } else {
+                            $rotic(".rotic-chat-window").append(append.upload(uuid, files[0].name));
+                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                        }
+                    },
+                    error: function (e) {
+                        $rotic(`.rotic-progress-container[uuid="${uuid}"]`).remove()
+                        if (e.status === 500) {
+                            $rotic(".rotic-chat-window").append(
+                                append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid)
+                            );
+                            //remoteMessage(uuid)
+                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                            $rotic("#rotic-text").focus();
+                        } else {
+                            $rotic(".rotic-chat-window").append(
+                                append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid)
+                            );
+                            //remoteMessage(uuid)
+                            $rotic(".rotic-chat-window").scrollTop(10000000000000);
+                            $rotic("#rotic-text").focus();
+                        }
+                    },
+                });
             }
+            fr.readAsDataURL(files[0]);
+
             t.files = new DataTransfer().files
         }
     })
@@ -565,11 +578,8 @@ const sendMessage = (text) => {
         }),
         success: function (res) {
             if (res.status && res.response != null) {
-                $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).remove()
-                $rotic(".rotic-chat-window").append(
-                    append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid)
-                );
-                //remoteMessage(uuid)
+                $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid))
+
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 storage.set(text, res.response, res.options.buttons)
                 $rotic("#rotic-text").focus();
@@ -606,7 +616,7 @@ const sendMessage = (text) => {
                 //remoteMessage(uuid)
                 $rotic(".rotic-chat-window").scrollTop(10000000000000);
                 $rotic("#rotic-text").focus();
-            }  else {
+            } else {
                 $rotic(".rotic-chat-window").append(
                     append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid)
                 );
