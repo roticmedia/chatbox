@@ -808,7 +808,9 @@ function Chatbox() {
         top: 10px;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: "...";
+        direction: ltr;
+        max-width: 85%;
+        text-overflow: ellipsis;
     }
     .rotic-upload-container svg{
         position: absolute;
