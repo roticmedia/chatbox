@@ -219,15 +219,12 @@ $rotic(document).ready(function () {
                                     border: "1px solid black"
                                 }
                             });
-
                         xhr.upload.addEventListener("progress", function (evt) {
                             if (evt.lengthComputable) {
                                 var percentComplete = evt.loaded / evt.total;
-                                percentComplete = parseInt(percentComplete);
                                 bar.animate(percentComplete);
                             }
                         }, false);
-
                         return xhr;
                     },
                     url: "https://httpbin.org/post",
