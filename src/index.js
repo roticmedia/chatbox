@@ -273,11 +273,6 @@ $rotic(document).ready(function () {
             t.files = new DataTransfer().files
         }
     })
-    $rotic(document).on("mouseover", ".rotic-chatbox", function (e) {
-        $rotic(window).scroll(function (ev) {
-            ev.preventDefault()
-        })
-    })
 });
 
 const openChat = () => {
