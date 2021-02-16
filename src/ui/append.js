@@ -409,7 +409,7 @@ function Chatbox() {
         background: #fff;
         overflow: auto;
         overflow-x: hidden;
-        padding: 47px 0 0 0;
+        padding: 0;
         scrollbar-color: #5fc5c4;
         scrollbar-width: 4px;
         

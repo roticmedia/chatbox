@@ -203,7 +203,7 @@ $rotic(document).ready(function () {
                 append.ProgressBar(uuid)
             );
             progressAnimation(uuid)
-            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
 
             fr.onload = function () {
                 $.ajax({
@@ -249,21 +249,21 @@ $rotic(document).ready(function () {
                         if (isImage) {
                             $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.ImageSelf(fr.result, uuid))
                             setTimeout(function () {
-                                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                             }, 10)
                         } else {
                             $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.upload(uuid, files[0].name))
-                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                         }
                     },
                     error: function (e) {
                         if (e.status === 500) {
                             $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid))
-                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                             $rotic("#rotic-text").focus();
                         } else {
                             $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid))
-                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                            scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                             $rotic("#rotic-text").focus();
                         }
                     },
@@ -279,7 +279,7 @@ $rotic(document).ready(function () {
 
 // Animations
 const openChat = () => {
-    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
     anime({
         targets: "#rotic-btn-show",
         translateY: {
@@ -529,7 +529,7 @@ const sendMessage = (text) => {
     selfMessage(uuid)
     $rotic(".rotic-chat-window").append(append.Loading(uuid));
     loadingAnimation(uuid)
-    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
 
     $rotic.ajax({
         method: "POST",
@@ -549,7 +549,7 @@ const sendMessage = (text) => {
             if (res.status && res.response != null) {
                 $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid))
 
-                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                 storage.set(text, res.response, res.options.buttons)
                 $rotic("#rotic-text").focus();
 
@@ -560,14 +560,14 @@ const sendMessage = (text) => {
                         );
                     });
                     buttonAnimation(uuid)
-                    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                 }
                 if (res.options.images) {
                     JSON.parse(res.options.images).forEach(function (chat) {
                         $rotic(".rotic-chat-window").append(
                             append.Image(chat, uuid)
                         );
-                        scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                        scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                     });
                     imageAnimation(uuid)
                 }
@@ -578,11 +578,11 @@ const sendMessage = (text) => {
         error: function (e) {
             if (e.status === 500) {
                 $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid))
-                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                 $rotic("#rotic-text").focus();
             } else {
                 $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid))
-                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() });
+                scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
                 $rotic("#rotic-text").focus();
             }
         },
