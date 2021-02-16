@@ -210,19 +210,31 @@ $rotic(document).ready(function () {
                         var xhr = new window.XMLHttpRequest();
                         var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
                             {
+                                color: "#FFFFFF",
                                 easing: 'easeInOut',
                                 strokeWidth: 2,
                                 style: {
                                     transform: "rotateX(180deg)"
                                 },
+                                text: {
+                                    value: "0",
+                                    style: {
+                                        position: "absolute",
+                                        top: "27px",
+                                        left: "11px",
+                                        fontSize: "11px",
+                                        transform: "rotateY(180deg)"
+                                    }
+                                },
                                 svgStyle: {
-                                    border: "1px solid black"
+                                    marginLeft: "30px",
                                 }
                             });
                         xhr.upload.addEventListener("progress", function (evt) {
                             if (evt.lengthComputable) {
                                 var percentComplete = evt.loaded / evt.total;
                                 bar.animate(percentComplete);
+                                bar.setText(parseInt(percentComplete*100) + "%")
                             }
                         }, false);
                         return xhr;

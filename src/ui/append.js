@@ -175,6 +175,7 @@ function Loading(id) {
 function ProgressBar(id) {
     return `
         <div style="margin-bottom: 10px; transform: rotateY(180deg)" class="rotic-progress-container" uuid="${id}">
+            <div style="transform: rotateY(180deg); font-size: 12px; color: white; margin-bottom: 7px">در حال آپلود</div>
         </div> 
     `
 }
@@ -783,7 +784,7 @@ function Chatbox() {
         background: #5ec5c4;
         border-radius: 0px 6px 6px 6px;
         max-width: 80%;
-        padding: 15px 10px;
+        padding: 5px 10px 15px 10px;
         opacity: 0.2;
     }
     .rotic-upload-container {
