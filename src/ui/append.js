@@ -109,8 +109,8 @@ function Remote(text, id) {
 
 function Button(text, link, id) {
     return `
-        <article class="rotic-msg-container rotic-msg-remote" uuid=${id} id="rotic-msg-0">
-            <button text="${text}" link="${link}"  class="rotic-response-button">
+        <article class="rotic-msg-container rotic-msg-remote"  id="rotic-msg-0">
+            <button text="${text}" link="${link}"  class="rotic-response-button" uuid=${id}>
             ${text}
             </button>
         </article>
@@ -202,6 +202,7 @@ function Chatbox() {
     </div>
      <div class="rotic-container">
       <section class="rotic-chat-window"></section>
+      <div id="rotic-scroll">پیام خوانده نشده دارید!</div>
       <form class="rotic-chat-input" onsubmit="return false;">
         <input
           id="rotic-text"
@@ -820,6 +821,28 @@ function Chatbox() {
         height: 30px;
         border-radius: 6px 0 6px 6px;
         background: #5bc5cb;
+    }
+    #rotic-scroll {
+        position: fixed;
+        bottom: 60px;
+        right: 100px;
+        height: 20px;
+        width: 100px;
+        border-radius: 6px;
+        transform: translateX(50%);
+        display: none;
+        opacity: 0.2;
+        background: #69C5C6;
+        font-size: 9px;
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+        font-weight: lighter;
+        box-shadow: 0px 0px 63px -7px rgba(166,166,166,1);
+    }
+    #rotic-scroll:hover {
+        cursor: pointer;
     }
     </style>`;
 }
