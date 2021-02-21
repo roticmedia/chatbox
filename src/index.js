@@ -199,6 +199,7 @@ $rotic(document).ready(function () {
         loadingAnimation(uuid)
         scroll()
         resolve(uniqueToken, () => {
+            showScroll()
             $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml("مشکل شما با موفقیت ثبت شد"), uuid))
         });
     })
