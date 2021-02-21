@@ -81,7 +81,7 @@ function RemoteNoBtn(text, id) {
 
 function RemoteNoBtnNoAnimation(text) {
     return `
-        <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
+         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0">
             <div class="rotic-msg-box-noAnimation">
                 <div class="rotic-flr">
                     <div class="rotic-messages">

@@ -194,7 +194,13 @@ $rotic(document).ready(function () {
         sendMessage($rotic(e.target).text())
     });
     $rotic(document).on("click", ".rotic-resolve", (e) => {
-        resolve(uniqueToken);
+        let uuid = v4()
+        $rotic(".rotic-chat-window").append(append.Loading(uuid));
+        loadingAnimation(uuid)
+        scroll()
+        resolve(uniqueToken, () => {
+            $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml("مشکل شما با موفقیت ثبت شد"), uuid))
+        });
     })
     $rotic(document).on("change", "#rotic-input-file", function (e) {
         let t = e.target || window.event.srcElement;
@@ -577,7 +583,7 @@ const sendMessage = (text) => {
     selfMessage(uuid)
     $rotic(".rotic-chat-window").append(append.Loading(uuid));
     loadingAnimation(uuid)
-    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop(), easing: 'ease-in-out' });
+    scroll()
 
     $rotic.ajax({
         method: "POST",
