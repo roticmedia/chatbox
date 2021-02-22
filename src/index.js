@@ -617,7 +617,7 @@ const sendMessage = (text) => {
                     buttonAnimation(uuid)
                 }
                 if (res.options.images) {
-                    $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.Remote(converter.makeHtml(res.response), uuid))
+                    $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml(res.response), uuid))
 
                     JSON.parse(res.options.images).forEach(function (chat) {
                         $rotic(".rotic-chat-window").append(
