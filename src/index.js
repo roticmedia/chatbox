@@ -193,7 +193,7 @@ $rotic(document).ready(function () {
     $rotic(document).on("click", ".rotic-response-button-noAnimation", function (e) {
         sendMessage($rotic(e.target).text())
     });
-    $rotic(document).on("click", ".rotic-resolve", (e) => {
+    $rotic(document).on("click", ".rotic-resolve-button", (e) => {
         let uuid = v4()
         $rotic(".rotic-chat-window").append(append.Loading(uuid));
         loadingAnimation(uuid)

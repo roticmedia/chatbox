@@ -104,7 +104,7 @@ function Remote(text, id) {
                 </div>
             </div>
         </article>
-        <div class="rotic-resolve">پاسخمو نگرفتم</div>
+        <div class="rotic-resolve"><span class="rotic-resolve-button">پاسخمو نگرفتم</span></div>
     `;
 }
 
@@ -198,7 +198,7 @@ function Chatbox() {
         <a href="https://rotic.ir/fa-ir" id="rotic-image-logo-link" target="_blank"><img src="https://rotic.ir/images/logo/Theme.png" alt="rotic" class="rotic-image-logo__img"></a> 
         <p class="rotic-image-logo__p">powered by </p>
         <div class="rotic-close-text">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#5FC5C4" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#000" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#5FC5C4" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#D3D3D3" /></svg>
         </div>
     </div>
      <div class="rotic-container">
@@ -269,7 +269,7 @@ function Chatbox() {
             flex-direction: column;
             overflow: hidden;
             box-shadow: 5px 5px 20px lightgray;
-            font-family: IranSans ;
+            font-family: IranSans, "Roboto Light",serif ;
             visibility: hidden;
             padding: 0 !important;
             -webkit-touch-callout: none;
@@ -310,7 +310,7 @@ function Chatbox() {
             z-index: 999;
             top: 0;
             right: 0;
-            height: 51px !important;
+            height: 40px !important;
             width: 100%;
             background: white;
             border-top: 1px solid #5BC5CB;
@@ -320,7 +320,7 @@ function Chatbox() {
             z-index: 9999;
             top: 20px;
             right: 0px;
-            transform: translate(-50%, -50%);
+            transform: translate(-40%, -50%);
             color:black;
             font-weight: 500;
             font-size: 24px;
@@ -352,9 +352,9 @@ function Chatbox() {
             color: lightgray;
         }
         .rotic-iframe-chatbox {
-            font-family: IranSans;
+            font-family: IranSans, "Roboto Light",serif ;
             position: fixed;
-            top: 51px;
+            top: 40px;
             right: 0;
             width: 100%;
             height: 100%;
@@ -367,7 +367,7 @@ function Chatbox() {
           bottom: -624px !important;
         }
         .rotic-chat-window {
-          height: calc(100% - 110px) !important;
+          height: calc(100% - 100px) !important;
         }
       }
       @media only screen and (min-width: 768px) {
@@ -385,7 +385,7 @@ function Chatbox() {
         width: 100%;
         margin: 0;
         padding: 0;
-        font-family: IranSans;
+        font-family: IranSans, "Roboto Light",serif ;
       }
  
       .rotic-container {
@@ -394,7 +394,7 @@ function Chatbox() {
         right: 0;
         width: 100%;
         height: 553px;
-        margin-top: 51px;
+        margin-top: 40px;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -407,7 +407,7 @@ function Chatbox() {
         bottom: 60px;
         flex: auto;
         width: 100%;
-        height: calc(100% - 110px);
+        height: calc(100% - 100px);
         background: #fff;
         overflow: auto;
         overflow-x: hidden;
@@ -435,7 +435,7 @@ function Chatbox() {
         margin-bottom: 0;
       }
       .rotic-chat-input input {
-        font-family: IRANSans;
+        font-family: IranSans, "Roboto Light",serif ;
         height: 60px;
         line-height: 60px;
         outline: 0 none;
@@ -588,12 +588,12 @@ function Chatbox() {
         cursor: pointer;
       }
       .rotic-response-button {
-        font-family: IRANSans;
+        font-family: IranSans, "Roboto Light",serif ;
         margin-left: 12px;
         float: left;
       }
       .rotic-response-button-noAnimation {
-        font-family: IRANSans;
+        font-family: IranSans, "Roboto Light",serif ;
         margin-left: 12px;
         float: left;
       }
@@ -657,7 +657,7 @@ function Chatbox() {
         margin: 0 0 10px 24px;
         font-size: 10px;
       }
-      .rotic-resolve:hover {
+      .rotic-resolve-button:hover {
         cursor: pointer;
       }
       .rotic-chatbox-toast {
@@ -665,7 +665,7 @@ function Chatbox() {
         background: #5bc5cb;
         padding: 7px 20px;
         color: white;
-        font-family: IranSans;
+        font-family: IranSans, "Roboto Light",serif ;
         font-size: 13px;
         min-width: 100px;
         text-align: center;
