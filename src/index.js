@@ -684,7 +684,7 @@ const scrollHeight = () => {
     }
 }
 const scroll = () => {
-    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() + 1000, easing: 'ease-in-out' });
+    scrollTo(chatWindow, { top: scrollHeight(), duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() + 1500, easing: 'ease-out' });
 }
 const showScroll = () => {
     if (scrollHeight() - $rotic(".rotic-chat-window").scrollTop() >= 550) {
