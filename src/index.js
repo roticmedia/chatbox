@@ -684,13 +684,18 @@ const scrollHeight = () => {
     }
 }
 const scroll = () => {
-    scrollTo(chatWindow, { top: scrollHeight(), duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() + 1500, easing: 'ease-out' });
+    scrollTo(chatWindow, { top: scrollHeight(), behavior: "smooth", duration: scrollHeight() - $rotic(".rotic-chat-window").scrollTop() + 1000, easing: 'ease-in-out' });
 }
 const showScroll = () => {
     if (scrollHeight() - $rotic(".rotic-chat-window").scrollTop() >= 550) {
         showScrollAnimation();
-    } else {
+    } else if (scrollHeight() - $rotic(".rotic-chat-window").scrollTop() >= 455) {
         scroll()
+    } else {
+        setTimeout(() => {
+            $rotic(".rotic-chat-window").scrollTop(99999999999999999999999999999999)
+        }, 1)
+
     }
 }
 const hideScroll = () => {
