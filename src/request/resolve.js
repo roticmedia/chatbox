@@ -1,7 +1,7 @@
 const $ = require("jquery")
 const { get } = require("../util/localStorage")
 
-module.exports = (uniqueToken, callBack) => {
+module.exports = (uniqueToken, api, token, callBack) => {
     try {
         $.ajax({
             method: "post",
@@ -13,7 +13,9 @@ module.exports = (uniqueToken, callBack) => {
             crossDomain: true,
             data: JSON.stringify({
                 unique_token: uniqueToken,
-                messages: get()
+                messages: get(),
+                token,
+                api
             }),
             success: () => {
                 callBack()

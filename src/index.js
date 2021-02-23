@@ -98,6 +98,8 @@ let checkScrolled = false;
 let chatScrolled = false;
 let chatWindow;
 let uniqueToken = 0;
+let api = "47ade78776837c0f70c040bff4edbcdb52";
+let token = "1e2599afb29e63bcb69e5d4c21e51ecf"
 let toasted = false;
 (async () => {
     uniqueToken = await unique_token();
@@ -198,7 +200,7 @@ $rotic(document).ready(function () {
         $rotic(".rotic-chat-window").append(append.Loading(uuid));
         loadingAnimation(uuid)
         scroll()
-        resolve(uniqueToken, () => {
+        resolve(uniqueToken, api, token, () => {
             showScroll()
             $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml("مشکل شما با موفقیت ثبت شد"), uuid))
         });
