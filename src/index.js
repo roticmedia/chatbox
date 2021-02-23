@@ -110,6 +110,7 @@ $rotic(document).ready(function () {
     $rotic("body").append(append.Chatbox());
     chatWindow = document.querySelector(".rotic-chat-window");
     window.dispatchEvent(startEvent);
+    storage.reset()
 
 
 

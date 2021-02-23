@@ -10,6 +10,13 @@ const set = (message, response, buttons = []) => {
         ))
 }
 
+const reset = () => {
+    localStorage.setItem(
+        "__rotic-bot",
+        ""
+    )
+}
+
 const get = () => {
     try {
         if (localStorage.getItem("__rotic-bot") !== null) {
@@ -23,4 +30,4 @@ const get = () => {
     }
 }
 
-module.exports = { get, set }
+module.exports = { get, set, reset }
