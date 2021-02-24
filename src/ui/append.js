@@ -649,13 +649,21 @@ function Chatbox() {
         transition: all 200ms ease-out;
       }
       .rotic-resolve {
+        position: relative;
         padding: 0;
-        font-size: 6px;
         font-weight: lighter;
         color: gray;
         direction: ltr;
         margin: 0 0 10px 24px;
-        font-size: 10px;
+        font-size: 9px;
+        width: 100%;
+        height: 15px;
+      }
+      .rotic-resolve-button{
+        position: absolute;
+        top:0;
+        left: 0;
+        margin-left: 24px;
       }
       .rotic-resolve-button:hover {
         cursor: pointer;

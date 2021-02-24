@@ -98,8 +98,8 @@ let checkScrolled = false;
 let chatScrolled = false;
 let chatWindow;
 let uniqueToken = 0;
-let api = "47ade78776837c0f70c040bff4edbcdb52";
-let token = "1e2599afb29e63bcb69e5d4c21e51ecf"
+let api = "6a105d7f17b029f067615f47b6e6b43211";
+let token = "6a105d7f17b029f067615f47b6e6b432"
 let toasted = false;
 (async () => {
     uniqueToken = await unique_token();
@@ -206,90 +206,90 @@ $rotic(document).ready(function () {
             $rotic(document.querySelectorAll(`.rotic-loading-container[uuid="${uuid}"]`)).replaceWith(append.RemoteNoBtnNoAnimation(converter.makeHtml("مشکل شما با موفقیت ثبت شد"), uuid))
         });
     })
-    $rotic(document).on("change", "#rotic-input-file", function (e) {
-        let t = e.target || window.event.srcElement;
-        let files = t.files;
-        if (FileReader && files && files.length) {
-            let imagesTypes = ['jpg', 'jpeg', 'png'];
-            let extension = files[0].name.split('.').pop().toLowerCase()
-            let isImage = imagesTypes.indexOf(extension) > -1;
-            let fr = new FileReader();
-            let uuid = v4();
-            $rotic(".rotic-chat-window").append(
-                append.ProgressBar(uuid)
-            );
-            progressAnimation(uuid)
-            scroll()
-
-            fr.onload = function () {
-                $.ajax({
-                    xhr: function () {
-                        var xhr = new window.XMLHttpRequest();
-                        var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
-                            {
-                                color: "#FFFFFF",
-                                easing: 'easeInOut',
-                                strokeWidth: 2,
-                                style: {
-                                    transform: "rotateX(180deg)"
-                                },
-                                text: {
-                                    value: "0",
-                                    style: {
-                                        position: "absolute",
-                                        top: "27px",
-                                        left: "11px",
-                                        fontSize: "11px",
-                                        transform: "rotateY(180deg)"
-                                    }
-                                },
-                                svgStyle: {
-                                    marginLeft: "30px",
-                                }
-                            });
-                        xhr.upload.addEventListener("progress", function (evt) {
-                            if (evt.lengthComputable) {
-                                var percentComplete = evt.loaded / evt.total;
-                                bar.animate(percentComplete);
-                                bar.setText(parseInt(percentComplete*100) + "%")
-                            }
-                        }, false);
-                        return xhr;
-                    },
-                    url: "https://httpbin.org/post",
-                    type: "POST",
-                    data: JSON.stringify(fr.result),
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (result) {
-                        if (isImage) {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.ImageSelf(fr.result, uuid))
-                            setTimeout(function () {
-                                scroll()
-                            }, 10)
-                        } else {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.upload(uuid, files[0].name))
-                            scroll()
-                        }
-                    },
-                    error: function (e) {
-                        if (e.status === 500) {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid))
-                            scroll()
-                            $rotic("#rotic-text").focus();
-                        } else {
-                            $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid))
-                            scroll()
-                            $rotic("#rotic-text").focus();
-                        }
-                    },
-                });
-            }
-            fr.readAsDataURL(files[0]);
-
-            t.files = new DataTransfer().files
-        }
-    })
+    // $rotic(document).on("change", "#rotic-input-file", function (e) {
+    //     let t = e.target || window.event.srcElement;
+    //     let files = t.files;
+    //     if (FileReader && files && files.length) {
+    //         let imagesTypes = ['jpg', 'jpeg', 'png'];
+    //         let extension = files[0].name.split('.').pop().toLowerCase()
+    //         let isImage = imagesTypes.indexOf(extension) > -1;
+    //         let fr = new FileReader();
+    //         let uuid = v4();
+    //         $rotic(".rotic-chat-window").append(
+    //             append.ProgressBar(uuid)
+    //         );
+    //         progressAnimation(uuid)
+    //         scroll()
+    //
+    //         fr.onload = function () {
+    //             $.ajax({
+    //                 xhr: function () {
+    //                     var xhr = new window.XMLHttpRequest();
+    //                     var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
+    //                         {
+    //                             color: "#FFFFFF",
+    //                             easing: 'easeInOut',
+    //                             strokeWidth: 2,
+    //                             style: {
+    //                                 transform: "rotateX(180deg)"
+    //                             },
+    //                             text: {
+    //                                 value: "0",
+    //                                 style: {
+    //                                     position: "absolute",
+    //                                     top: "27px",
+    //                                     left: "11px",
+    //                                     fontSize: "11px",
+    //                                     transform: "rotateY(180deg)"
+    //                                 }
+    //                             },
+    //                             svgStyle: {
+    //                                 marginLeft: "30px",
+    //                             }
+    //                         });
+    //                     xhr.upload.addEventListener("progress", function (evt) {
+    //                         if (evt.lengthComputable) {
+    //                             var percentComplete = evt.loaded / evt.total;
+    //                             bar.animate(percentComplete);
+    //                             bar.setText(parseInt(percentComplete*100) + "%")
+    //                         }
+    //                     }, false);
+    //                     return xhr;
+    //                 },
+    //                 url: "https://httpbin.org/post",
+    //                 type: "POST",
+    //                 data: JSON.stringify(fr.result),
+    //                 contentType: "application/json",
+    //                 dataType: "json",
+    //                 success: function (result) {
+    //                     if (isImage) {
+    //                         $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.ImageSelf(fr.result, uuid))
+    //                         setTimeout(function () {
+    //                             scroll()
+    //                         }, 10)
+    //                     } else {
+    //                         $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.upload(uuid, files[0].name))
+    //                         scroll()
+    //                     }
+    //                 },
+    //                 error: function (e) {
+    //                     if (e.status === 500) {
+    //                         $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid))
+    //                         scroll()
+    //                         $rotic("#rotic-text").focus();
+    //                     } else {
+    //                         $rotic(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid))
+    //                         scroll()
+    //                         $rotic("#rotic-text").focus();
+    //                     }
+    //                 },
+    //             });
+    //         }
+    //         fr.readAsDataURL(files[0]);
+    //
+    //         t.files = new DataTransfer().files
+    //     }
+    // })
     $rotic(document).on("click", "#rotic-scroll", () => {
         scroll()
     })
@@ -597,9 +597,9 @@ const sendMessage = (text) => {
         url: "https://api.rotic.ir/ai",
         data: JSON.stringify({
             data: text.trim(),
-            api: "47ade78776837c0f70c040bff4edbcdb52",
+            api,
             user_data: this.userData,
-            token: "1e2599afb29e63bcb69e5d4c21e51ecf",
+            token,
             unique_token: uniqueToken,
             username: "MyTestRoticBot"
         }),
@@ -695,10 +695,10 @@ const showScroll = () => {
     } else if (scrollHeight() - $rotic(".rotic-chat-window").scrollTop() >= 455) {
         scroll()
     } else {
-        setTimeout(() => {
-            $rotic(".rotic-chat-window").scrollTop(99999999999999999999999999999999)
-        }, 1)
-
+        scroll()
+        // setTimeout(() => {
+        //     $rotic(".rotic-chat-window").scrollTop(99999999999999999999999999999999)
+        // }, 1)
     }
 }
 const hideScroll = () => {
