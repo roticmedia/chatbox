@@ -18,12 +18,10 @@
   },
   "homepage": "https://github.com/roticmedia/Rotic-Chatbox#readme",
   "dependencies": {
-    "animejs": "^3.2.1",
     "jquery": "^3.5.1",
     "progressbar.js": "^1.1.0",
     "scroll-js": "^3.3.0",
     "showdown": "^1.9.1",
-    "unirest": "^0.6.0",
     "uuid": "^8.3.2",
     "webpack": "^5.11.1"
   },

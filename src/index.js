@@ -1,7 +1,7 @@
 const $ = require("jquery");
 const showdown = require("showdown")
 const {v4} = require("uuid")
-const anime = require("./util/anime")
+const anime = require("./lib/anime")
 const ProgressBar = require("progressbar.js")
 const { scrollTo } = require("scroll-js")
 
@@ -594,7 +594,7 @@ const sendMessage = (text) => {
         headers: {
             "Content-Type": "application/json",
         },
-        url: "https://api.rotic.ir/ai",
+        url: "https://api.rotic.ir/ai/v4",
         data: JSON.stringify({
             data: text.trim(),
             api,
