@@ -2,11 +2,14 @@ const set = (message, response, buttons = []) => {
     localStorage.setItem(
         "__rotic-bot",
         JSON.stringify(
-            get().concat([{
+            [
+                ...get(),
+                {
                 message,
                 response,
                 buttons
-            }])
+            },
+            ]
         ))
 }
 

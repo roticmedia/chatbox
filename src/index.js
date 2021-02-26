@@ -336,9 +336,6 @@ const openChat = () => {
                 easing: "easeOutExpo",
                 delay: 1300,
             },
-            begin: () => {
-                scroll()
-            }
         });
     }
 }
