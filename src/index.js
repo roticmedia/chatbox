@@ -108,6 +108,7 @@ let toasted = false;
 $(document).ready(function () {
     $("body").append(append.Chatbox());
     chatWindow = document.querySelector(".rotic-chat-window");
+    storage.reset(10)
     window.dispatchEvent(startEvent);
 
     if (getCookie("__rotic-driver") !== "true") {

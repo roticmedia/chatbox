@@ -13,11 +13,15 @@ const set = (message, response, buttons = []) => {
         ))
 }
 
-const reset = () => {
+const reset = (total) => {
+    let messages = get();
     localStorage.setItem(
         "__rotic-bot",
-        ""
-    )
+        JSON.stringify(
+            [
+                ...messages.slice(-total)
+            ]
+        ))
 }
 
 const get = () => {
