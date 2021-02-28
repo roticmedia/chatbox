@@ -172,17 +172,17 @@ document.onreadystatechange = function () {
                 appendTo(append.ButtonNoAnimation(button, button))
             })
         }
-        storage.get().map((message) => {
-            const uuid = v4()
-            appendTo(append.Self(message.message, uuid));
-            selfMessage(uuid)
-            if (message.response) {
-                appendTo(append.Remote(converter.makeHtml(message.response), uuid));
-            }
-            message.buttons.map((button) => {
-                appendTo(append.ButtonNoAnimation(button, button));
-            })
-        })
+        // storage.get().map((message) => {
+        //     const uuid = v4()
+        //     appendTo(append.Self(message.message, uuid));
+        //     selfMessage(uuid)
+        //     if (message.response) {
+        //         appendTo(append.Remote(converter.makeHtml(message.response), uuid));
+        //     }
+        //     message.buttons.map((button) => {
+        //         appendTo(append.ButtonNoAnimation(button, button));
+        //     })
+        // })
 
         select("#rotic-btn").addEventListener("click", () => {
             if (select("#rotic-text").value.trim()) {
