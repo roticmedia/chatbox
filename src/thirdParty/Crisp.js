@@ -1,5 +1,3 @@
-const $ = require("jquery")
-
 const hide = () => {
     let style = document.createElement("style");
     style.type = "text/css"
@@ -10,9 +8,9 @@ const hide = () => {
 }
 
 const show = () => {
-    $("#rotic-crisp-hide")[0].disabled = true;
+    document.querySelector("#rotic-crisp-hide").disabled = true;
 
-    var date = new Date()
+    let date = new Date()
     date.setTime(date.getTime() + 86400000)
     let expire = "expires=" + date.toUTCString();
     document.cookie = `__rotic-driver=true;${expire};path=/`

@@ -1,5 +1,3 @@
-const $ = require("jquery");
-
 const hide = () => {
     try {
         let style = document.createElement("style")
@@ -14,7 +12,7 @@ const hide = () => {
 
 const show = () => {
     try {
-        $("#rotic-hotfix")[0].disabled = true;
+        document.querySelector("#rotic-hotfix").disabled = true;
 
         var date = new Date()
         date.setTime(date.getTime() + 86400000)

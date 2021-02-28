@@ -1,5 +1,3 @@
-const $ = require("jquery")
-
 const hide = () => {
     let style = document.createElement("style");
     style.type = "text/css"
@@ -10,7 +8,7 @@ const hide = () => {
 }
 
 const show = () => {
-    $("#rotic-smartsupp-hide")[0].disabled = true;
+    document.querySelector("#rotic-smartsupp-hide").disabled = true;
 
     var date = new Date()
     date.setTime(date.getTime() + 86400000)

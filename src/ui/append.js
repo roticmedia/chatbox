@@ -95,6 +95,7 @@ function RemoteNoBtnNoAnimation(text) {
 
 function Remote(text, id) {
     return `
+        <div>
         <article class="rotic-msg-container rotic-msg-remote" id="rotic-msg-0" uuid=${id}>
             <div class="rotic-msg-box-noAnimation">
                 <div class="rotic-flr">
@@ -105,6 +106,7 @@ function Remote(text, id) {
             </div>
         </article>
         <div class="rotic-resolve"><span class="rotic-resolve-button">پاسخمو نگرفتم</span></div>
+        </div>
     `;
 }
 

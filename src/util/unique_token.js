@@ -1,16 +1,6 @@
-const $ = require("jquery")
-
 const unique_token = async () => {
-    let response = 0;
-    await $.ajax({
-        method: "get",
-        url: "https://api.ipify.org",
-        success: function (res) {
-            response =  res + "**" + new Date().getTime()
-        }
-    })
-
-    return response;
+    let response = await fetch("https://api.ipify.org");
+    return response + "**" + new Date().getTime() ;
 }
 
 module.exports = unique_token;

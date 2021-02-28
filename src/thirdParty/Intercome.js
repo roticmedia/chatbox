@@ -1,5 +1,3 @@
-const $ = require("jquery")
-
 const hide = () => {
     let style = document.createElement("style");
     style.type = "text/css"
@@ -10,7 +8,7 @@ const hide = () => {
 }
 
 const show = () => {
-    $("#rotic-intercome-hide")[0].disabled = true;
+    document.querySelector("#rotic-intercome-hide").disabled = true;
 
     let date = new Date()
     date.setTime(date.getTime() + 86400000)
