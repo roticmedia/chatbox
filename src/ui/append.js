@@ -12,6 +12,21 @@ function Self(text, id) {
     `;
 }
 
+function SelfNoAnimation(text, id) {
+    return `
+        <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
+            <div class="rotic-msg-box-self-noAnimation rotic-msg-box">
+                <div class="rotic-flr">
+                    <div class="rotic-messages">
+                        <p>${text}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+
 function paperClip() {
     return `
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -178,6 +193,9 @@ function Loading(id) {
 function ProgressBar(id) {
     return `
         <div style="margin-bottom: 10px; transform: rotateY(180deg)" class="rotic-progress-container" uuid="${id}">
+            <div uuid="${id}" class="rotic-cancel-upload">            
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#5FC5C4" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#D3D3D3" /></svg>
+            </div>
             <div style="transform: rotateY(180deg); font-size: 12px; color: white; margin-bottom: 7px">در حال آپلود</div>
         </div> 
     `
@@ -573,6 +591,14 @@ function Chatbox() {
         color: white !important;
         float: right;
       }
+      .rotic-msg-box-self-noAnimation {
+        border-radius: 6px 0px 6px 6px;
+        margin-right: 16px !important;
+        opacity: 1 !important;
+        background-image: linear-gradient(to bottom, #5ec5c4, #4cc6eb);
+        color: white !important;
+        float: right;
+      }
       .rotic-msg-self .rotic-user-img {
         margin: 0 0 10px 10px;
       }
@@ -855,12 +881,26 @@ function Chatbox() {
     #rotic-scroll:hover {
         cursor: pointer;
     }
-    </style>`;
+    .rotic-cancel-upload {
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        z-index: 10;
+    }
+    .rotic-cancel-upload svg{
+        height: 16px;
+        width: 16px;
+    }
+    .rotic-cancel-upload:hover {
+        cursor: pointer;
+    }
+        </style>`;
 }
 
 module.exports = {
     Button,
     Chatbox,
+    SelfNoAnimation,
     Remote,
     Self,
     RemoteNoBtn,

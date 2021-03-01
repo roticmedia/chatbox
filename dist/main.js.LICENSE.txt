@@ -1,1 +1,3 @@
+/*! For license information please see shifty.js.LICENSE.txt */
+
 /*! showdown v 1.9.1 - 02-11-2019 */

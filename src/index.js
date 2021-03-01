@@ -1,7 +1,8 @@
 const {setOption, Converter}= require("showdown")
 const {v4} = require("uuid")
 const anime = require("./lib/anime")
-//const ProgressBar = require("progressbar.js")
+const axios = require("axios")
+const ProgressBar = require("progressbar.js")
 const {scrollTo} = require("scroll-js")
 
 const append = require("./ui/append");
@@ -33,11 +34,9 @@ class rotic {
     open() {
         openChat()
     }
-
     close() {
         closeChat()
     }
-
     setUser(username, name, otherData) {
         this.userData = {
             username,
@@ -45,7 +44,6 @@ class rotic {
             otherData
         }
     }
-
     setDriver(driver) {
         try {
             this.setting.driver = driver.toLowerCase();
@@ -57,7 +55,6 @@ class rotic {
             console.log(err)
         }
     }
-
     setLeft(amount) {
         try {
             this.setting.left = amount;
@@ -72,7 +69,6 @@ class rotic {
             console.log(err)
         }
     }
-
     setScroll(scroll) {
         this.setting.scroll = scroll;
         setCookie("__rotic-setting", JSON.stringify({
@@ -85,8 +81,9 @@ class rotic {
 let thirdParty = handleThirdParty("")
 window.Rotic = new rotic();
 
-Rotic.setDriver("");
-const startEvent = new Event("rotic-start")
+
+const startEvent = new Event("on-rotic-start")
+
 
 let welcomeMessage = "welcome_message";
 let toastMessages = "toast_message".split(",,").reverse();
@@ -98,6 +95,7 @@ let uniqueToken = 0;
 let api = "6a105d7f17b029f067615f47b6e6b43211";
 let token = "6a105d7f17b029f067615f47b6e6b432"
 let toasted = false;
+Rotic.setDriver("");
 (async () => {
     uniqueToken = await unique_token();
     setCookie("_utok", uniqueToken)
@@ -212,90 +210,88 @@ document.onreadystatechange = function () {
                 scroll()
             }
         })
-// $(document).on("change", "#rotic-input-file", function (e) {
-//     let t = e.target || window.event.srcElement;
-//     let files = t.files;
-//     if (FileReader && files && files.length) {
-//         let imagesTypes = ['jpg', 'jpeg', 'png'];
-//         let extension = files[0].name.split('.').pop().toLowerCase()
-//         let isImage = imagesTypes.indexOf(extension) > -1;
-//         let fr = new FileReader();
-//         let uuid = v4();
-//         $(".rotic-chat-window").append(
-//             append.ProgressBar(uuid)
-//         );
-//         progressAnimation(uuid)
-//         scroll()
-//
-//         fr.onload = function () {
-//             $.ajax({
-//                 xhr: function () {
-//                     var xhr = new window.XMLHttpRequest();
-//                     var bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
-//                         {
-//                             color: "#FFFFFF",
-//                             easing: 'easeInOut',
-//                             strokeWidth: 2,
-//                             style: {
-//                                 transform: "rotateX(180deg)"
-//                             },
-//                             text: {
-//                                 value: "0",
-//                                 style: {
-//                                     position: "absolute",
-//                                     top: "27px",
-//                                     left: "11px",
-//                                     fontSize: "11px",
-//                                     transform: "rotateY(180deg)"
-//                                 }
-//                             },
-//                             svgStyle: {
-//                                 marginLeft: "30px",
-//                             }
-//                         });
-//                     xhr.upload.addEventListener("progress", function (evt) {
-//                         if (evt.lengthComputable) {
-//                             var percentComplete = evt.loaded / evt.total;
-//                             bar.animate(percentComplete);
-//                             bar.setText(parseInt(percentComplete*100) + "%")
-//                         }
-//                     }, false);
-//                     return xhr;
-//                 },
-//                 url: "https://httpbin.org/post",
-//                 type: "POST",
-//                 data: JSON.stringify(fr.result),
-//                 contentType: "application/json",
-//                 dataType: "json",
-//                 success: function (result) {
-//                     if (isImage) {
-//                         $(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.ImageSelf(fr.result, uuid))
-//                         setTimeout(function () {
-//                             scroll()
-//                         }, 10)
-//                     } else {
-//                         $(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.upload(uuid, files[0].name))
-//                         scroll()
-//                     }
-//                 },
-//                 error: function (e) {
-//                     if (e.status === 500) {
-//                         $(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid))
-//                         scroll()
-//                         $("#rotic-text").focus();
-//                     } else {
-//                         $(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid))
-//                         scroll()
-//                         $("#rotic-text").focus();
-//                     }
-//                 },
-//             });
-//         }
-//         fr.readAsDataURL(files[0]);
-//
-//         t.files = new DataTransfer().files
-//     }
-// })
+        select("#rotic-input-file").addEventListener("change", (e) => {
+            let t = e.target || window.event.srcElement;
+            let files = t.files;
+            if (FileReader && files && files.length) {
+                let imagesTypes = ['jpg', 'jpeg', 'png'];
+                let extension = files[0].name.split('.').pop().toLowerCase()
+                let isImage = imagesTypes.indexOf(extension) > -1;
+                let fr = new FileReader();
+                let uuid = v4();
+                appendTo(append.ProgressBar(uuid));
+                progressAnimation(uuid)
+                scroll()
+
+                fr.onload = function () {
+                    let bar = new ProgressBar.Line(`.rotic-progress-container[uuid="${uuid}"]`,
+                        {
+                            color: "#FFFFFF",
+                            easing: 'easeInOut',
+                            strokeWidth: 2,
+                            style: {
+                                transform: "rotateX(180deg)"
+                            },
+                            text: {
+                                value: "0",
+                                style: {
+                                    position: "absolute",
+                                    top: "27px",
+                                    left: "11px",
+                                    fontSize: "11px",
+                                    transform: "rotateY(180deg)"
+                                }
+                            },
+                            svgStyle: {
+                                marginLeft: "30px",
+                            }
+                        });
+                    const cancelTokenSource = axios.CancelToken.source();
+                    select(`.rotic-cancel-upload[uuid="${uuid}"]`).addEventListener("click", () => {
+                        cancelTokenSource.cancel()
+                    })
+                    axios({
+                        method: "POST",
+                        url: "https://httpbin.org/post",
+                        data: JSON.stringify(fr.result),
+                        onUploadProgress: (p) => {
+                            let percentComplete = p.loaded / p.total;
+                            bar.animate(percentComplete);
+                            bar.setText(parseInt(percentComplete*100) + "%")
+                        },
+                        cancelToken: cancelTokenSource.token
+                    }).then(() => {
+                        if (isImage) {
+                            select(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.ImageSelf(fr.result, uuid)))
+                            setTimeout(function () {
+                                scroll()
+                            }, 10)
+                        } else {
+                            select(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.upload(uuid, files[0].name)))
+                            scroll()
+                        }
+                    }).catch((err) => {
+                        if (e.status === 500) {
+                            select(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation("مشکلی در سرور وجود دارد", uuid)))
+                            scroll()
+                            select("#rotic-text").focus();
+                        } else if (err.__CANCEL__) {
+                            select(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.SelfNoAnimation("آپلود متوقف شد!", uuid)))
+                            setTimeout(function () {
+                                scroll()
+                            }, 10)
+                        } else {
+                            select(`.rotic-progress-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation("مشکلی در اتصال اینترنت وجود دارد", uuid)))
+                            scroll()
+                            select("#rotic-text").focus();
+                        }
+                    })
+                }
+                fr.readAsDataURL(files[0]);
+
+                t.files = new DataTransfer().files
+            }
+        })
     }
 }
 
