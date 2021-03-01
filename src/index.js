@@ -1,7 +1,7 @@
-const showdown = require("showdown")
+const {setOption, Converter}= require("showdown")
 const {v4} = require("uuid")
 const anime = require("./lib/anime")
-const ProgressBar = require("progressbar.js")
+//const ProgressBar = require("progressbar.js")
 const {scrollTo} = require("scroll-js")
 
 const append = require("./ui/append");
@@ -12,8 +12,8 @@ const resolve = require("./request/resolve")
 const storage = require("./util/localStorage")
 require("./util/font")()
 
-showdown.setOption("openLinksInNewWindow", "true");
-let converter = new showdown.Converter();
+setOption("openLinksInNewWindow", "true");
+let converter = new Converter();
 
 class rotic {
     constructor() {
@@ -590,7 +590,7 @@ const sendMessage = (text) => {
     loadingAnimation(uuid)
     scroll()
 
-    fetch("https://api.rotic.ir/ai/v4", {
+    fetch("https://api.rotic.ir/ai/v5", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -602,36 +602,45 @@ const sendMessage = (text) => {
             user_data: this.userData,
             token,
             unique_token: uniqueToken,
-            username: "MyTestRoticBot"
+            username: "MyTestRoticBot",
+            bot_username: "MyTestRoticBot"
         }),
     })
         .then(response => response.json())
         .then((res) => {
         if (res.status && res.response != null) {
-            showScroll();
             storage.set(text, res.response, res.options.buttons)
             select("#rotic-text").focus()
+            if (Array.isArray(res.response)) {
+                res.response.forEach((message, index) => {
+                    if (index === 0) {
+                        select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(converter.makeHtml(message), uuid)))
+                    } else {
+                        appendTo(append.Remote(converter.makeHtml(message), uuid))
+                    }
+                })
+            } else {
+                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(converter.makeHtml(res.response), uuid)))
+            }
 
             if (res.options.buttons) {
-                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(converter.makeHtml(res.response), uuid)))
                 res.options.buttons.forEach(function (chat) {
                     appendTo(append.Button(Object.keys(chat)[0], Object.keys(chat)[2], uuid));
                 });
                 buttonAnimation(uuid)
             }
             if (res.options.images) {
-                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(converter.makeHtml(res.response), uuid)))
                 JSON.parse(res.options.images).forEach(function (chat) {
                     appendTo(append.Image(chat, uuid));
                 });
                 imageAnimation(uuid)
-            } else {
-                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(converter.makeHtml(res.response), uuid)))
             }
+            showScroll();
         } else {
             handleNull(text, uuid)
         }
     }).catch((e) => {
+        console.log(e.stack)
         showScroll()
         if (e.status === 500) {
             select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(converter.makeHtml("مشکلی در سرور وجود دارد"), uuid)))
