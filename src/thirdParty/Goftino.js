@@ -1,13 +1,12 @@
 const hide = () => {
     try {
-        window.addEventListener('goftino_ready', function () {
             let style = document.createElement("style");
             style.type = "text/css"
             style.id = "rotic-hotfix"
             style.appendChild(document.createTextNode(""));
             style.innerHTML = "#goftino_w { display: none !important; }"
             document.body.appendChild(style)
-        });
+
     } catch (err) {
     }
 }
