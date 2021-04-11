@@ -209,8 +209,15 @@ document.onreadystatechange = function () {
                 loadingAnimation(uuid)
                 scroll()
                 resolve(uniqueToken, api, token, () => {
-                    showScroll()
-                    select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکل شما با موفقیت ثبت شد"), uuid)))
+                    if (Rotic.setting.driver !== "") {
+                        thirdParty.show();
+                        thirdParty.open();
+                        thirdParty.showInitMessage(` درباره ${text} چه کمکی از دست ما بر میاد؟ `)
+                        closeForever()
+                        Rotic.isOpen = false;
+                    } else {
+                        handleNull(e.target.innerText, uuid)
+                    }
                 });
             } else if (el.id === "rotic-scroll") {
                 scroll()
@@ -592,7 +599,7 @@ const sendMessage = (text) => {
     loadingAnimation(uuid)
     scroll()
 
-    fetch("https://rotic.ir/api/v4/services/6a105d7f17b029f067615f47b6e6b432/ai", {
+    fetch("https://api.rotic.ir/ai/v4", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -601,8 +608,11 @@ const sendMessage = (text) => {
         body: JSON.stringify({
             data: text.trim(),
             api,
+            user_data: this.userData,
             token,
-            user_data: this.user_data
+            unique_token: uniqueToken,
+            username: "MyTestRoticBot",
+            bot_username: "MyTestRoticBot"
         }),
     })
         .then(response => response.json())
