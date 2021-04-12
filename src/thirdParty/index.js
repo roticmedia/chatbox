@@ -4,6 +4,7 @@ const Crisp = require("./Crisp")
 const Retain = require("./Retain")
 const Intercome = require("./Intercome")
 const SmartSupp = require("./SmartSupp")
+const Imber = require('./Imber')
 
 const handleThirdParty = (driver) => {
     try {
@@ -19,6 +20,8 @@ const handleThirdParty = (driver) => {
             return Intercome;
         } else if (driver === "smartsupp") {
             return SmartSupp;
+        } else if (driver === "imber") {
+            return Imber;
         } else {
             return {
                 hide: () => {},

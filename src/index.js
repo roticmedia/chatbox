@@ -198,25 +198,27 @@ document.onreadystatechange = function () {
         })
         document.addEventListener("click", (e) => {
             let el = e.target;
-
             if (el.classList.contains("rotic-response-button")) {
                 sendMessage(e.target.innerText)
             } else if (el.classList.contains("rotic-response-button-noAnimation")) {
                 sendMessage(e.target.innerText)
             } else if (el.classList.contains("rotic-resolve-button")) {
                 let uuid = v4()
-                appendTo(append.Loading(uuid));
-                loadingAnimation(uuid)
-                scroll()
+                if (Rotic.setting.driver === "") {
+                    appendTo(append.Loading(uuid));
+                    loadingAnimation(uuid)
+                    scroll()
+                }
+
                 resolve(uniqueToken, api, token, () => {
                     if (Rotic.setting.driver !== "") {
                         thirdParty.show();
                         thirdParty.open();
-                        thirdParty.showInitMessage(` درباره ${text} چه کمکی از دست ما بر میاد؟ `)
+                        thirdParty.showInitMessage("میتونم کمکتون کنم؟")
                         closeForever()
                         Rotic.isOpen = false;
                     } else {
-                        handleNull(e.target.innerText, uuid)
+                        handleNull("میتونم کمکتون کنم؟", uuid)
                     }
                 });
             } else if (el.id === "rotic-scroll") {
@@ -649,7 +651,6 @@ const sendMessage = (text) => {
             handleNull(text, uuid)
         }
     }).catch((e) => {
-        console.log(e.stack)
         showScroll()
         if (e.status === 500) {
             select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در سرور وجود دارد"), uuid)))
