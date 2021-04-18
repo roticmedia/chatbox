@@ -862,11 +862,11 @@ function Chatbox() {
     #rotic-scroll {
         position: fixed;
         bottom: 60px;
-        right: 100px;
+        right: 50%;
         height: 20px;
         width: 100px;
         border-radius: 6px;
-        transform: translateX(50%);
+        transform: translateX(50%) ;
         display: none;
         opacity: 0.2;
         background: #69C5C6;

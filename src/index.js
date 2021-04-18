@@ -553,8 +553,8 @@ const progressAnimation = (uuid) => {
 const showScrollAnimation = () => {
     anime({
         targets: "#rotic-scroll",
-        translateY: {
-            value: -10,
+        bottom: {
+            value: 70,
             duration: 500,
             easing: "easeOutExpo",
         },
@@ -574,8 +574,8 @@ const showScrollAnimation = () => {
 const hideScrollAnimation = () => {
     anime({
         targets: "#rotic-scroll",
-        translateY: {
-            value: 10,
+        bottom: {
+            value: 60,
             duration: 500,
             easing: "easeOutExpo",
         },
@@ -610,7 +610,6 @@ const sendMessage = (text) => {
         body: JSON.stringify({
             data: text.trim(),
             api,
-            user_data: this.userData,
             token,
             unique_token: uniqueToken,
             username: "MyTestRoticBot",
@@ -651,6 +650,7 @@ const sendMessage = (text) => {
             handleNull(text, uuid)
         }
     }).catch((e) => {
+        console.log(e)
         showScroll()
         if (e.status === 500) {
             select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در سرور وجود دارد"), uuid)))
@@ -703,7 +703,7 @@ const scroll = () => {
     });
 }
 const showScroll = () => {
-    if (scrollHeight() - select(".rotic-chat-window").scrollTop >= 550) {
+    if (scrollHeight() - select(".rotic-chat-window").scrollTop > select('.rotic-chat-window').offsetHeight * 1.2) {
         showScrollAnimation();
     } else if (scrollHeight() - select(".rotic-chat-window").scrollTop >= 455) {
         scroll()
@@ -715,7 +715,7 @@ const showScroll = () => {
     }
 }
 const hideScroll = () => {
-    if (scrollHeight() - select(".rotic-chat-window").scrollTop < 550) {
+    if (scrollHeight() - select(".rotic-chat-window").scrollTop < select('.rotic-chat-window').offsetHeight * 1.2) {
         if (chatScrolled === true) {
             hideScrollAnimation();
         }
