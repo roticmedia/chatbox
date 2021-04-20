@@ -105,7 +105,7 @@ Rotic.setDriver("");
 })()
 
 document.onreadystatechange = function () {
-    if (document.readyState === "interactive") {
+    if (document.readyState === "complete") {
 
         select("body").insertAdjacentHTML('beforeend', append.Chatbox());
         chatWindow = document.querySelector(".rotic-chat-window");
@@ -153,7 +153,7 @@ document.onreadystatechange = function () {
             if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
 
                 if (checkScrolled === false) {
-                    if (getCookie("__rotic-driver") != "true") {
+                    if (getCookie("__rotic-driver") != "false") {
                         checkScrolled = true;
                         toastMessages.forEach((toastMessage, index) => {
                             toast(toastMessage, 40, 100 + (index * 40))
