@@ -1,20 +1,26 @@
 <html lang="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!--Start imber.live Widget--><script type="text/javascript">!(function(){window.IMBER_LANG = 'fa'; var a=window,d=document;function im(){window.IMBER_ID="z4uknihknohxxfc";window.IMBER_TOKEN=localStorage.getItem("imber_token");i=document.createElement("div");i.id="imber-top-parent";x=document;s=x.createElement("script");s.src="https://widget.imber.live/imber?id="+window.IMBER_ID+"&token="+window.IMBER_TOKEN;s.async=1;x.getElementsByTagName("head")[0].appendChild(s);x.getElementsByTagName("body")[0].appendChild(i);window.$imber={};}"complete"===d.readyState?im():a.attachEvent?a.attachEvent("onload",im):a.addEventListener("load",im,!1);})();</script><!--End imber.live Widget-->
+    <!--Start imber.live Widget-->
+    <script
+        type="text/javascript">!(function () { window.IMBER_LANG = 'fa'; var a = window, d = document; function im() { window.IMBER_ID = "z4uknihknohxxfc"; window.IMBER_TOKEN = localStorage.getItem("imber_token"); i = document.createElement("div"); i.id = "imber-top-parent"; x = document; s = x.createElement("script"); s.src = "https://widget.imber.live/imber?id=" + window.IMBER_ID + "&token=" + window.IMBER_TOKEN; s.async = 1; x.getElementsByTagName("head")[0].appendChild(s); x.getElementsByTagName("body")[0].appendChild(i); window.$imber = {}; } "complete" === d.readyState ? im() : a.attachEvent ? a.attachEvent("onload", im) : a.addEventListener("load", im, !1); })();</script>
+    <!--End imber.live Widget-->
 </head>
+
 <body>
 
-<script>
-    window.addEventListener('rotic-start', () => {
-        alert(1)
-    })
-</script>
-<div style="height: 10000px;"></div>
-<script src="dist/chatbox.js.js"></script>
+    <script>
+        window.addEventListener('rotic-start', () => {
+            Rotic.setDriver('imber')
+        })
+    </script>
+    <div style="height: 10000px;"></div>
+    <script src="dist/main.js"></script>
 </body>
+
 </html>

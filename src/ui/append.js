@@ -12,6 +12,14 @@ function Self(text, id) {
     `;
 }
 
+function autoComplete(text, id) {
+    return `
+        <div class="rotic-auto-message" uuid=${id}>
+            ${text}
+        </div>
+    `
+}
+
 function SelfNoAnimation(text, id) {
     return `
         <article class="rotic-msg-container rotic-msg-self" id="rotic-msg-0" uuid=${id}>
@@ -212,6 +220,7 @@ function upload (id, name) {
     `
 }
 
+
 function Chatbox() {
     return `<div class="rotic-chatbox">
     <div class="rotic-close-box">
@@ -249,11 +258,38 @@ function Chatbox() {
         </button>
       </form>
     </div>
+    <div id="rotic-auto">  
+        <div style="width: 100%; height: 36px; margin-bottom: 10px" class="rotic-loading-container">
+            <div class="rotic-loading-message-auto">
+                <div class="rotic-loading-message1"></div>
+                <div class="rotic-loading-message2"></div>
+                <div class="rotic-loading-message3"></div>
+                <div class="rotic-loading-message4"></div>
+            </div>
+        </div>  
+    </div>
 </div>
 <div id="rotic-btn-show">
     <img src="https://rotic.ir/images/icon/kavina.jpg" id="rotic-image"/>
 </div>
 <style>
+        #rotic-auto {
+            position: fixed;
+            bottom: 61px;
+            left: 50%;
+            max-height: 40%;
+            width: 95%;
+            background: #5BC5CB;    
+            transform: translateX(-50%);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            overflow: auto;
+            overflow-x: hidden;
+            display: none;
+            scrollbar-color: #5fc5c4;
+            scrollbar-width: 4px;
+        }
+        
          @font-face {
             font-family: 'IranSans';
             font-weight: normal;
@@ -755,13 +791,28 @@ function Chatbox() {
       }
       .rotic-loading-message {
         position:relative;
-        margin: 0 0 10px 0px;
+        margin: 0 0 15px 0px;
         opacity: 0.2;
         padding: 15px 24px;
         float: left;
         background: #5b5e6c;
         border-radius: 0px 6px 6px 6px;
       }
+      .rotic-loading-message-auto {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 20px 0;
+      }
+      .rotic-loading-message-auto div {
+        height: 6px;
+        width: 6px;
+        border-radius:50%;
+        float:left;
+        margin: 0 3px;
+        background: white;
+    }
      .rotic-loading-message div {
         height: 6px;
         width: 6px;
@@ -894,6 +945,12 @@ function Chatbox() {
     .rotic-cancel-upload:hover {
         cursor: pointer;
     }
+    .rotic-auto-message {
+        color: white;
+        margin: 7px 15px;
+        padding: 4px;
+        font-size: 12px;
+    }
         </style>`;
 }
 
@@ -912,5 +969,6 @@ module.exports = {
     Loading,
     ImageSelf,
     ProgressBar,
-    upload
+    upload,
+    autoComplete
 }
