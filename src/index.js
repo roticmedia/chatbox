@@ -199,8 +199,15 @@ document.onreadystatechange = function () {
                 select("#rotic-text").focus()
             }
         })
+        document.addEventListener('keyup', (e) => {
+            if (e.key === " " && select('#rotic-text') === document.activeElement) {
+                if (select('#rotic-text').value.trim() !== "") {
+                    autoComplete(autoCompeleteTest)
+                    select('#rotic-text').focus()
+                }
+            }
+        })
         document.addEventListener("click", (e) => {
-            console.log(e.target)
             let el = e.target;
             if (el.classList.contains("rotic-response-button")) {
                 sendMessage(e.target.innerText)
@@ -239,18 +246,9 @@ document.onreadystatechange = function () {
 
         })
         select('#rotic-text').addEventListener('focus', (e) => {
-            if (e.target.value !== "") {
+            if (e.target.value.slice(-1) === " ") {
                 select('#rotic-auto').style.display = 'block';
             }
-        })
-        select('#rotic-text').addEventListener('keyup', (e) => {
-            if (e.target.value === "") {
-                select('#rotic-auto').style.display = 'none';
-            } else if (e.target.value !== value) {
-                select('#rotic-auto').style.display = 'block';
-                autoComplete(autoCompeleteTest)
-            }
-            value = e.target.value;
         })
         select("#rotic-input-file").addEventListener("change", (e) => {
             let t = e.target || window.event.srcElement;
@@ -750,6 +748,7 @@ const hideScroll = () => {
 }
 const autoComplete = (texts) => {
     select('#rotic-auto .rotic-loading-container').style.display = 'block';
+    select('#rotic-auto').style.display = 'block'
 
     if (selectAll('.rotic-auto-message').length !== 0) {
         selectAll('.rotic-auto-message').forEach((node) => {
@@ -757,19 +756,32 @@ const autoComplete = (texts) => {
         })
     }
 
-    setTimeout(() => {
-        select('#rotic-auto .rotic-loading-container').style.display = 'none';
+    fetch("https://api.rotic.ir/recommender", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        mode: 'cors',
+        body: JSON.stringify({
+            text: select('#rotic-text').value.trim(),
+        }),
+    })
+        .then(response => response.json())
+        .then((res) => {
+            if (res.response) {
+                select('#rotic-auto .rotic-loading-container').style.display = 'none';
 
-        if (selectAll('.rotic-auto-message').length !== 0) {
-            selectAll('.rotic-auto-message').forEach((node) => {
-                node.remove()
-            })
-        }
+                if (selectAll('.rotic-auto-message').length !== 0) {
+                    selectAll('.rotic-auto-message').forEach((node) => {
+                        node.remove()
+                    })
+                }
 
-        texts.forEach((text) => {
-            select('#rotic-auto').insertAdjacentHTML('beforeend', append.autoComplete(text, v4()))
+                res.response.forEach((text) => {
+                    select('#rotic-auto').insertAdjacentHTML('beforeend', append.autoComplete(text, v4()))
+                })
+            }
         })
-    }, 2000)
 }
 
 const select = (selector) => document.querySelector(selector);
