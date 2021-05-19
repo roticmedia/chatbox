@@ -3,15 +3,17 @@ const anime = require("./lib/anime")
 const axios = require("axios")
 const ProgressBar = require("progressbar.js")
 const { scrollTo } = require("scroll-js")
-const DOMpurify = require("dompurify")
 
 const append = require("./ui/append");
 const { setCookie, getCookie } = require("./util/cookie")
 const { handleThirdParty } = require("./thirdParty/index");
+const { select, appendTo, stringToNode } = require('./util/dom')
+const { text, markdown } = require('./lib/text')
 const unique_token = require("./util/unique_token")
 const resolve = require("./request/resolve")
 const storage = require("./util/localStorage")
-const mk = require("./lib/markdown")
+
+const autoComplete = require('./lib/autoComplete')
 require("./util/font")()
 
 
@@ -66,7 +68,7 @@ class rotic {
                 left: amount
             }))
             if (this.setting.left) {
-                select(".rotic-chatbox").css.left = amount;
+                select(".rotic-chatbox").style.left = amount;
             }
         } catch (err) {
             console.log(err)
@@ -98,8 +100,6 @@ let uniqueToken = 0;
 let api = "6a105d7f17b029f067615f47b6e6b43211";
 let token = "6a105d7f17b029f067615f47b6e6b432"
 let toasted = false;
-let autoCompeleteTest = ['سلام' , "سلام خوبی؟"];
-let value = "";
 
 Rotic.setDriver("");
 (async () => {
@@ -202,7 +202,7 @@ document.onreadystatechange = function () {
         document.addEventListener('keyup', (e) => {
             if (e.key === " " && select('#rotic-text') === document.activeElement) {
                 if (select('#rotic-text').value.trim() !== "") {
-                    autoComplete(autoCompeleteTest)
+                    autoComplete()
                     select('#rotic-text').focus()
                 }
             }
@@ -242,7 +242,7 @@ document.onreadystatechange = function () {
         select('#rotic-text').addEventListener('blur', () => {
             setTimeout(() => {
                 select('#rotic-auto').style.display = 'none';
-            }, 200)
+            }, 150)
 
         })
         select('#rotic-text').addEventListener('focus', (e) => {
@@ -746,53 +746,4 @@ const hideScroll = () => {
         }
     }
 }
-const autoComplete = (texts) => {
-    select('#rotic-auto .rotic-loading-container').style.display = 'block';
-    select('#rotic-auto').style.display = 'block'
-
-    if (selectAll('.rotic-auto-message').length !== 0) {
-        selectAll('.rotic-auto-message').forEach((node) => {
-            node.remove()
-        })
-    }
-
-    fetch("https://api.rotic.ir/recommender", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-            text: select('#rotic-text').value.trim(),
-        }),
-    })
-        .then(response => response.json())
-        .then((res) => {
-            if (res.response) {
-                select('#rotic-auto .rotic-loading-container').style.display = 'none';
-
-                if (selectAll('.rotic-auto-message').length !== 0) {
-                    selectAll('.rotic-auto-message').forEach((node) => {
-                        node.remove()
-                    })
-                }
-
-                res.response.forEach((text) => {
-                    select('#rotic-auto').insertAdjacentHTML('beforeend', append.autoComplete(text, v4()))
-                })
-            }
-        })
-}
-
-const select = (selector) => document.querySelector(selector);
-const selectAll = (selector) => document.querySelectorAll(selector);
-const stringToNode = (string) => {
-    return new DOMParser().parseFromString(string, "text/html").body.childNodes[0]
-}
-const appendTo = (el) => {
-    document.querySelector(".rotic-chat-window").insertAdjacentHTML('beforeend', el)
-}
-const text = () => DOMpurify.sanitize(select("#rotic-text").value.trim())
-const markdown = (text) => DOMpurify.sanitize(mk(text))
-
 
