@@ -951,6 +951,9 @@ function Chatbox() {
         padding: 4px;
         font-size: 12px;
     }
+    .rotic-auto-message:hover {
+        cursor: pointer;
+    }
         </style>`;
 }
 
