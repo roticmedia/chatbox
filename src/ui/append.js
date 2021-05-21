@@ -275,7 +275,7 @@ function Chatbox() {
 <style>
         #rotic-auto {
             position: fixed;
-            bottom: 61px;
+            bottom: 60px;
             left: 50%;
             max-height: 40%;
             width: 95%;
@@ -947,9 +947,9 @@ function Chatbox() {
     }
     .rotic-auto-message {
         color: white;
-        margin: 7px 15px;
+        margin: 8px 20px;
         padding: 4px;
-        font-size: 12px;
+        font-size: 13px;
     }
     .rotic-auto-message:hover {
         cursor: pointer;
