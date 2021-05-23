@@ -200,7 +200,7 @@ document.onreadystatechange = function () {
             }
         })
         document.addEventListener('keyup', (e) => {
-            if (e.key === " " && select('#rotic-text') === document.activeElement) {
+            if (select('#rotic-text').value[select('#rotic-text').value.length - 1] === " ") {
                 if (select('#rotic-text').value.trim() !== "") {
                     autoComplete()
                     select('#rotic-text').focus()
