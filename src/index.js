@@ -199,14 +199,21 @@ document.onreadystatechange = function () {
                 select("#rotic-text").focus()
             }
         })
-        document.addEventListener('keyup', (e) => {
-            if (select('#rotic-text').value[select('#rotic-text').value.length - 1] === " ") {
+        select('#rotic-text').addEventListener('input', (e) => {
+            if (e.target.value[e.target.value.length - 1] === " " && select('#rotic-text') === document.activeElement) {
                 if (select('#rotic-text').value.trim() !== "") {
-                    autoComplete()
-                    select('#rotic-text').focus()
+                    autoComplete(token)
                 }
             }
         })
+        // document.addEventListener('keypress', (e) => {
+        //     setTimeout(() => {
+        //         if (select('#rotic-text').value[select('#rotic-text').value.length - 1] === " " && select('#rotic-text') === document.activeElement) {
+        //
+        //         }
+        //     }, 50)
+        //
+        // })
         document.addEventListener("click", (e) => {
             let el = e.target;
             if (el.classList.contains("rotic-response-button")) {
@@ -675,16 +682,16 @@ const sendMessage = (text) => {
                 handleNull(text, uuid)
             }
         }).catch((e) => {
-            console.log(e)
-            showScroll()
-            if (e.status === 500) {
-                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در سرور وجود دارد"), uuid)))
-                select("#rotic-text").focus()
-            } else {
-                select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در اتصال اینترنت وجود دارد"), uuid)))
-                select("#rotic-text").focus()
-            }
-        })
+        console.log(e)
+        showScroll()
+        if (e.status === 500) {
+            select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در سرور وجود دارد"), uuid)))
+            select("#rotic-text").focus()
+        } else {
+            select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown("مشکلی در اتصال اینترنت وجود دارد"), uuid)))
+            select("#rotic-text").focus()
+        }
+    })
 }
 const handleNull = (text, uuid) => {
     select(`.rotic-loading-container[uuid="${uuid}"]`).remove()
