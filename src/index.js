@@ -633,7 +633,7 @@ const sendMessage = (text) => {
     loadingAnimation(uuid)
     scroll()
 
-    fetch("https://api.rotic.ir/ai/v4", {
+    fetch(`https://api.rotic.ir/ai/v1/enterprise/${token}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -642,7 +642,6 @@ const sendMessage = (text) => {
         body: JSON.stringify({
             data: text.trim(),
             api,
-            token,
             unique_token: uniqueToken,
             username: "MyTestRoticBot",
             bot_username: "MyTestRoticBot"
@@ -654,13 +653,20 @@ const sendMessage = (text) => {
                 //storage.set(text, res.response, res.options.buttons)
                 select("#rotic-text").focus()
                 if (Array.isArray(res.response)) {
-                    res.response.forEach((message, index) => {
+                    let loadings = [];
+                    res.response.delayedForEach((message, index) => {
+                        loadings.push(v4())
                         if (index === 0) {
                             select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(markdown(message), uuid)))
                         } else {
-                            appendTo(append.Remote(markdown(message), uuid))
+                            select(`.rotic-loading-container[uuid="${loadings[index - 1]}"]`).replaceWith(stringToNode(append.Remote(markdown(message), loadings[index - 1])))
                         }
-                    })
+                        if (index < res.response.length - 1) {
+                            appendTo(append.Loading(loadings[index]));
+                            loadingAnimation(loadings[index])
+                            scroll()
+                        }
+                    }, 2000)
                 } else {
                     select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(markdown(res.response), uuid)))
                 }
@@ -753,4 +759,15 @@ const hideScroll = () => {
         }
     }
 }
+
+Array.prototype.delayedForEach = function(callback, timeout, thisArg){
+    var i = 0,
+        l = this.length,
+        self = this,
+        caller = function(){
+            callback.call(thisArg || self, self[i], i, self);
+            (++i < l) && setTimeout(caller, timeout);
+        };
+    caller();
+};
 
