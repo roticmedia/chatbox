@@ -653,17 +653,17 @@ const sendMessage = (text) => {
                 //storage.set(text, res.response, res.options.buttons)
                 select("#rotic-text").focus()
                 if (Array.isArray(res.response)) {
-                    let loadings = [];
+                    let loadings = new Array(uuid);
                     res.response.delayedForEach((message, index) => {
                         loadings.push(v4())
-                        if (index === 0) {
-                            select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(markdown(message), uuid)))
+                        if (index === res.response.length - 1) {
+                            select(`.rotic-loading-container[uuid="${loadings[index]}"]`).replaceWith(stringToNode(append.Remote(markdown(message), loadings[index])))
                         } else {
-                            select(`.rotic-loading-container[uuid="${loadings[index - 1]}"]`).replaceWith(stringToNode(append.Remote(markdown(message), loadings[index - 1])))
+                            select(`.rotic-loading-container[uuid="${loadings[index]}"]`).replaceWith(stringToNode(append.RemoteNoBtnNoAnimation(markdown(message))))
                         }
                         if (index < res.response.length - 1) {
-                            appendTo(append.Loading(loadings[index]));
-                            loadingAnimation(loadings[index])
+                            appendTo(append.Loading(loadings[index + 1]));
+                            loadingAnimation(loadings[index + 1])
                             scroll()
                         }
                     }, 2000)
