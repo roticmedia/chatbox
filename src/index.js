@@ -9,7 +9,6 @@ const { setCookie, getCookie } = require("./util/cookie")
 const { handleThirdParty } = require("./thirdParty/index");
 const { select, appendTo, stringToNode } = require('./util/dom')
 const { text, markdown } = require('./lib/text')
-const unique_token = require("./util/unique_token")
 const resolve = require("./request/resolve")
 const storage = require("./util/localStorage")
 
@@ -102,10 +101,16 @@ let token = "6a105d7f17b029f067615f47b6e6b432"
 let toasted = false;
 
 Rotic.setDriver("");
-(async () => {
-    uniqueToken = await unique_token();
-    setCookie("_utok", uniqueToken)
-})()
+
+axios({
+    method: 'GET',
+    url: 'https://api.ipify.org',
+}).then((response) => {
+    uniqueToken = response.data  + new Date().getTime() ;
+}).catch((err) => {
+    console.log(err)
+    uniqueToken = v4() + new Date().getTime() ;
+})
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
