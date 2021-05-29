@@ -669,9 +669,14 @@ const sendMessage = (text) => {
                         if (index < res.response.length - 1) {
                             appendTo(append.Loading(loadings[index + 1]));
                             loadingAnimation(loadings[index + 1])
-                            scroll()
                         }
-                    }, 2000)
+                        if (select(`article.rotic-msg-remote[uuid="${loadings[index]}"`)) {
+                            showScroll(select(`article.rotic-msg-remote[uuid="${loadings[index]}"`).clientHeight)
+                        } else {
+                            showScroll()
+                        }
+
+                    }, 1100)
                 } else {
                     select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(markdown(res.response), uuid)))
                 }
@@ -681,14 +686,15 @@ const sendMessage = (text) => {
                         appendTo(append.Button(Object.keys(chat)[0], Object.keys(chat)[2], uuid));
                     });
                     buttonAnimation(uuid)
+                    showScroll();
                 }
                 if (res.options.images) {
                     JSON.parse(res.options.images).forEach(function (chat) {
                         appendTo(append.Image(chat, uuid));
                     });
                     imageAnimation(uuid)
+                    showScroll();
                 }
-                showScroll();
             } else {
                 handleNull(text, uuid)
             }
@@ -745,16 +751,11 @@ const scroll = () => {
         easing: 'ease-in-out'
     });
 }
-const showScroll = () => {
-    if (scrollHeight() - select(".rotic-chat-window").scrollTop > select('.rotic-chat-window').offsetHeight * 1.2) {
+const showScroll = (messageHeight = 1000) => {
+    if (scrollHeight() - select(".rotic-chat-window").scrollTop > messageHeight + 550) {
         showScrollAnimation();
-    } else if (scrollHeight() - select(".rotic-chat-window").scrollTop >= 455) {
-        scroll()
     } else {
         scroll()
-        // setTimeout(() => {
-        //     $(".rotic-chat-window").scrollTop(99999999999999999999999999999999)
-        // }, 1)
     }
 }
 const hideScroll = () => {
