@@ -96,8 +96,8 @@ let checkScrolled = false;
 let chatScrolled = false;
 let chatWindow;
 let uniqueToken = 0;
-let api = "6a105d7f17b029f067615f47b6e6b43211";
-let token = "6a105d7f17b029f067615f47b6e6b432"
+let api = "api_token";
+let token = "enterprise_token"
 let toasted = false;
 
 Rotic.setDriver("");
@@ -209,6 +209,8 @@ document.onreadystatechange = function () {
                 if (select('#rotic-text').value.trim() !== "") {
                     autoComplete(token)
                 }
+            } else if (e.target.value.trim() === "") {
+                select('#rotic-auto').style.display = 'none';
             }
         })
         // document.addEventListener('keypress', (e) => {
@@ -631,6 +633,8 @@ const hideScrollAnimation = () => {
 
 // tools
 const sendMessage = (text) => {
+    select('#rotic-auto').style.display = 'none';
+
     const uuid = v4()
     appendTo(append.Self(text, uuid));
     selfMessage(uuid)
@@ -638,7 +642,7 @@ const sendMessage = (text) => {
     loadingAnimation(uuid)
     scroll()
 
-    fetch(`https://api.rotic.ir/ai/v1/enterprise/${token}`, {
+    fetch(`https://api.rotic.ir/ai/v4`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -648,6 +652,7 @@ const sendMessage = (text) => {
             data: text.trim(),
             api,
             unique_token: uniqueToken,
+            token,
             username: "MyTestRoticBot",
             bot_username: "MyTestRoticBot"
         }),
@@ -679,6 +684,7 @@ const sendMessage = (text) => {
                     }, 1100)
                 } else {
                     select(`.rotic-loading-container[uuid="${uuid}"]`).replaceWith(stringToNode(append.Remote(markdown(res.response), uuid)))
+                    showScroll(select(`article.rotic-msg-remote[uuid="${uuid}"`).clientHeight)
                 }
 
                 if (res.options.buttons) {

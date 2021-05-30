@@ -3,7 +3,7 @@ const { v4 } = require('uuid')
 const { select, selectAll } = require('../util/dom')
 const append = require('../ui/append')
 
-const autoComplete = () => {
+const autoComplete = (token) => {
     select('#rotic-auto .rotic-loading-container').style.display = 'block';
     select('#rotic-auto').style.display = 'block'
 
@@ -21,6 +21,7 @@ const autoComplete = () => {
         mode: 'cors',
         body: JSON.stringify({
             text: select('#rotic-text').value.trim(),
+            token
         }),
     })
         .then(response => response.json())
