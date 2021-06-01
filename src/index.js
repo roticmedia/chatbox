@@ -96,20 +96,20 @@ let checkScrolled = false;
 let chatScrolled = false;
 let chatWindow;
 let uniqueToken = 0;
-let api = "api_token";
-let token = "enterprise_token"
+let api = "6a105d7f17b029f067615f47b6e6b43285";
+let token = "57d0f95133d5361bceeb036eaa0bd5cb"
 let toasted = false;
 
 Rotic.setDriver("");
 
 axios({
     method: 'GET',
-    url: 'https://api.ipify.org',
+    url: 'https://api.rotic.ir/v1/enterprise/ip',
 }).then((response) => {
-    uniqueToken = response.data  + new Date().getTime() ;
+    uniqueToken = response.data  + v4();
 }).catch((err) => {
     console.log(err)
-    uniqueToken = v4() + new Date().getTime() ;
+    uniqueToken = v4();
 })
 
 document.onreadystatechange = function () {
@@ -161,7 +161,7 @@ document.onreadystatechange = function () {
             if (scroll > Rotic.setting.scroll && Rotic.setting.scroll !== 0) {
 
                 if (checkScrolled === false) {
-                    if (getCookie("__rotic-driver") != "false") {
+                    if (getCookie("__rotic-driver") != "true") {
                         checkScrolled = true;
                         toastMessages.forEach((toastMessage, index) => {
                             toast(toastMessage, 40, 100 + (index * 40))
@@ -183,18 +183,6 @@ document.onreadystatechange = function () {
                 appendTo(append.ButtonNoAnimation(button, button))
             })
         }
-        // storage.get().map((message) => {
-        //     const uuid = v4()
-        //     appendTo(append.Self(message.message, uuid));
-        //     selfMessage(uuid)
-        //     if (message.response) {
-        //         appendTo(append.Remote(markdown(message.response), uuid));
-        //     }
-        //     message.buttons.map((button) => {
-        //         appendTo(append.ButtonNoAnimation(button, button));
-        //     })
-        // })
-
         select("#rotic-btn").addEventListener("click", () => {
             if (text()) {
                 sendMessage(text())
@@ -213,14 +201,6 @@ document.onreadystatechange = function () {
                 select('#rotic-auto').style.display = 'none';
             }
         })
-        // document.addEventListener('keypress', (e) => {
-        //     setTimeout(() => {
-        //         if (select('#rotic-text').value[select('#rotic-text').value.length - 1] === " " && select('#rotic-text') === document.activeElement) {
-        //
-        //         }
-        //     }, 50)
-        //
-        // })
         document.addEventListener("click", (e) => {
             let el = e.target;
             if (el.classList.contains("rotic-response-button")) {
@@ -520,10 +500,13 @@ const toast = (message, x, y) => {
         select("body").insertAdjacentHTML('beforeend', append.Toast(message, x, y));
         toastStartAnimation();
     }
-    select(".rotic-chatbox-toast").addEventListener("click", () => {
-        toastEndAnimation()
-        openChat()
-    })
+    if (select(".rotic-chatbox-toast")) {
+        select(".rotic-chatbox-toast").addEventListener("click", () => {
+            toastEndAnimation()
+            openChat()
+        })
+    }
+
 }
 const imageAnimation = (uuid) => {
     let el = document.querySelectorAll(`.rotic-response-image-container[uuid="${uuid}"]`)
