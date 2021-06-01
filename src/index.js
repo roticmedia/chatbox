@@ -96,8 +96,8 @@ let checkScrolled = false;
 let chatScrolled = false;
 let chatWindow;
 let uniqueToken = 0;
-let api = "6a105d7f17b029f067615f47b6e6b43285";
-let token = "57d0f95133d5361bceeb036eaa0bd5cb"
+let api = "api_token";
+let token = "enterprise_token"
 let toasted = false;
 
 Rotic.setDriver("");
@@ -625,7 +625,7 @@ const sendMessage = (text) => {
     loadingAnimation(uuid)
     scroll()
 
-    fetch(`https://api.rotic.ir/ai/v4`, {
+    fetch(`https://api.rotic.ir/api/v1/services/${token}/ai`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -635,7 +635,6 @@ const sendMessage = (text) => {
             data: text.trim(),
             api,
             unique_token: uniqueToken,
-            token,
             username: "MyTestRoticBot",
             bot_username: "MyTestRoticBot"
         }),
