@@ -213,19 +213,14 @@ document.onreadystatechange = function () {
                     appendTo(append.Loading(uuid));
                     loadingAnimation(uuid)
                     scroll()
+                    handleNull("میتونم کمکتون کنم؟", uuid)
+                } else {
+                    thirdParty.show();
+                    thirdParty.open();
+                    thirdParty.showInitMessage("میتونم کمکتون کنم؟")
+                    closeForever()
+                    Rotic.isOpen = false;
                 }
-
-                resolve(uniqueToken, api, token, () => {
-                    if (Rotic.setting.driver !== "") {
-                        thirdParty.show();
-                        thirdParty.open();
-                        thirdParty.showInitMessage("میتونم کمکتون کنم؟")
-                        closeForever()
-                        Rotic.isOpen = false;
-                    } else {
-                        handleNull("میتونم کمکتون کنم؟", uuid)
-                    }
-                });
             } else if (el.id === "rotic-scroll") {
                 scroll()
             } else if (el.classList.contains("rotic-auto-message")) {
@@ -702,9 +697,7 @@ const handleNull = (text, uuid) => {
     select(`.rotic-loading-container[uuid="${uuid}"]`).remove()
     //storage.set(text, null)
     if (Rotic.setting.driver === "") {
-        appendTo(append.RemoteNoBtnNoAnimation(markdown("برای دریافت پاسخ مناسب از روتیک لطفا با شماره تماس ۰۲۵۹۱۰۱۴۷۸۴ و یا ایمیل support@rotic.ir در ارتباط باشید"), uuid));
-        remoteMessage(uuid)
-        scroll()
+        appendTo(append.RemoteNoBtnNoAnimation(markdown("ثبت شد!"), uuid));
         return;
     }
     appendTo(append.RemoteNoBtnNoAnimation(markdown("پاسخی برای شما یافت نشد!"), uuid));
