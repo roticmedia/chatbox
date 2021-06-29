@@ -459,6 +459,7 @@ function Chatbox() {
         user-select: none;
       }
       .rotic-chat-window {
+        overscroll-behavior: contain; 
         position: fixed;
         bottom: 60px;
         flex: auto;
